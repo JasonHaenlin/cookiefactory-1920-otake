@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration infous="off">
+    <Appenders>
+        <Console name="stdout">
+            <PatternLayout>
+                <Pattern>%d{HH:mm:ss.SSS} : %m%n</Pattern>
+            </PatternLayout>
+        </Console>
+        <File name="allInfos" fileName="target/logs/all.log" append="false">
+            <PatternLayout>
+                <Pattern>%d %p %c{1}: %m%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="lessInfos" fileName="target/logs/debug.log" append="false">
+            <PatternLayout>
+                <Pattern>%d %p :\t %m%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <!-- Log levels: Trace < Debug < Info < Warn < Error < Fatal -->
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref="stdout" level="info" />
+            <AppenderRef ref="allInfos" level="all" />
+            <AppenderRef ref="lessInfos" level="debug" />
+        </Root>
+
+        <!-- <Logger name="fr.unice.polytech.si4.otake.App" level="all" additivity="false">
+            <AppenderRef ref="stdout" level="info" />
+            <AppenderRef ref="allInfos" level="all" />
+            <AppenderRef ref="lessInfos" level="debug" />
+        </Logger> -->
+    </Loggers>
+</Configuration>
