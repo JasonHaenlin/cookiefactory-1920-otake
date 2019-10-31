@@ -1,4 +1,4 @@
-package fr.unice.polytech.cookiefactory;
+package fr.unice.polytech.si4.otake;
 
 import org.junit.runner.RunWith;
 
