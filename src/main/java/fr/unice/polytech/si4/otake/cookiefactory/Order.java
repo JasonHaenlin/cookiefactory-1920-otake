@@ -7,7 +7,7 @@ public class Order {
 	private Date appointmentDate;
 	private Date RetrievedDate;
 	private String id;
-	private Cookie thecookie;
+	public Cookie thecookie;
 
 	public Order(Date appointment,Date retrieved ,String id){
 		this.appointmentDate = appointment;
