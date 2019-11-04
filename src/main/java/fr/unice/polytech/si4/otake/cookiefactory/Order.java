@@ -9,12 +9,17 @@ public class Order {
 	private String id;
 	private Cookie thecookie;
 
+	public Order(Date appointment,Date retrieved ,String id){
+		this.appointmentDate = appointment;
+		this.RetrievedDate = retrieved;
+		this.id = id; 
+	}
 	/**
 	 * 
 	 * @param cookie
 	 */
 	public int addCookie(Cookie cookie) {
-		thecookie = cookie;
+		this.thecookie = cookie;
 		return 1;
 	}
 

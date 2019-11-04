@@ -5,6 +5,11 @@ public class Cookie {
 	private float price;
 	private String name;
 
+	public Cookie(String name , float price){
+		this.name = name;
+		this.price = price;
+	}
+
 	public String getName() {
 		return this.name;
 	}

@@ -7,14 +7,21 @@ public class Shop {
 	private String city;
 	private float taxes;
 	private String name;
+	private Order theorder;
 
 	/**
 	 * 
 	 * @param order
 	 */
+
+	public Shop(String city , float taxes ,String name ){
+		this.city = city;
+		this.taxes = taxes;
+		this.name = name;
+	}
 	public float addOrder(Order order) {
-		// TODO - implement Shop.addOrder
-		throw new UnsupportedOperationException();
+		this.theorder = order;
+		return 1;
 	}
 
 	/**
