@@ -2,7 +2,7 @@ Feature: Cookie Ordering
 
 
   Background:
-    Given a Cookie "CookieTest" and an Order "OrderTest"
+    Given a Cookie "CookieTest" and an Order
 
   Scenario: Ordering
     When adding the cookie in the order

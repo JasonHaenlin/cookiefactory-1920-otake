@@ -2,8 +2,6 @@ package fr.unice.polytech.si4.otake;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Date;
-
 import fr.unice.polytech.si4.otake.cookiefactory.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.Order;
 import io.cucumber.java8.En;
@@ -15,9 +13,9 @@ public class CookieOrderingStepdefs implements En {
 
     public CookieOrderingStepdefs() {
 
-        Given("a Cookie {string} and an Order {string}", (String cookie, String order) -> {
-             cookieobj = new Cookie(cookie, 3);
-             orderobj = new Order(new Date(), new Date() , order);
+        Given("a Cookie {string} and an Order", (String cookie) -> {
+            cookieobj = new Cookie(cookie, 3);
+            orderobj = new Order();
         });
 
         When("adding the cookie in the order", () -> {

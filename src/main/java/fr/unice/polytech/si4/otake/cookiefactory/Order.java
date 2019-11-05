@@ -9,13 +9,12 @@ public class Order {
 	private String id;
 	public Cookie thecookie;
 
-	public Order(Date appointment,Date retrieved ,String id){
-		this.appointmentDate = appointment;
-		this.RetrievedDate = retrieved;
-		this.id = id; 
+	public Order() {
+		this.id = "id";
 	}
+
 	/**
-	 * 
+	 *
 	 * @param cookie
 	 */
 	public int addCookie(Cookie cookie) {
@@ -24,7 +23,7 @@ public class Order {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param cookie
 	 */
 	public void removeCookie(Cookie cookie) {
@@ -33,7 +32,7 @@ public class Order {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param taxes
 	 */
 	public float getPriceWithTaxes(float taxes) {
@@ -42,7 +41,7 @@ public class Order {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param date
 	 */
 	public void setAppointmentDate(Date date) {
@@ -55,7 +54,7 @@ public class Order {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param status
 	 */
 	boolean updateStatus(Status status) {
@@ -64,7 +63,7 @@ public class Order {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param date
 	 */
 	boolean hasBeenRetrieved(Date date) {
