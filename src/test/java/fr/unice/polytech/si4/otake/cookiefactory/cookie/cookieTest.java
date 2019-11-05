@@ -1,4 +1,4 @@
-package fr.unice.polytech.si4.otake.cookie.cookieFactory;
+package fr.unice.polytech.si4.otake.cookiefactory.cookie;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
