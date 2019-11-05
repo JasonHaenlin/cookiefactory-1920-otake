@@ -23,10 +23,10 @@ public class App {
     public static void main(String[] args) {
         logger.info(new App().getGreeting());
         Cookie firstcookie = new Cookie("First", 3);
-        Order firstorder = new Order(new Date(),new Date(),"6666666");
+        Order firstorder = new Order();
         firstorder.addCookie(firstcookie);
-        Shop firstshop = new Shop("Nice",6,"Nice-Cookie");
+        Shop firstshop = new Shop("Nice", 6, "Nice-Cookie");
         firstshop.addOrder(firstorder);
-        
+
     }
 }
