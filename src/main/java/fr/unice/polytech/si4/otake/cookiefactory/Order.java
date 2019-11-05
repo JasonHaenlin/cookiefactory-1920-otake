@@ -2,6 +2,8 @@ package fr.unice.polytech.si4.otake.cookiefactory;
 
 import java.util.Date;
 
+import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
+
 public class Order {
 
 	private Date appointmentDate;

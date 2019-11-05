@@ -1,9 +1,11 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
+import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
+
 public class CookieFactory {
 
 	/**
-	 * 
+	 *
 	 * @param type
 	 */
 	public Cookie getCookie(String type) {
@@ -17,7 +19,7 @@ public class CookieFactory {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param recipe
 	 */
 	boolean addRecipe(Cookie recipe) {
@@ -26,7 +28,7 @@ public class CookieFactory {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param recipe
 	 */
 	boolean removeRecipe(Cookie recipe) {
