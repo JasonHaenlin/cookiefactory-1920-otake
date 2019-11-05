@@ -9,7 +9,7 @@ public class Order {
 	private Date appointmentDate;
 	private Date RetrievedDate;
 	private String id;
-	public Cookie thecookie;
+	private Cookie thecookie;
 
 	public Order() {
 		this.id = "id";
@@ -71,6 +71,13 @@ public class Order {
 	boolean hasBeenRetrieved(Date date) {
 		// TODO - implement Order.hasBeenRetrieved
 		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @return the thecookie
+	 */
+	public Cookie getThecookie() {
+		return thecookie;
 	}
 
 }

@@ -11,7 +11,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Topping;
 
 public class Cookie {
 
-	private final int maxToppings = 3;
+	private final static int maxToppings = 3;
 
 	private final double price;
 	private final String name;
@@ -38,7 +38,7 @@ public class Cookie {
 	}
 
 	public Cookie addTopping(Topping topping) {
-		if (this.toppings.size() < this.maxToppings) {
+		if (this.toppings.size() < Cookie.maxToppings) {
 			this.toppings.add(topping);
 		}
 		return this;
@@ -47,7 +47,7 @@ public class Cookie {
 	public Cookie cook() {
 		if (this.toppings.size() < 1) {
 			// default toppings
-			this.addTopping(Topping.MilkChocolate);
+			this.addTopping(Topping.MILKCHOCOLATE);
 		}
 		return this;
 	}
@@ -86,6 +86,10 @@ public class Cookie {
 	 */
 	public Mix getMixType() {
 		return mixType;
+	}
+
+	public List<Topping> getToppings() {
+		return this.toppings;
 	}
 
 }

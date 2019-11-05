@@ -18,16 +18,11 @@
     <sonar.exclusions>
       src/main/java/fr/unice/polytech/si4/otake/App.java,
       src/main/java/fr/unice/polytech/si4/otake/cookiefactory/CookieFactory.java,
-      src/main/java/fr/unice/polytech/si4/otake/cookiefactory/Cooking.java,
       src/main/java/fr/unice/polytech/si4/otake/cookiefactory/CookieStatistic.java,
-      src/main/java/fr/unice/polytech/si4/otake/cookiefactory/Dough.java,
-      src/main/java/fr/unice/polytech/si4/otake/cookiefactory/Flavour.java,
-      src/main/java/fr/unice/polytech/si4/otake/cookiefactory/Mix.java,
       src/main/java/fr/unice/polytech/si4/otake/cookiefactory/ParentCompany.java,
       src/main/java/fr/unice/polytech/si4/otake/cookiefactory/RegisteredCustomer.java,
       src/main/java/fr/unice/polytech/si4/otake/cookiefactory/Scheduler.java,
       src/main/java/fr/unice/polytech/si4/otake/cookiefactory/Status.java,
-      src/main/java/fr/unice/polytech/si4/otake/cookiefactory/Topping.java,
     </sonar.exclusions>
   </properties>
 

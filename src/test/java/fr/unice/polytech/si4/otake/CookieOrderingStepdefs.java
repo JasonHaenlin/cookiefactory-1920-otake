@@ -19,8 +19,8 @@ public class CookieOrderingStepdefs implements En {
     public CookieOrderingStepdefs() {
 
         Given("a Cookie {string} and an Order", (String cookie) -> {
-            cookieobj = new Cookie(cookie, 2.25, Cooking.Chewy, Dough.Chocolate, Mix.Topped)
-                    .withFlavourType(Flavour.Chili).addTopping(Topping.MilkChocolate).addTopping(Topping.ReeseButtercup)
+            cookieobj = new Cookie(cookie, 2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED)
+                    .withFlavourType(Flavour.CHILI).addTopping(Topping.MILKCHOCOLATE).addTopping(Topping.REESEBUTTERCUP)
                     .cook();
             orderobj = new Order();
         });
@@ -30,7 +30,7 @@ public class CookieOrderingStepdefs implements En {
         });
 
         Then("Cookie is add in the order", () -> {
-            assertEquals(cookieobj.getName(), orderobj.thecookie.getName());
+            assertEquals(cookieobj.getName(), orderobj.getThecookie().getName());
         });
     }
 

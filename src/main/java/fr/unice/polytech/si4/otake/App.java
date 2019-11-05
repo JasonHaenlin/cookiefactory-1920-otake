@@ -28,10 +28,10 @@ public class App {
         logger.info(new App().getGreeting());
 
         Cookie firstcookie = new Cookie("first", 2.25,
-        Cooking.Chewy, Dough.Chocolate, Mix.Topped)
-                .withFlavourType(Flavour.Chili)
-                .addTopping(Topping.MilkChocolate)
-                .addTopping(Topping.ReeseButtercup)
+        Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED)
+                .withFlavourType(Flavour.CHILI)
+                .addTopping(Topping.MILKCHOCOLATE)
+                .addTopping(Topping.REESEBUTTERCUP)
                 .cook();
 
         Order firstorder = new Order();

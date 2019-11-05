@@ -1,10 +1,10 @@
 Feature: Creation of cookies
 
 Background:
-    Given a list of ingredients
+    Given a list of ingredients for a cookie named "WHITECHOCOLATE"
 
 Scenario: Creation
-    When the cook want to create a Cookie named "WhiteChocolate"
-    Then a new cookie with the selected ingredients is created
-    When the cook add a "Vanilla" flavour in the cookie
-    Then the Cookie include the "Vanilla" flavour
+    When the cook want to add "MMS" topping
+    Then the cookie is updated with "MMS"
+    When the cook add a "VANILLA" flavour in the cookie
+    Then the Cookie include the "VANILLA" flavour
