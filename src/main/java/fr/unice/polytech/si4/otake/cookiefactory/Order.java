@@ -50,6 +50,8 @@ public class Order {
 		this.appointmentDate = date;
 	}
 
+	public Date getAppointmentDate() { return appointmentDate; }
+
 	public float getPrice() {
 		// TODO - implement Order.getPrice
 		throw new UnsupportedOperationException();

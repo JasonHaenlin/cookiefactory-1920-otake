@@ -8,20 +8,34 @@ public class Shop {
 	private float taxes;
 	private String name;
 	private Order theorder;
+	private Scheduler schedule;
 
 	/**
 	 * 
 	 * @param order
 	 */
 
-	public Shop(String city , float taxes ,String name ){
+	public Shop(String city, float taxes, String name ){
 		this.city = city;
 		this.taxes = taxes;
 		this.name = name;
+		schedule = new Scheduler(8, 20);
 	}
+
+	public Shop(String city, float taxes, String name, int opening_time, int closing_time){
+		this.city = city;
+		this.taxes = taxes;
+		this.name = name;
+		schedule = new Scheduler(opening_time, closing_time);
+	}
+
 	public float addOrder(Order order) {
-		this.theorder = order;
-		return 1;
+		if(checkAppointmentDate(order.getAppointmentDate())){
+			this.theorder = order;
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 
 	/**
@@ -48,8 +62,11 @@ public class Shop {
 	 * @param date
 	 */
 	public boolean checkAppointmentDate(Date date) {
-		// TODO - implement Shop.checkAppointmentDate
-		throw new UnsupportedOperationException();
+		if(date.getHours() > schedule.getOpening() && date.getHours() < schedule.getClosing()){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public float getTaxes() {
