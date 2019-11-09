@@ -38,13 +38,13 @@ public class ShopManagementStepdefs implements En {
             myShop.setTaxes(newTaxes);
         });
 
-        And("a customer order {int} cookie(s)", (Integer nbCookies)->{
+        And("a customer order {int} cookies", (Integer nbCookies)->{
             order = new Order();
             for(int i = 0; i<nbCookies; i++)
                 order.addCookie(Recipe.DARKTEMPTATION.build());
         });
 
-        Then("the new taxes applies to the cookie(s) ordering", ()->{
+        Then("the new taxes applies to the cookies ordering", ()->{
             assertNotEquals((float)0.001, myShop.getTaxes());
             assertNotEquals(0.001*order.getPrice()+order.getPrice(), myShop.applyTaxes(order));
             assertEquals(myShop.getTaxes()*order.getPrice()+order.getPrice(), myShop.applyTaxes(order));

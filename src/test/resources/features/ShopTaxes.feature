@@ -8,5 +8,5 @@ Feature: Managing shop taxes
 
   Scenario: Changing taxes
     When the store manager wants to change the store taxes to 0.40
-    And a customer order 4 cookie(s)
-    Then the new taxes applies to the cookie(s) ordering
+    And a customer order 4 cookies
+    Then the new taxes applies to the cookies ordering
