@@ -17,14 +17,17 @@ public class CookieFactory {
 		this.allCookies = list;
 	}
 
-	public Cookie getCookie(String type) {
-		// TODO - implement CookieFactory.getCookie
-		throw new UnsupportedOperationException();
+	public Cookie getCookie(String name) {
+		for (Cookie cookie : allCookies) {
+			if (cookie.getName() == name) {
+				return cookie;
+			}
+		}
+		return null;
 	}
 
-	public Cookie[] getCookies() {
-		// TODO - implement CookieFactory.getCookies
-		throw new UnsupportedOperationException();
+	public List<Cookie> getCookies() {
+		return this.allCookies;
 	}
 
 	/**
