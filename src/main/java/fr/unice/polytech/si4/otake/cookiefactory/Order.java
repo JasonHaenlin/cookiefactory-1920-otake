@@ -12,10 +12,8 @@ public class Order {
 	private Calendar RetrievedDate;
 	private String id;
 	private Map<Cookie, Integer> orderContent;
-	private Cookie thecookie;
-	private Map<Cookie, OrderCookie> cookieByOrderCookie;
-	private float priceHTT;
-	private float priceTTC;
+	private float priceWithoutTaxes;
+	private float priceWithTaxes;
 
 	public Order() {
 		this.id = "id";
@@ -58,12 +56,12 @@ public class Order {
 		}
 	}
 
-	public float getPriceTTC() {
-		return priceTTC;
+	public float getPriceWithTaxes() {
+		return priceWithTaxes;
 	}
 
-	public void setPriceTTC(float priceTTC) {
-		this.priceTTC = priceTTC;
+	public void setPriceWithTaxes(float priceWithTaxes) {
+		this.priceWithTaxes = priceWithTaxes;
 	}
 
 	/**
@@ -78,13 +76,18 @@ public class Order {
 		return appointmentDate;
 	}
 
-	public void setPriceHTT(float priceHTT) {
-		this.priceHTT = priceHTT;
+	public float getPrice() {
+		return priceWithoutTaxes;
 	}
 
-	public float getPrice() {
-		// TODO - implement Order.getPrice
-		return priceHTT;
+	/**
+	 * Must call before going into payment
+	 */
+	public void buildPriceWithoutTaxes() {
+		priceWithoutTaxes = 0;
+		for (Map.Entry<Cookie, Integer> entry : orderContent.entrySet()) {
+			priceWithoutTaxes += entry.getKey().getPrice()*entry.getValue();
+		}
 	}
 
 	/**

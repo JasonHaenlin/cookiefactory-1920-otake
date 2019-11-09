@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.Map;
 
 import fr.unice.polytech.si4.otake.cookiefactory.Order;
-import fr.unice.polytech.si4.otake.cookiefactory.OrderCookie;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Cooking;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Dough;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Flavour;
@@ -24,7 +23,6 @@ public class Cookie {
 	private final Mix mixType;
 	private final List<Topping> toppings = new ArrayList<>();
 	private Flavour flavourType;
-	private Map<Order, OrderCookie> orderByOrderCookie;
 
 	public Cookie(String name, double price, Cooking cookingType, Dough doughType, Mix mixType) {
 		if (name == null || price < 0) {

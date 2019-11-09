@@ -82,8 +82,9 @@ public class Shop {
 	 * @param order
 	 */
 	public float applyTaxes(Order order) {
-		order.setPriceTTC(order.getPrice()*taxes+order.getPrice());
-		return order.getPriceTTC();
+		order.buildPriceWithoutTaxes();
+		order.setPriceWithTaxes(order.getPrice()*taxes+order.getPrice());
+		return order.getPriceWithTaxes();
 	}
 
 	public String getLocation() {
