@@ -3,33 +3,34 @@ package fr.unice.polytech.si4.otake.cookiefactory.cookie;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import fr.unice.polytech.si4.otake.cookiefactory.Order;
+import java.util.Calendar;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Calendar;
+import fr.unice.polytech.si4.otake.cookiefactory.Order;
 
 public class orderTest {
 
     Order order;
 
     @Before
-    public void orderCreation(){
+    public void orderCreation() {
         order = new Order();
     }
 
     @Test
-    public void addCookieTest(){
+    public void addCookieTest() {
         Cookie cookie = Recipe.SOOCHOCOLATE.build();
         order.addCookie(cookie);
-        assertEquals(cookie, order.getThecookie());
+        assertEquals(1, order.getTheOrderContent().get(cookie));
     }
 
     @Test
-    public void setAppointmentDateTest(){
+    public void setAppointmentDateTest() {
         Calendar cal = Calendar.getInstance();
         cal.clear();
-        cal.set(Calendar.HOUR_OF_DAY,15);
+        cal.set(Calendar.HOUR_OF_DAY, 15);
         order.setAppointmentDate(cal);
 
         Calendar cal2 = Calendar.getInstance();

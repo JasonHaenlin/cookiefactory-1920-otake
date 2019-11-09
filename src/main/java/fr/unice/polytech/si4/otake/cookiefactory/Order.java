@@ -1,7 +1,6 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,11 +11,11 @@ public class Order {
 	private Calendar appointmentDate;
 	private Calendar RetrievedDate;
 	private String id;
-	private Map<Cookie,Integer> orderContent;
+	private Map<Cookie, Integer> orderContent;
 
 	public Order() {
 		this.id = "id";
-		this.orderContent = new HashMap<Cookie,Integer>();
+		this.orderContent = new HashMap<Cookie, Integer>();
 	}
 
 	/**
@@ -25,9 +24,9 @@ public class Order {
 	 */
 	public int addCookie(Cookie cookie) {
 
-		if(this.orderContent.containsKey(cookie)){
+		if (this.orderContent.containsKey(cookie)) {
 			int t = this.orderContent.get(cookie);
-			this.orderContent.put(cookie, t+1);
+			this.orderContent.put(cookie, t + 1);
 			return 1;
 		} else {
 			this.orderContent.put(cookie, 1);
@@ -41,12 +40,12 @@ public class Order {
 	 */
 	public int removeCookie(Cookie cookie) {
 
-		if(this.orderContent.containsKey(cookie)){
+		if (this.orderContent.containsKey(cookie)) {
 			int t = this.orderContent.get(cookie);
-			if (t>1) {
-				this.orderContent.put(cookie, t-1);
+			if (t > 1) {
+				this.orderContent.put(cookie, t - 1);
 				return 1;
-			}else {
+			} else {
 				this.orderContent.remove(cookie);
 			}
 			return 1;
@@ -72,7 +71,9 @@ public class Order {
 		this.appointmentDate = date;
 	}
 
-	public Calendar getAppointmentDate() { return appointmentDate; }
+	public Calendar getAppointmentDate() {
+		return appointmentDate;
+	}
 
 	public float getPrice() {
 		// TODO - implement Order.getPrice
@@ -100,7 +101,7 @@ public class Order {
 	/**
 	 * @return the thecookie
 	 */
-	public Map<Cookie,Integer> getTheOrderContent() {
+	public Map<Cookie, Integer> getTheOrderContent() {
 		return this.orderContent;
 	}
 

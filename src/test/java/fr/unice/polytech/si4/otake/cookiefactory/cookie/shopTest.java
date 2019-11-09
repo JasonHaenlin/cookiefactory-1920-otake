@@ -1,27 +1,26 @@
 package fr.unice.polytech.si4.otake.cookiefactory.cookie;
 
-import fr.unice.polytech.si4.otake.cookiefactory.Order;
-import fr.unice.polytech.si4.otake.cookiefactory.Shop;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertNull;
 
 import java.util.Calendar;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
+
+import fr.unice.polytech.si4.otake.cookiefactory.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.Shop;
 
 public class shopTest {
 
     Shop testShop;
 
     @Before
-    public void shopCreation(){
+    public void shopCreation() {
         testShop = new Shop("Antibes", 5, "Antibes-Cookie", 8, 19);
     }
 
     @Test
-    public void addOrderTest(){
+    public void addOrderTest() {
         Cookie cookie = Recipe.SOOCHOCOLATE.build();
         Order order = new Order();
         order.addCookie(cookie);
@@ -38,8 +37,7 @@ public class shopTest {
         testShop.addOrder(order);
         // Now the order should have been added to the shop.
         System.out.println(testShop.getTheorder());
-        //assertEquals(order, testShop.getTheorder());
+        // assertEquals(order, testShop.getTheorder());
     }
-
 
 }
