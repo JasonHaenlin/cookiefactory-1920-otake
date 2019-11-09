@@ -33,6 +33,7 @@ public class Order {
 		} else {
 			this.orderContent.put(cookie, 1);
 		}
+		buildPriceWithoutTaxes();
 		return 0;
 	}
 
@@ -81,7 +82,7 @@ public class Order {
 	}
 
 	/**
-	 * Must call before going into payment
+	 * Must call when items in cart changes
 	 */
 	public void buildPriceWithoutTaxes() {
 		priceWithoutTaxes = 0;

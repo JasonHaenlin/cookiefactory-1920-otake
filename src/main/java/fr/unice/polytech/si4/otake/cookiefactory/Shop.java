@@ -82,7 +82,6 @@ public class Shop {
 	 * @param order
 	 */
 	public float applyTaxes(Order order) {
-		order.buildPriceWithoutTaxes();
 		order.setPriceWithTaxes(order.getPrice()*taxes+order.getPrice());
 		return order.getPriceWithTaxes();
 	}
