@@ -12,6 +12,10 @@ public class Order {
 	private Calendar RetrievedDate;
 	private String id;
 	private Map<Cookie, Integer> orderContent;
+	private Cookie thecookie;
+	private Map<Cookie, OrderCookie> cookieByOrderCookie;
+	private float priceHTT;
+	private float priceTTC;
 
 	public Order() {
 		this.id = "id";
@@ -54,13 +58,12 @@ public class Order {
 		}
 	}
 
-	/**
-	 *
-	 * @param taxes
-	 */
-	public float getPriceWithTaxes(float taxes) {
-		// TODO - implement Order.getPriceWithTaxes
-		throw new UnsupportedOperationException();
+	public float getPriceTTC() {
+		return priceTTC;
+	}
+
+	public void setPriceTTC(float priceTTC) {
+		this.priceTTC = priceTTC;
 	}
 
 	/**
@@ -75,9 +78,13 @@ public class Order {
 		return appointmentDate;
 	}
 
+	public void setPriceHTT(float priceHTT) {
+		this.priceHTT = priceHTT;
+	}
+
 	public float getPrice() {
 		// TODO - implement Order.getPrice
-		throw new UnsupportedOperationException();
+		return priceHTT;
 	}
 
 	/**

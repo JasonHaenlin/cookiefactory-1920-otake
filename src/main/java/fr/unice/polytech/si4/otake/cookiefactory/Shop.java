@@ -73,13 +73,17 @@ public class Shop {
 		return this.taxes;
 	}
 
+	public void setTaxes(float taxes) {
+		this.taxes = taxes;
+	}
+
 	/**
 	 * 
 	 * @param order
 	 */
-	private float applyTaxes(Order order) {
-		// TODO - implement Shop.applyTaxes
-		throw new UnsupportedOperationException();
+	public float applyTaxes(Order order) {
+		order.setPriceTTC(order.getPrice()*taxes+order.getPrice());
+		return order.getPriceTTC();
 	}
 
 	public String getLocation() {
