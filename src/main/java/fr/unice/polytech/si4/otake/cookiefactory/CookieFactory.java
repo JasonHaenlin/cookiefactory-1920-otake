@@ -1,13 +1,22 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 
 public class CookieFactory {
 
-	/**
-	 *
-	 * @param type
-	 */
+	private List<Cookie> allCookies;
+
+	public CookieFactory(){
+		this.allCookies = new ArrayList<Cookie>();
+	}
+
+	public CookieFactory(List<Cookie> list){
+		this.allCookies = list;
+	}
+
 	public Cookie getCookie(String type) {
 		// TODO - implement CookieFactory.getCookie
 		throw new UnsupportedOperationException();

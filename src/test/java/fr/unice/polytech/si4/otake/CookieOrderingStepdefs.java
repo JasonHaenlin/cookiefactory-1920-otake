@@ -24,7 +24,7 @@ public class CookieOrderingStepdefs implements En {
         });
 
         Then("Cookie is add in the order", () -> {
-            assertEquals(cookieobj.getName(), orderobj.getThecookie().getName());
+            assertEquals(1, orderobj.getTheOrderContent().get(cookieobj));
         });
     }
 

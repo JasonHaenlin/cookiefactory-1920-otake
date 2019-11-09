@@ -2,6 +2,7 @@ package fr.unice.polytech.si4.otake.cookiefactory.cookie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Cooking;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Dough;
@@ -91,5 +92,27 @@ public class Cookie {
 	public List<Topping> getToppings() {
 		return this.toppings;
 	}
+
+	@Override
+    public boolean equals(Object obj) {
+		if (obj == null) {
+            return false;
+		}
+        if (this == obj) {
+            return true;
+		}
+		
+        if (!(obj instanceof Cookie)) {
+            return false;
+		}
+		
+        Cookie cookie = (Cookie) obj;
+        return this.hashCode() == cookie.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.price, this.cookingType,this.doughType,this.mixType);
+    }
 
 }
