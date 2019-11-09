@@ -4,16 +4,11 @@ import java.util.Calendar;
 
 public class Scheduler {
 
-	private Calendar opening;
-	private Calendar closing;
+	private final Calendar closing;
+	private final Calendar opening;
 
-	public Scheduler() {
-		this.opening = Calendar.getInstance();
-		this.closing = Calendar.getInstance();
-		this.opening.clear();
-		this.closing.clear();
-		this.opening.set(Calendar.HOUR_OF_DAY, 8);
-		this.closing.set(Calendar.HOUR_OF_DAY, 20);
+	Scheduler() {
+		this(8, 20);
 	}
 
 	Scheduler(int opening_, int closing_) {
@@ -33,25 +28,17 @@ public class Scheduler {
 		return closing;
 	}
 
-	public void setOpening(int opening) {
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, opening);
-		this.opening = cal;
+	void setOpening(int opening) {
+		this.opening.set(Calendar.HOUR_OF_DAY, opening);
 	}
 
-	public void setClosing(int closing) {
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, closing);
-		this.closing = cal;
+	void setClosing(int closing) {
+		this.closing.set(Calendar.HOUR_OF_DAY, closing);
 	}
 
-	public void setSchedule(int opening, int closing) {
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, opening);
-		this.opening = cal;
-		Calendar cal2 = Calendar.getInstance();
-		cal2.set(Calendar.HOUR_OF_DAY, closing);
-		this.closing = cal2;
+	void setSchedule(int opening, int closing) {
+		setClosing(closing);
+		setOpening(opening);
 	}
 
 }

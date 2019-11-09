@@ -7,19 +7,16 @@ public class Shop {
 	private String city;
 	private float taxes;
 	private String name;
-	private Order theorder = null;
+	private Order order;
 	private Scheduler schedule;
 
 	/**
-	 * 
+	 *
 	 * @param city, taxes, name
 	 */
 
 	public Shop(String city, float taxes, String name) {
-		this.city = city;
-		this.taxes = taxes;
-		this.name = name;
-		schedule = new Scheduler(8, 20);
+		this(city, taxes, name, 8, 20);
 	}
 
 	public Shop(String city, float taxes, String name, int opening_time, int closing_time) {
@@ -29,17 +26,17 @@ public class Shop {
 		schedule = new Scheduler(opening_time, closing_time);
 	}
 
-	public float addOrder(Order order) {
+	public boolean addOrder(Order order) {
 		if (checkAppointmentDate(order.getAppointmentDate())) {
-			this.theorder = order;
-			return 1;
-		} else {
-			return -1;
+			this.order = order;
+			return true;
 		}
+		return false;
+
 	}
 
 	/**
-	 * 
+	 *
 	 * @param order
 	 * @param registerCustomer
 	 */
@@ -49,24 +46,22 @@ public class Shop {
 	}
 
 	/**
-	 * 
-	 * @param date
+	 * @return the schedule
 	 */
-	public void getAppointments(Calendar date) {
-		// TODO - implement Shop.getAppointments
-		throw new UnsupportedOperationException();
+	public Scheduler getSchedule() {
+		return schedule;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param date
 	 */
 	public boolean checkAppointmentDate(Calendar date) {
 		if (date.after(schedule.getOpening()) && date.before(schedule.getClosing())) {
 			return true;
-		} else {
-			return false;
 		}
+		return false;
+
 	}
 
 	public float getTaxes() {
@@ -78,11 +73,11 @@ public class Shop {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param order
 	 */
 	public float applyTaxes(Order order) {
-		order.setPriceWithTaxes(order.getPrice()*taxes+order.getPrice());
+		order.setPriceWithTaxes(order.getPrice() * taxes + order.getPrice());
 		return order.getPriceWithTaxes();
 	}
 
@@ -91,8 +86,8 @@ public class Shop {
 		throw new UnsupportedOperationException();
 	}
 
-	public Order getTheorder() {
-		return theorder;
+	public Order getOrder() {
+		return order;
 	}
 
 }

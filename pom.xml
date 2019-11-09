@@ -21,7 +21,6 @@
       src/main/java/fr/unice/polytech/si4/otake/cookiefactory/CookieStatistic.java,
       src/main/java/fr/unice/polytech/si4/otake/cookiefactory/ParentCompany.java,
       src/main/java/fr/unice/polytech/si4/otake/cookiefactory/RegisteredCustomer.java,
-      src/main/java/fr/unice/polytech/si4/otake/cookiefactory/Scheduler.java,
       src/main/java/fr/unice/polytech/si4/otake/cookiefactory/Status.java,
     </sonar.exclusions>
   </properties>

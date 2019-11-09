@@ -1,4 +1,4 @@
-package fr.unice.polytech.si4.otake.cookiefactory.cookie;
+package fr.unice.polytech.si4.otake.cookiefactory;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.unice.polytech.si4.otake.cookiefactory.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
 
 public class orderTest {
 

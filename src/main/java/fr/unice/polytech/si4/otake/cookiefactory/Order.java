@@ -25,7 +25,6 @@ public class Order {
 	 * @param cookie
 	 */
 	public int addCookie(Cookie cookie) {
-
 		if (this.orderContent.containsKey(cookie)) {
 			int t = this.orderContent.get(cookie);
 			this.orderContent.put(cookie, t + 1);
@@ -41,19 +40,18 @@ public class Order {
 	 *
 	 * @param cookie
 	 */
-	public int removeCookie(Cookie cookie) {
-
+	public boolean removeCookie(Cookie cookie) {
 		if (this.orderContent.containsKey(cookie)) {
 			int t = this.orderContent.get(cookie);
 			if (t > 1) {
 				this.orderContent.put(cookie, t - 1);
-				return 1;
+				return true;
 			} else {
 				this.orderContent.remove(cookie);
 			}
-			return 1;
+			return true;
 		} else {
-			return 0;
+			return false;
 		}
 	}
 
@@ -61,7 +59,7 @@ public class Order {
 		return priceWithTaxes;
 	}
 
-	public void setPriceWithTaxes(float priceWithTaxes) {
+	void setPriceWithTaxes(float priceWithTaxes) {
 		this.priceWithTaxes = priceWithTaxes;
 	}
 
@@ -84,10 +82,10 @@ public class Order {
 	/**
 	 * Must call when items in cart changes
 	 */
-	public void buildPriceWithoutTaxes() {
+	private void buildPriceWithoutTaxes() {
 		priceWithoutTaxes = 0;
 		for (Map.Entry<Cookie, Integer> entry : orderContent.entrySet()) {
-			priceWithoutTaxes += entry.getKey().getPrice()*entry.getValue();
+			priceWithoutTaxes += entry.getKey().getPrice() * entry.getValue();
 		}
 	}
 

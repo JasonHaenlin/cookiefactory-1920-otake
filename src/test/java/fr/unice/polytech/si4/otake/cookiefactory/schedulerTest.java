@@ -1,4 +1,4 @@
-package fr.unice.polytech.si4.otake.cookiefactory.cookie;
+package fr.unice.polytech.si4.otake.cookiefactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

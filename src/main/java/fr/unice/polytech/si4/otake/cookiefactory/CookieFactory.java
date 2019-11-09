@@ -9,11 +9,11 @@ public class CookieFactory {
 
 	private List<Cookie> allCookies;
 
-	public CookieFactory(){
-		this.allCookies = new ArrayList<Cookie>();
+	public CookieFactory() {
+		this(new ArrayList<Cookie>());
 	}
 
-	public CookieFactory(List<Cookie> list){
+	public CookieFactory(List<Cookie> list) {
 		this.allCookies = list;
 	}
 
