@@ -1,13 +1,14 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 
 public class Order {
 
-	private Date appointmentDate;
-	private Date RetrievedDate;
+	private Calendar appointmentDate;
+	private Calendar RetrievedDate;
 	private String id;
 	private Cookie thecookie;
 
@@ -46,11 +47,11 @@ public class Order {
 	 *
 	 * @param date
 	 */
-	public void setAppointmentDate(Date date) {
+	public void setAppointmentDate(Calendar date) {
 		this.appointmentDate = date;
 	}
 
-	public Date getAppointmentDate() { return appointmentDate; }
+	public Calendar getAppointmentDate() { return appointmentDate; }
 
 	public float getPrice() {
 		// TODO - implement Order.getPrice
@@ -70,7 +71,7 @@ public class Order {
 	 *
 	 * @param date
 	 */
-	boolean hasBeenRetrieved(Date date) {
+	boolean hasBeenRetrieved(Calendar date) {
 		// TODO - implement Order.hasBeenRetrieved
 		throw new UnsupportedOperationException();
 	}

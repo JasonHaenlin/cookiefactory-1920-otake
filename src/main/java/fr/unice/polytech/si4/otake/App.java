@@ -35,14 +35,10 @@ public class App {
         Order firstorder = new Order();
         firstorder.addCookie(firstcookie);
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY,17);
-        cal.set(Calendar.MINUTE,0);
-        cal.set(Calendar.SECOND,0);
-        cal.set(Calendar.MILLISECOND,0);
-        firstorder.setAppointmentDate(cal.getTime());
+        cal.set(Calendar.HOUR_OF_DAY,15);
+        firstorder.setAppointmentDate(cal);
         Shop firstshop = new Shop("Nice", 6, "Nice-Cookie");
-        float result = firstshop.addOrder(firstorder);
-        System.out.println("Result : " + result);
+        firstshop.addOrder(firstorder);
         //@formatter:on
     }
 }

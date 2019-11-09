@@ -1,5 +1,6 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Shop {
@@ -7,15 +8,15 @@ public class Shop {
 	private String city;
 	private float taxes;
 	private String name;
-	private Order theorder;
+	private Order theorder = null;
 	private Scheduler schedule;
 
 	/**
 	 * 
-	 * @param order
+	 * @param city, taxes, name
 	 */
 
-	public Shop(String city, float taxes, String name ){
+	public Shop(String city, float taxes, String name){
 		this.city = city;
 		this.taxes = taxes;
 		this.name = name;
@@ -52,7 +53,7 @@ public class Shop {
 	 * 
 	 * @param date
 	 */
-	public void getAppointments(Date date) {
+	public void getAppointments(Calendar date) {
 		// TODO - implement Shop.getAppointments
 		throw new UnsupportedOperationException();
 	}
@@ -61,8 +62,8 @@ public class Shop {
 	 * 
 	 * @param date
 	 */
-	public boolean checkAppointmentDate(Date date) {
-		if(date.getHours() > schedule.getOpening() && date.getHours() < schedule.getClosing()){
+	public boolean checkAppointmentDate(Calendar date) {
+		if(date.after(schedule.getOpening()) && date.before(schedule.getClosing())){
 			return true;
 		} else {
 			return false;
@@ -86,5 +87,7 @@ public class Shop {
 		// TODO - implement Shop.getLocation
 		throw new UnsupportedOperationException();
 	}
+
+	public Order getTheorder(){ return theorder; }
 
 }
