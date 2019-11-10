@@ -1,13 +1,20 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class ParentCompany {
-	private ArrayList<RegisteredCustomer> registeredCustomers;
+	private List<RegisteredCustomer> registeredCustomers;
+	private List<Shop> shops;
 
 	public ParentCompany(){
 		registeredCustomers = new ArrayList<>();
+		shops = new ArrayList<>();
+	}
+
+	public void addShop(String city, String name){
+		shops.add(new Shop(city,name));
 	}
 
 	/**
@@ -62,7 +69,11 @@ public class ParentCompany {
 		throw new NoSuchElementException();
 	}
 
-	public ArrayList<RegisteredCustomer> getRegisteredCustomers() {
+	public List<RegisteredCustomer> getRegisteredCustomers() {
 		return registeredCustomers;
+	}
+
+	public List<Shop> getShops() {
+		return shops;
 	}
 }

@@ -9,11 +9,11 @@ public class Shop {
 	private String name;
 	private Order order;
 	private Scheduler schedule;
+	private static final float DEFAULT_TAXES = (float)0.30;
 
-	/**
-	 *
-	 * @param city, taxes, name
-	 */
+	public Shop(String city, String name) {
+		this(city, DEFAULT_TAXES, name);
+	}
 
 	public Shop(String city, float taxes, String name) {
 		this(city, taxes, name, 8, 20);
@@ -32,7 +32,6 @@ public class Shop {
 			return true;
 		}
 		return false;
-
 	}
 
 	/**
@@ -40,9 +39,12 @@ public class Shop {
 	 * @param order
 	 * @param registerCustomer
 	 */
-	public float addOrder(Order order, RegisteredCustomer registerCustomer) {
-		// TODO - implement Shop.addOrder
-		throw new UnsupportedOperationException();
+	public boolean addOrder(Order order, RegisteredCustomer registerCustomer) {
+		if(addOrder(order)){
+			registerCustomer.addCookiePoints(order.getTheOrderContent().size());
+			return true;
+		}
+		return false;
 	}
 
 	/**
