@@ -37,4 +37,9 @@ public class RegisteredCustomer {
 	public void setSubscribed(boolean subscribed) {
 		isSubscribed = subscribed;
 	}
+
+	public boolean getSubscribed() {
+		return isSubscribed;
+	}
+
 }
