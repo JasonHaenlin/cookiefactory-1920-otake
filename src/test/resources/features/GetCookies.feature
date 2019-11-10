@@ -1,7 +1,7 @@
 Feature: Get One and All Cookies
 
 Background:
-    Given a Cookie Factory with some recipes
+    Given a Cookie Factory with some cookies
 Scenario: Billy get one and more cookies
     When Billy get all Cookies from Cookies Factory
     Then Billy has all Cookies

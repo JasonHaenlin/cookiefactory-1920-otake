@@ -3,7 +3,7 @@ package fr.unice.polytech.si4.otake;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
@@ -17,21 +17,21 @@ public class GetCookiesStepdefs implements En {
     Cookie cookie2;
     Cookie cookie3;
     CookieFactory factory;
-    List<Cookie> list;
+    HashMap<Cookie, Integer> map;
     List<Cookie> cookiesget;
     Cookie cookieget;
 
     public GetCookiesStepdefs() {
 
-        Given("a Cookie Factory with some recipes", () -> {
-            this.cookie = Recipe.SOOCHOCOLATE.build();
-            this.cookie2 = Recipe.DARKTEMPTATION.build();
-            this.cookie3 = Recipe.CHOCOCOLALALA.build();
-            this.list = new ArrayList<Cookie>();
-            this.list.add(cookie);
-            this.list.add(cookie2);
-            this.list.add(cookie3);
-            this.factory = new CookieFactory(list);
+        Given("a Cookie Factory with some cookies", () -> {
+            this.cookie = Recipe.SOOCHOCOLATE.create();
+            this.cookie2 = Recipe.DARKTEMPTATION.create();
+            this.cookie3 = Recipe.CHOCOCOLALALA.create();
+            this.map = new HashMap<>();
+            this.map.put(cookie, 0);
+            this.map.put(cookie2, 0);
+            this.map.put(cookie3, 0);
+            this.factory = new CookieFactory(map);
             assertEquals(3, factory.getCookies().size());
         });
         When("Billy get all Cookies from Cookies Factory", () -> {
