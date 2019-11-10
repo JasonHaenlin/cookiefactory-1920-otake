@@ -18,9 +18,9 @@ public class ManageCookieBasketStepdefs implements En {
     public ManageCookieBasketStepdefs() {
 
         Given("a basket containing cookies", () -> {
-            cookieobj = Recipe.SOOCHOCOLATE.build();
-            cookieobj2 = Recipe.DARKTEMPTATION.build();
-            cookieobj3 = Recipe.CHOCOCOLALALA.build();
+            cookieobj = Recipe.SOOCHOCOLATE.create();
+            cookieobj2 = Recipe.DARKTEMPTATION.create();
+            cookieobj3 = Recipe.CHOCOCOLALALA.create();
             orderobj = new Order();
             orderobj.addCookie(cookieobj);
             orderobj.addCookie(cookieobj2);

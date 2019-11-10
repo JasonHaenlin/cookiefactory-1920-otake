@@ -19,11 +19,11 @@ public class Shop {
 		this(city, taxes, name, 8, 20);
 	}
 
-	public Shop(String city, float taxes, String name, int opening_time, int closing_time) {
+	public Shop(String city, float taxes, String name, int openingTime, int closingTime) {
 		this.city = city;
 		this.taxes = taxes;
 		this.name = name;
-		schedule = new Scheduler(opening_time, closing_time);
+		schedule = new Scheduler(openingTime, closingTime);
 	}
 
 	public boolean addOrder(Order order) {
@@ -57,11 +57,7 @@ public class Shop {
 	 * @param date
 	 */
 	public boolean checkAppointmentDate(Calendar date) {
-		if (date.after(schedule.getOpening()) && date.before(schedule.getClosing())) {
-			return true;
-		}
-		return false;
-
+		return date.after(schedule.getOpening()) && date.before(schedule.getClosing());
 	}
 
 	public float getTaxes() {

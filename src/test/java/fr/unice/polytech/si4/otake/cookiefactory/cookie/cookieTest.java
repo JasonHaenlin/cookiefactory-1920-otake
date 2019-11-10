@@ -1,14 +1,17 @@
 package fr.unice.polytech.si4.otake.cookiefactory.cookie;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.NoToppingRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.TooMuchToppingRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Cooking;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Dough;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Flavour;
@@ -23,7 +26,7 @@ public class cookieTest {
 
     @Before
     public void cookieCreation() {
-        this.cookie = new Cookie("name", 2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED);
+        this.cookie = new Cookie("name", 2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP);
     }
 
     @Test
@@ -34,14 +37,34 @@ public class cookieTest {
     }
 
     @Test
-    public void addToppingTest() {
-        assertEquals(0, this.cookie.getToppings().size());
-        this.cookie.addTopping(Topping.MMS);
-        assertEquals(1, this.cookie.getToppings().size());
-        this.cookie.addTopping(Topping.MMS);
-        this.cookie.addTopping(Topping.MMS);
-        this.cookie.addTopping(Topping.MMS);
-        assertEquals(3, this.cookie.getToppings().size());
+    public void noToppingTest() {
+        try {
+            new Cookie("name", 2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED);
+            Assert.fail("Fail ! ");
+        } catch (NoToppingRuntimeException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void toMuchToppingTest() {
+        try {
+            new Cookie("name", 2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.MMS, Topping.MMS, Topping.MMS,
+                    Topping.MMS, Topping.MMS);
+            Assert.fail("Fail ! ");
+        } catch (TooMuchToppingRuntimeException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void badPriceTest() {
+        try {
+            new Cookie("name", -2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.MMS, Topping.MMS);
+            Assert.fail("Fail ! ");
+        } catch (IllegalArgumentException e) {
+            assertTrue(true);
+        }
     }
 
     @Test
@@ -49,14 +72,23 @@ public class cookieTest {
         try {
             new Cookie(null, -5, null, null, null);
             Assert.fail("Fail ! ");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }
 
     @Test
+    public void equalsCookiesTest() {
+        assertTrue(this.cookie
+                .equals(new Cookie("name", 2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP)));
+        assertFalse(this.cookie.equals(null));
+        assertTrue(this.cookie.equals(this.cookie));
+    }
+
+    @Test
     public void cookieCookTest() {
-        Cookie coocute = new Cookie("coocute", 59.59, Cooking.CHEWY, Dough.PEANUTBUTTER, Mix.MIXED).cook();
+        Cookie coocute = new Cookie("coocute", 59.59, Cooking.CHEWY, Dough.PEANUTBUTTER, Mix.MIXED,
+                Topping.WHITECHOCOLATE);
         assertEquals(1, coocute.getToppings().size());
         assertEquals(Mix.MIXED, coocute.getMixType());
         assertEquals(Cooking.CHEWY, coocute.getCookingType());

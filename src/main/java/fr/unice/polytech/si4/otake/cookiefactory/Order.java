@@ -17,7 +17,7 @@ public class Order {
 
 	public Order() {
 		this.id = "id";
-		this.orderContent = new HashMap<Cookie, Integer>();
+		this.orderContent = new HashMap<>();
 	}
 
 	/**

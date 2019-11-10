@@ -15,7 +15,7 @@ public class CookieOrderingStepdefs implements En {
     public CookieOrderingStepdefs() {
 
         Given("a Cookie {string} and an Order", (String cookie) -> {
-            cookieobj = Recipe.SOOCHOCOLATE.build();
+            cookieobj = Recipe.SOOCHOCOLATE.create();
             orderobj = new Order();
         });
 

@@ -10,35 +10,23 @@ public enum Recipe {
     // @formatter:off
     CHOCOCOLALALA("Chococolalala") {
         @Override
-        public Cookie build() {
+        public Cookie create() {
             return new Cookie("Chococolalala", 5.50,
-                    Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED)
-                    .addTopping(Topping.WHITECHOCOLATE)
-                    .addTopping(Topping.WHITECHOCOLATE)
-                    .addTopping(Topping.WHITECHOCOLATE)
-                    .withFlavourType(Flavour.VANILLA)
-                    .cook();
+                    Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE )
+                    .withFlavourType(Flavour.VANILLA);
         }
     },
     DARKTEMPTATION("Dark Temptation") {
 		@Override
-		public Cookie build() {
-            return new Cookie("Dark Temptation", 5.50, Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED)
-                    .addTopping(Topping.MILKCHOCOLATE)
-                    .addTopping(Topping.MILKCHOCOLATE)
-                    .addTopping(Topping.WHITECHOCOLATE)
-                    .withFlavourType(Flavour.CINNAMON)
-                    .cook();
+		public Cookie create() {
+            return new Cookie("Dark Temptation", 5.50, Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE)
+                    .withFlavourType(Flavour.CINNAMON);
 		}
     },
     SOOCHOCOLATE("Soooo Chocolate") {
 		@Override
-		public Cookie build() {
-            return new Cookie("Soooo Chocolate", 5.50, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED)
-                    .addTopping(Topping.MILKCHOCOLATE)
-                    .addTopping(Topping.MILKCHOCOLATE)
-                    .addTopping(Topping.WHITECHOCOLATE)
-                    .cook();
+		public Cookie create() {
+            return new Cookie("Soooo Chocolate", 5.50, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE);
 		}
     };
 
@@ -55,5 +43,5 @@ public enum Recipe {
         return name;
     }
 
-    public abstract Cookie build();
+    public abstract Cookie create();
 }

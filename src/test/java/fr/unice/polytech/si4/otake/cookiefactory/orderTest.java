@@ -23,7 +23,7 @@ public class orderTest {
 
     @Test
     public void addCookieTest() {
-        Cookie cookie = Recipe.SOOCHOCOLATE.build();
+        Cookie cookie = Recipe.SOOCHOCOLATE.create();
         order.addCookie(cookie);
         assertEquals(1, order.getTheOrderContent().get(cookie));
     }

@@ -15,11 +15,11 @@ public class recipeTest {
 
     @Test
     public void cookieCreationTest() {
-        Cookie socho = Recipe.SOOCHOCOLATE.build();
+        Cookie socho = Recipe.SOOCHOCOLATE.create();
         assertEquals(Mix.TOPPED, socho.getMixType());
-        Cookie darkt = Recipe.DARKTEMPTATION.build();
+        Cookie darkt = Recipe.DARKTEMPTATION.create();
         assertEquals(Dough.CHOCOLATE, darkt.getDoughType());
-        Cookie choco = Recipe.CHOCOCOLALALA.build();
+        Cookie choco = Recipe.CHOCOCOLALALA.create();
         assertEquals(Flavour.VANILLA, choco.getFlavourType());
     }
 }

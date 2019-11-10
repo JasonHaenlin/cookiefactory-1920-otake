@@ -25,7 +25,7 @@ public class App {
         // @formatter:off
         logger.info(new App().getGreeting());
 
-        Cookie firstcookie = Recipe.DARKTEMPTATION.build();
+        Cookie firstcookie = Recipe.DARKTEMPTATION.create();
         Order firstorder = new Order();
         firstorder.addCookie(firstcookie);
         Calendar cal = Calendar.getInstance();

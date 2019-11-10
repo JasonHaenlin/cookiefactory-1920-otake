@@ -11,13 +11,13 @@ public class Scheduler {
 		this(8, 20);
 	}
 
-	Scheduler(int opening_, int closing_) {
+	Scheduler(int opening, int closing) {
 		this.opening = Calendar.getInstance();
 		this.closing = Calendar.getInstance();
 		this.opening.clear();
 		this.closing.clear();
-		this.opening.set(Calendar.HOUR_OF_DAY, opening_);
-		this.closing.set(Calendar.HOUR_OF_DAY, closing_);
+		this.opening.set(Calendar.HOUR_OF_DAY, opening);
+		this.closing.set(Calendar.HOUR_OF_DAY, closing);
 	}
 
 	public Calendar getOpening() {

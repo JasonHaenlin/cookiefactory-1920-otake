@@ -23,7 +23,7 @@ public class shopTest {
 
     @Test
     public void addOrderTest() {
-        Cookie cookie = Recipe.SOOCHOCOLATE.build();
+        Cookie cookie = Recipe.SOOCHOCOLATE.create();
         Order order = new Order();
         order.addCookie(cookie);
         Calendar appointmentDate = Calendar.getInstance();
