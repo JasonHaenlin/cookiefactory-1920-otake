@@ -15,22 +15,19 @@ import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Topping;
 
 public class Cookie {
 
-	private final static int MAX_TOPPINGS = 3;
+	private static final int MAX_TOPPINGS = 3;
 
-	private final double price;
 	private final String name;
 	private final Cooking cookingType;
 	private final Dough doughType;
 	private final Mix mixType;
 	private final List<Topping> toppings;
 	private Flavour flavourType;
+	private double price;
 
-	public Cookie(String name, double price, Cooking cookingType, Dough doughType, Mix mixType, Topping... toppings) {
-		if (name == null || price < 0) {
+	public Cookie(String name, Cooking cookingType, Dough doughType, Mix mixType, Topping... toppings) {
+		if (name == null) {
 			throw new IllegalArgumentException("Name can not be null and");
-		}
-		if (price < 0) {
-			throw new IllegalArgumentException("Price can not be less than 1");
 		}
 		if (toppings.length < 1) {
 			throw new NoToppingRuntimeException();
@@ -39,15 +36,28 @@ public class Cookie {
 			throw new TooMuchToppingRuntimeException(Cookie.MAX_TOPPINGS);
 		}
 		this.name = name;
-		this.price = price;
 		this.cookingType = cookingType;
 		this.doughType = doughType;
 		this.mixType = mixType;
 		this.toppings = Arrays.asList(toppings);
+		computePrice();
+	}
+
+	private void computePrice() {
+		this.price = this.cookingType.getPrice() + this.doughType.getPrice() + this.mixType.getPrice();
+		for (Topping t : toppings) {
+			this.price += t.getPrice();
+		}
 	}
 
 	public Cookie withFlavourType(Flavour flavourType) {
+		if (flavourType == null) {
+			this.price -= this.flavourType.getPrice();
+			this.flavourType = null;
+			return this;
+		}
 		this.flavourType = flavourType;
+		this.price += this.flavourType.getPrice();
 		return this;
 	}
 
@@ -88,7 +98,7 @@ public class Cookie {
 	}
 
 	public List<Topping> getToppings() {
-		return new ArrayList<Topping>(this.toppings);
+		return new ArrayList<>(this.toppings);
 	}
 
 	@Override

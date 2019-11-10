@@ -26,7 +26,7 @@ public class cookieTest {
 
     @Before
     public void cookieCreation() {
-        this.cookie = new Cookie("name", 2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP);
+        this.cookie = new Cookie("name", Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class cookieTest {
     @Test
     public void noToppingTest() {
         try {
-            new Cookie("name", 2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED);
+            new Cookie("name", Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED);
             Assert.fail("Fail ! ");
         } catch (NoToppingRuntimeException e) {
             assertTrue(true);
@@ -49,7 +49,7 @@ public class cookieTest {
     @Test
     public void toMuchToppingTest() {
         try {
-            new Cookie("name", 2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.MMS, Topping.MMS, Topping.MMS,
+            new Cookie("name", Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.MMS, Topping.MMS, Topping.MMS,
                     Topping.MMS, Topping.MMS);
             Assert.fail("Fail ! ");
         } catch (TooMuchToppingRuntimeException e) {
@@ -58,19 +58,9 @@ public class cookieTest {
     }
 
     @Test
-    public void badPriceTest() {
-        try {
-            new Cookie("name", -2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.MMS, Topping.MMS);
-            Assert.fail("Fail ! ");
-        } catch (IllegalArgumentException e) {
-            assertTrue(true);
-        }
-    }
-
-    @Test
     public void cookieFailTest() {
         try {
-            new Cookie(null, -5, null, null, null);
+            new Cookie(null, null, null, null);
             Assert.fail("Fail ! ");
         } catch (IllegalArgumentException e) {
             assertTrue(true);
@@ -80,18 +70,28 @@ public class cookieTest {
     @Test
     public void equalsCookiesTest() {
         assertTrue(this.cookie
-                .equals(new Cookie("name", 2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP)));
+                .equals(new Cookie("name", Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP)));
         assertFalse(this.cookie.equals(null));
         assertTrue(this.cookie.equals(this.cookie));
     }
 
     @Test
     public void cookieCookTest() {
-        Cookie coocute = new Cookie("coocute", 59.59, Cooking.CHEWY, Dough.PEANUTBUTTER, Mix.MIXED,
-                Topping.WHITECHOCOLATE);
+        Cookie coocute = new Cookie("coocute", Cooking.CHEWY, Dough.PEANUTBUTTER, Mix.MIXED, Topping.WHITECHOCOLATE);
         assertEquals(1, coocute.getToppings().size());
         assertEquals(Mix.MIXED, coocute.getMixType());
         assertEquals(Cooking.CHEWY, coocute.getCookingType());
         assertEquals(Dough.PEANUTBUTTER, coocute.getDoughType());
+    }
+
+    @Test
+    public void cookiePriceTest() {
+        Cookie cuteLittleCookie = new Cookie("coocute", Cooking.CHEWY, Dough.PEANUTBUTTER, Mix.MIXED,
+                Topping.WHITECHOCOLATE);
+        assertEquals(2.3, cuteLittleCookie.getPrice());
+        cuteLittleCookie.withFlavourType(Flavour.CHILI);
+        assertEquals(3.3, cuteLittleCookie.getPrice());
+        cuteLittleCookie.withFlavourType(null);
+        assertEquals(2.3, cuteLittleCookie.getPrice());
     }
 }

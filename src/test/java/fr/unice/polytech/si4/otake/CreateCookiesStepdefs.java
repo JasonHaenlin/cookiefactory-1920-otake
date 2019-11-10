@@ -16,7 +16,7 @@ public class CreateCookiesStepdefs implements En {
 
     public CreateCookiesStepdefs() {
         Given("a list of ingredients for a cookie named {string}", (String name) -> {
-            this.cookie = new Cookie(name, 2.25, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP);
+            this.cookie = new Cookie(name, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP);
         });
         When("the cook add a {string} flavour in the cookie", (String flavour) -> {
             this.cookie.withFlavourType(Flavour.valueOf(flavour));

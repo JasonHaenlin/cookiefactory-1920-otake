@@ -11,7 +11,7 @@ public enum Recipe {
     CHOCOCOLALALA("Chococolalala") {
         @Override
         public Cookie create() {
-            return new Cookie("Chococolalala", 5.50,
+            return new Cookie("Chococolalala",
                     Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE )
                     .withFlavourType(Flavour.VANILLA);
         }
@@ -19,14 +19,14 @@ public enum Recipe {
     DARKTEMPTATION("Dark Temptation") {
 		@Override
 		public Cookie create() {
-            return new Cookie("Dark Temptation", 5.50, Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE)
+            return new Cookie("Dark Temptation", Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE)
                     .withFlavourType(Flavour.CINNAMON);
 		}
     },
     SOOCHOCOLATE("Soooo Chocolate") {
 		@Override
 		public Cookie create() {
-            return new Cookie("Soooo Chocolate", 5.50, Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE);
+            return new Cookie("Soooo Chocolate", Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE);
 		}
     };
 
