@@ -8,15 +8,17 @@ import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 
 public class Order {
 
+	private static int ORDERID = 1;
+
+	private final int id;
 	private Calendar appointmentDate;
 	private Calendar RetrievedDate;
-	private String id;
 	private Map<Cookie, Integer> orderContent;
 	private float priceWithoutTaxes;
 	private float priceWithTaxes;
 
 	public Order() {
-		this.id = "id";
+		this.id = Order.ORDERID++;
 		this.orderContent = new HashMap<>();
 	}
 
@@ -126,11 +128,19 @@ public class Order {
 		return this.orderContent;
 	}
 
-	public int getQuantity(){
-		int quantity=0;
-		for(Map.Entry<Cookie, Integer> e: orderContent.entrySet()){
-			quantity+=e.getValue();
+	public int getQuantity() {
+		int quantity = 0;
+		for (Map.Entry<Cookie, Integer> e : orderContent.entrySet()) {
+			quantity += e.getValue();
 		}
 		return quantity;
 	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
 }

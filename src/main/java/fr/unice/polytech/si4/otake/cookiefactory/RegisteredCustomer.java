@@ -41,8 +41,13 @@ public class RegisteredCustomer {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Obtain quantity of cookies bought
 	 * @return MAX 30
+=======
+	 *
+	 * @param price
+>>>>>>> GH-20 add a static field id to increment the id on each new order
 	 */
 	public int getCookiePoints(){
 		return QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT - unitsOfCookiesBeforeDiscount;

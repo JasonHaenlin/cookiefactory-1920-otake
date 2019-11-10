@@ -47,4 +47,11 @@ public class orderTest {
         assertEquals(cal2, order.getAppointmentDate());
 
     }
+
+    @Test
+    public void orderIdTest() {
+        Order order1 = new Order();
+        Order order2 = new Order();
+        assertTrue("order2 should have a lower id than order1", order1.getId() < order2.getId());
+    }
 }
