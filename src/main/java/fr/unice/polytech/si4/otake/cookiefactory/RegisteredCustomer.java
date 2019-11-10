@@ -8,6 +8,19 @@ public class RegisteredCustomer {
 	private int discount;
 	private int unitsOfCookiesBeforeDiscount;
 
+	public RegisteredCustomer(String id, boolean isSubscribed){
+		this.id = id;
+		this.isSubscribed = isSubscribed;
+	}
+
+	public void subscribeToFideliTyProgram(){
+		isSubscribed = true;
+	}
+
+	public void unsubscribeFromFidelityProgram(){
+		isSubscribed = false;
+	}
+
 	/**
 	 * 
 	 * @param price
@@ -17,4 +30,11 @@ public class RegisteredCustomer {
 		throw new UnsupportedOperationException();
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setSubscribed(boolean subscribed) {
+		isSubscribed = subscribed;
+	}
 }
