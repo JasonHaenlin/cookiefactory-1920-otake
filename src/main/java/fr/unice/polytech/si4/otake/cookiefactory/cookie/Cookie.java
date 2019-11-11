@@ -24,6 +24,7 @@ public class Cookie {
 	private final List<Topping> toppings;
 	private Flavour flavourType;
 	private double price;
+	private int unitsSold;
 
 	public Cookie(String name, Cooking cookingType, Dough doughType, Mix mixType, Topping... toppings) {
 		if (name == null) {
@@ -40,6 +41,7 @@ public class Cookie {
 		this.doughType = doughType;
 		this.mixType = mixType;
 		this.toppings = Arrays.asList(toppings);
+		this.unitsSold = 0;
 		computePrice();
 	}
 
@@ -48,6 +50,7 @@ public class Cookie {
 		for (Topping t : toppings) {
 			this.price += t.getPrice();
 		}
+
 	}
 
 	public Cookie withFlavourType(Flavour flavourType) {
@@ -121,6 +124,14 @@ public class Cookie {
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.name, this.cookingType, this.doughType, this.mixType, this.toppings, this.flavourType);
+	}
+
+	public void incrementUnit(int unit) {
+		this.unitsSold = unitsSold + unit;
+	}
+
+	public int getUnitsSold(){
+		return this.unitsSold;
 	}
 
 }

@@ -17,7 +17,7 @@ public class GetCookiesStepdefs implements En {
     Cookie cookie2;
     Cookie cookie3;
     CookieFactory factory;
-    HashMap<Cookie, Integer> map;
+    HashMap<Cookie, Float> map;
     List<Cookie> cookiesget;
     Cookie cookieget;
 
@@ -27,10 +27,10 @@ public class GetCookiesStepdefs implements En {
             this.cookie = Recipe.SOOCHOCOLATE.create();
             this.cookie2 = Recipe.DARKTEMPTATION.create();
             this.cookie3 = Recipe.CHOCOCOLALALA.create();
-            this.map = new HashMap<>();
-            this.map.put(cookie, 0);
-            this.map.put(cookie2, 0);
-            this.map.put(cookie3, 0);
+            this.map = new HashMap<Cookie,Float>();
+            this.map.put(cookie, (float) 0);
+            this.map.put(cookie2, (float) 0);
+            this.map.put(cookie3, (float) 0);
             this.factory = new CookieFactory(map);
             assertEquals(3, factory.getCookies().size());
         });

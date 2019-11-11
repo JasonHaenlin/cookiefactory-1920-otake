@@ -9,18 +9,18 @@ import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 
 public class CookieFactory {
 
-	private Map<Cookie, Integer> allCookies;
+	private Map<Cookie, Float> allCookies;
 
 	public CookieFactory() {
-		this(new HashMap<Cookie, Integer>());
+		this(new HashMap<Cookie, Float>());
 	}
 
-	public CookieFactory(HashMap<Cookie, Integer> maps) {
+	public CookieFactory(HashMap<Cookie, Float> maps) {
 		this.allCookies = maps;
 	}
 
 	public Cookie getCookie(String name) {
-		for (Map.Entry<Cookie, Integer> entry : allCookies.entrySet()) {
+		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
 			Cookie cookie = entry.getKey();
 			if (cookie.getName() == name) {
 				return cookie;
@@ -31,7 +31,7 @@ public class CookieFactory {
 
 	public List<Cookie> getCookies() {
 		List<Cookie> cookiesreturn = new ArrayList<>();
-		for (Map.Entry<Cookie, Integer> entry : allCookies.entrySet()) {
+		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
 			cookiesreturn.add(entry.getKey());
 		}
 		return cookiesreturn;
@@ -45,7 +45,7 @@ public class CookieFactory {
 		if (this.allCookies.containsKey(recipe)) {
 			return false;
 		} else {
-			this.allCookies.put(recipe, 0);
+			this.allCookies.put(recipe, (float) 0.0);
 		}
 		return true;
 
@@ -62,6 +62,18 @@ public class CookieFactory {
 		} else {
 			return false;
 		}
+	}
+
+	public Map<Cookie, Float> getStatistic() {
+		int soldSum = 0;
+		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
+			soldSum += entry.getKey().getUnitsSold();
+		}
+		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
+			Float statistic = (float) ((entry.getKey().getUnitsSold() / (float) soldSum) * 100);
+			allCookies.put(entry.getKey(), statistic);
+		}
+		return allCookies;
 	}
 
 }

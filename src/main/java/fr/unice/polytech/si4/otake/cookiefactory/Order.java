@@ -16,6 +16,7 @@ public class Order {
 	private Map<Cookie, Integer> orderContent;
 	private float priceWithoutTaxes;
 	private float priceWithTaxes;
+	private Status status;
 
 	public Order() {
 		this.id = Order.orderId++;
@@ -103,13 +104,23 @@ public class Order {
 		}
 	}
 
+	private void updateCookiesSolds() {
+		for (Map.Entry<Cookie, Integer> entry : orderContent.entrySet()) {
+			entry.getKey().incrementUnit(entry.getValue());
+		}
+
+	}
+
 	/**
 	 *
 	 * @param status
 	 */
-	boolean updateStatus(Status status) {
-		// TODO - implement Order.updateStatus
-		throw new UnsupportedOperationException();
+	public void updateStatus(Status status) {
+		if (status.equals(Status.Waiting)) {
+			updateCookiesSolds();
+		}
+		this.status = status;
+
 	}
 
 	/**
