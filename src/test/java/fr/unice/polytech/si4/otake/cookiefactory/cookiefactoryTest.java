@@ -44,9 +44,9 @@ public class cookiefactoryTest {
         order2.addCookie(cookieobj2);
         order3.addCookie(cookieobj3);
         order3.addCookie(cookieobj3);
-        order.updateStatus(Status.Waiting);
-        order2.updateStatus(Status.Waiting);
-        order3.updateStatus(Status.Waiting);
+        order.updateStatus(Status.WAITING);
+        order2.updateStatus(Status.WAITING);
+        order3.updateStatus(Status.WAITING);
     }
 
     @Test

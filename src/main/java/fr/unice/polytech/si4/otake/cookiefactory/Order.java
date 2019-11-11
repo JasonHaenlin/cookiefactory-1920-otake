@@ -12,7 +12,6 @@ public class Order {
 
 	private final int id;
 	private Calendar appointmentDate;
-	private Calendar retrievedDate;
 	private Map<Cookie, Integer> orderContent;
 	private float priceWithoutTaxes;
 	private float priceWithTaxes;
@@ -116,7 +115,7 @@ public class Order {
 	 * @param status
 	 */
 	public void updateStatus(Status status) {
-		if (status.equals(Status.Waiting)) {
+		if (status.equals(Status.WAITING)) {
 			updateCookiesSolds();
 		}
 		this.status = status;
@@ -145,6 +144,13 @@ public class Order {
 			quantity += e.getValue();
 		}
 		return quantity;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public Status getStatus() {
+		return status;
 	}
 
 	/**

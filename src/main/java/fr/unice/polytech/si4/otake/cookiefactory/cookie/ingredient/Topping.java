@@ -2,23 +2,21 @@ package fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient;
 
 public enum Topping implements Ingredient {
 	// @formatter:off
-	WHITECHOCOLATE("WhiteChocolate", 0.80),
-	MILKCHOCOLATE("MilkChocolate", 0.90),
-	MMS("MMs",1.00),
-	REESEBUTTERCUP("ReeseButtercup", 1.10);
+	WHITECHOCOLATE(0.80),
+	MILKCHOCOLATE(0.90),
+	MMS(1.00),
+	REESEBUTTERCUP(1.10);
 	// @formatter:on
 
-	private final String type;
 	private final double price;
 
-	Topping(String type, double price) {
-		this.type = type;
+	Topping(double price) {
 		this.price = price;
 	}
 
 	@Override
-	public String toString() {
-		return type;
+	public Ingredient getValue() {
+		return this;
 	}
 
 	@Override

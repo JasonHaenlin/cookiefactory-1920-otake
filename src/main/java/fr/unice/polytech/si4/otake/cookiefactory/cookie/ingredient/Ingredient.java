@@ -7,6 +7,6 @@ public interface Ingredient {
 
     double getPrice();
 
-    String toString();
+    Ingredient getValue();
 
 }

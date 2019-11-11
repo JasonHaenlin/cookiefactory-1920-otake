@@ -1,5 +1,7 @@
 package fr.unice.polytech.si4.otake.cookiefactory.cookie;
 
+import java.util.Arrays;
+
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Cooking;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Dough;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Flavour;
@@ -11,22 +13,20 @@ public enum Recipe {
     CHOCOCOLALALA("Chococolalala") {
         @Override
         public Cookie create() {
-            return new Cookie("Chococolalala",
-                    Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE )
-                    .withFlavourType(Flavour.VANILLA);
+            return new Cookie("Chococolalala", Arrays.asList(Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE,Flavour.VANILLA)
+                     );
         }
     },
     DARKTEMPTATION("Dark Temptation") {
 		@Override
 		public Cookie create() {
-            return new Cookie("Dark Temptation", Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE)
-                    .withFlavourType(Flavour.CINNAMON);
-		}
+            return new Cookie("Dark Temptation",Arrays.asList(Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE,Flavour.CINNAMON));
+        }
     },
     SOOCHOCOLATE("Soooo Chocolate") {
 		@Override
 		public Cookie create() {
-            return new Cookie("Soooo Chocolate", Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE);
+            return new Cookie("Soooo Chocolate", Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE));
 		}
     };
 
