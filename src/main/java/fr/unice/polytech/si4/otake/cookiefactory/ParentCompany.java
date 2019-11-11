@@ -1,29 +1,56 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.text.Normalizer;
+import java.util.*;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class ParentCompany {
 	private List<RegisteredCustomer> registeredCustomers;
 	private List<Shop> shops;
+	private ShopFinder shopFinder;
 
 	public ParentCompany(){
 		registeredCustomers = new ArrayList<>();
 		shops = new ArrayList<>();
+		shopFinder = new ShopFinder();
 	}
 
 	public void addShop(String city, String name){
-		shops.add(new Shop(city,name));
+		Shop shop = new Shop(city,name);
+		shops.add(shop);
+		shopFinder.addShop(shop);
+	}
+
+	public void addShop(Shop shop){
+		shops.add(shop);
+		shopFinder.addShop(shop);
+	}
+
+	public void removeShop(Shop shop){
+		shops.remove(shop);
+		shopFinder.removeShop(shop);
 	}
 
 	/**
 	 * 
-	 * @param terms
+	 * @param location, name
 	 */
-	public Shop[] getShopByTerms(String terms) {
-		// TODO - implement ParentCompany.getShopByTerms
-		throw new UnsupportedOperationException();
+	public List<Shop> getShopByTerms(String location, String name) {
+		if(location == null && name == null){
+			return new ArrayList<>();
+		} else if(name == null){
+			return shopFinder.getShopsByKey(location);
+		} else if(location == null){
+			return shopFinder.getShopsByKey(name);
+		} else {
+			List<Shop> matchingLocationShops = shopFinder.getShopsByKey(location);
+			List<Shop> matchingNameShops = shopFinder.getShopsByKey(name);
+			return matchingLocationShops.stream()
+					.distinct()
+					.filter(matchingNameShops::contains)
+					.collect(Collectors.toList());
+		}
 	}
 
 	public boolean addOrUpdateRegisteredCustomer() {

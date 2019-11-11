@@ -1,6 +1,7 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
 import java.util.Calendar;
+import java.util.Set;
 
 public class Shop {
 
@@ -82,13 +83,14 @@ public class Shop {
 		return order.getPriceWithTaxes();
 	}
 
-	public String getLocation() {
-		// TODO - implement Shop.getLocation
-		throw new UnsupportedOperationException();
-	}
+	public String getLocation() { return city; }
 
 	public Order getOrder() {
 		return order;
+	}
+
+	public String getName(){
+		return name;
 	}
 
 }
