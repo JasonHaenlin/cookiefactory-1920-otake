@@ -22,7 +22,7 @@ public class CookieFactory {
 	public Cookie getCookie(String name) {
 		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
 			Cookie cookie = entry.getKey();
-			if (cookie.getName() == name) {
+			if (name != null && name.equals(cookie.getName())) {
 				return cookie;
 			}
 		}
@@ -30,7 +30,7 @@ public class CookieFactory {
 	}
 
 	public List<Cookie> getCookies() {
-		List<Cookie> cookiesreturn = new ArrayList<>();
+		List<Cookie> cookiesreturn = new ArrayList<>(allCookies.size());
 		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
 			cookiesreturn.add(entry.getKey());
 		}

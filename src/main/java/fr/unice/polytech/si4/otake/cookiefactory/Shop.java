@@ -1,7 +1,6 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
 import java.util.Calendar;
-import java.util.Set;
 
 public class Shop {
 
@@ -10,7 +9,7 @@ public class Shop {
 	private String name;
 	private Order order;
 	private Scheduler schedule;
-	private static final float DEFAULT_TAXES = (float)0.30;
+	private static final float DEFAULT_TAXES = (float) 0.30;
 
 	public Shop(String city, String name) {
 		this(city, DEFAULT_TAXES, name);
@@ -41,10 +40,10 @@ public class Shop {
 	 * @param registerCustomer
 	 */
 	public boolean addOrder(Order order, RegisteredCustomer registerCustomer) {
-		if(registerCustomer.getCookiePoints()==RegisteredCustomer.QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT){
+		if (registerCustomer.getCookiePoints() == RegisteredCustomer.QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT) {
 			order.setPriceWithoutTaxes(registerCustomer.addDiscount(order.getPriceWithoutTaxes()));
 		}
-		if(addOrder(order)){
+		if (addOrder(order)) {
 			registerCustomer.addCookiePoints(order.getQuantity());
 			return true;
 		}
@@ -79,17 +78,19 @@ public class Shop {
 	 * @param order
 	 */
 	public float applyTaxes(Order order) {
-		order.setPriceWithTaxes(order.getPrice() * taxes + order.getPrice());
+		order.setPriceWithTaxes(order.getPrice() * this.taxes + order.getPrice());
 		return order.getPriceWithTaxes();
 	}
 
-	public String getLocation() { return city; }
+	public String getLocation() {
+		return city;
+	}
 
 	public Order getOrder() {
 		return order;
 	}
 
-	public String getName(){
+	public String getName() {
 		return name;
 	}
 

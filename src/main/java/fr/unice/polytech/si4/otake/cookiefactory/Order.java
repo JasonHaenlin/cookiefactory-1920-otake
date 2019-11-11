@@ -27,8 +27,8 @@ public class Order {
 	 * @param cookie
 	 */
 	public int addCookie(Cookie cookie) {
-		if (this.orderContent.containsKey(cookie)) {
-			int t = this.orderContent.get(cookie);
+		Integer t = this.orderContent.get(cookie);
+		if (t != null) {
 			this.orderContent.put(cookie, t + 1);
 			buildPriceWithoutTaxes();
 			return 1;
@@ -44,8 +44,8 @@ public class Order {
 	 * @param cookie
 	 */
 	public boolean removeCookie(Cookie cookie) {
-		if (this.orderContent.containsKey(cookie)) {
-			int t = this.orderContent.get(cookie);
+		Integer t = this.orderContent.get(cookie);
+		if (t != null) {
 			if (t > 1) {
 				this.orderContent.put(cookie, t - 1);
 				buildPriceWithoutTaxes();
@@ -115,7 +115,7 @@ public class Order {
 	 * @param status
 	 */
 	public void updateStatus(Status status) {
-		if (status.equals(Status.WAITING)) {
+		if (status == Status.WAITING) {
 			updateCookiesSolds();
 		}
 		this.status = status;
@@ -127,8 +127,7 @@ public class Order {
 	 * @param date
 	 */
 	boolean hasBeenRetrieved(Calendar date) {
-		// TODO - implement Order.hasBeenRetrieved
-		throw new UnsupportedOperationException();
+		return this.status == Status.RETRIEVED;
 	}
 
 	/**

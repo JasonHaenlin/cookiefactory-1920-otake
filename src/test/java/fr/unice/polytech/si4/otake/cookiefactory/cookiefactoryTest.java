@@ -63,9 +63,6 @@ public class cookiefactoryTest {
                 result = entry.getKey();
             }
         }
-        System.out.println(stat.get(cookieobj));
-        System.out.println(stat.get(cookieobj2));
-        System.out.println(stat.get(cookieobj3));
         assertTrue(result.equals(cookieobj3));
     }
 

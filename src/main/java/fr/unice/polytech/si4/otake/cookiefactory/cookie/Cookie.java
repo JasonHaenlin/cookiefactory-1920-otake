@@ -15,6 +15,8 @@ import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Topping;
 
 public class Cookie {
 
+	private static final String NAME_CAN_NOT_BE_NULL = "Name can not be null";
+
 	private static final int MAX_TOPPINGS = 3;
 
 	private final String name;
@@ -26,7 +28,7 @@ public class Cookie {
 
 	public Cookie(String name, List<Ingredient> ingredients) {
 		if (name == null) {
-			throw new IllegalArgumentException("Name can not be null and");
+			throw new IllegalArgumentException(NAME_CAN_NOT_BE_NULL);
 		}
 		this.checker = new IngredientChecker(Arrays.asList(Cooking.class, Dough.class, Mix.class));
 		if (!this.checker.verify(ingredients)) {
