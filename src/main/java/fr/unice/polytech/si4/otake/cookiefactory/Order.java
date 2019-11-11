@@ -28,6 +28,7 @@ public class Order {
 		if (this.orderContent.containsKey(cookie)) {
 			int t = this.orderContent.get(cookie);
 			this.orderContent.put(cookie, t + 1);
+			buildPriceWithoutTaxes();
 			return 1;
 		} else {
 			this.orderContent.put(cookie, 1);
@@ -45,12 +46,15 @@ public class Order {
 			int t = this.orderContent.get(cookie);
 			if (t > 1) {
 				this.orderContent.put(cookie, t - 1);
+				buildPriceWithoutTaxes();
 				return true;
 			} else {
 				this.orderContent.remove(cookie);
 			}
+			buildPriceWithoutTaxes();
 			return true;
 		} else {
+			buildPriceWithoutTaxes();
 			return false;
 		}
 	}
@@ -61,6 +65,14 @@ public class Order {
 
 	void setPriceWithTaxes(float priceWithTaxes) {
 		this.priceWithTaxes = priceWithTaxes;
+	}
+
+	public void setPriceWithoutTaxes(float priceWithoutTaxes) {
+		this.priceWithoutTaxes = priceWithoutTaxes;
+	}
+
+	public float getPriceWithoutTaxes() {
+		return priceWithoutTaxes;
 	}
 
 	/**
@@ -114,4 +126,11 @@ public class Order {
 		return this.orderContent;
 	}
 
+	public int getQuantity(){
+		int quantity=0;
+		for(Map.Entry<Cookie, Integer> e: orderContent.entrySet()){
+			quantity+=e.getValue();
+		}
+		return quantity;
+	}
 }

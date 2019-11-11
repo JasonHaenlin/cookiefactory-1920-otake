@@ -40,8 +40,11 @@ public class Shop {
 	 * @param registerCustomer
 	 */
 	public boolean addOrder(Order order, RegisteredCustomer registerCustomer) {
+		if(registerCustomer.getCookiePoints()==RegisteredCustomer.QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT){
+			order.setPriceWithoutTaxes(registerCustomer.addDiscount(order.getPriceWithoutTaxes()));
+		}
 		if(addOrder(order)){
-			registerCustomer.addCookiePoints(order.getTheOrderContent().size());
+			registerCustomer.addCookiePoints(order.getQuantity());
 			return true;
 		}
 		return false;

@@ -5,13 +5,15 @@ public class RegisteredCustomer {
 	private boolean isSubscribed;
 	private String id;
 	private int unitsBought;
-	private int discount;
+	private float discount;
 	private int unitsOfCookiesBeforeDiscount;
-	private static final int QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT = 30;
+	public static final int QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT = 30;
+	public static final float DEFAULT_DISCOUNT = (float)0.10;
 
 	public RegisteredCustomer(String id, boolean isSubscribed){
 		this.id = id;
 		this.isSubscribed = isSubscribed;
+		discount = DEFAULT_DISCOUNT;
 		unitsOfCookiesBeforeDiscount = QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT;
 	}
 
@@ -19,7 +21,7 @@ public class RegisteredCustomer {
 	 * apply discount to price of order
 	 * @param price of order with taxes
 	 */
-	public int addDiscount(int price) {
+	public float addDiscount(float price) {
 		unitsOfCookiesBeforeDiscount = QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT;
 		return price-(price*discount);
 	}
