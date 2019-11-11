@@ -70,8 +70,14 @@ public class CookieFactory {
 			soldSum += entry.getKey().getUnitsSold();
 		}
 		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
-			Float statistic = (float) ((entry.getKey().getUnitsSold() / (float) soldSum) * 100);
-			allCookies.put(entry.getKey(), statistic);
+			if (soldSum > 0) {
+				Float statistic = (float) ((entry.getKey().getUnitsSold() / (float) soldSum) * 100);
+				allCookies.put(entry.getKey(), statistic);
+			} else {
+				Float statistic = (float) 0;
+				allCookies.put(entry.getKey(), statistic);
+			}
+
 		}
 		return allCookies;
 	}
