@@ -1,5 +1,6 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.util.Calendar;
@@ -27,6 +28,7 @@ public class shopTest {
         Order order = new Order();
         order.addCookie(cookie);
         Calendar appointmentDate = Calendar.getInstance();
+        appointmentDate.clear();
         appointmentDate.set(Calendar.HOUR_OF_DAY, 20);
         // Set the appointment hour to 20h.
         order.setAppointmentDate(appointmentDate);
@@ -38,8 +40,7 @@ public class shopTest {
         order.setAppointmentDate(appointmentDate);
         testShop.addOrder(order);
         // Now the order should have been added to the shop.
-        System.out.println(testShop.getOrder());
-        // assertEquals(order, testShop.getOrder());
+        assertEquals(order, testShop.getOrder());
     }
 
 
