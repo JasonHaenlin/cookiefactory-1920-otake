@@ -15,7 +15,7 @@ public class CookieFactory {
 		this(new HashMap<Cookie, Float>());
 	}
 
-	public CookieFactory(HashMap<Cookie, Float> maps) {
+	public CookieFactory(Map<Cookie, Float> maps) {
 		this.allCookies = maps;
 	}
 
@@ -71,7 +71,7 @@ public class CookieFactory {
 		}
 		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
 			if (soldSum > 0) {
-				Float statistic = (float) ((entry.getKey().getUnitsSold() / (float) soldSum) * 100);
+				Float statistic = ((entry.getKey().getUnitsSold() / (float) soldSum) * 100);
 				allCookies.put(entry.getKey(), statistic);
 			} else {
 				Float statistic = (float) 0;

@@ -26,6 +26,14 @@ public class Cookie {
 
 	private int unitsSold;
 
+	/**
+	 * create a new Cookie with a name and the specific ingredients Need at least 1
+	 * Cooking, 1 Dough and 1 Mix. You can add from 0 to 3 Toppings with a optional
+	 * Flavour.
+	 *
+	 * @param name
+	 * @param ingredients
+	 */
 	public Cookie(String name, List<Ingredient> ingredients) {
 		if (name == null) {
 			throw new IllegalArgumentException(NAME_CAN_NOT_BE_NULL);
@@ -42,7 +50,7 @@ public class Cookie {
 		this.price = computePrice();
 	}
 
-	private double computePrice() {
+	private final double computePrice() {
 		double m = 0;
 		for (Ingredient i : ingredients) {
 			m += i.getPrice();

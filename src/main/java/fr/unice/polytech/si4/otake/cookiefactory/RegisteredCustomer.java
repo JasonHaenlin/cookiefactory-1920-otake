@@ -4,7 +4,6 @@ public class RegisteredCustomer {
 
 	private boolean isSubscribed;
 	private String id;
-	private int unitsBought;
 	private float discount;
 	private int unitsOfCookiesBeforeDiscount;
 	public static final int QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT = 30;
@@ -19,7 +18,7 @@ public class RegisteredCustomer {
 
 	/**
 	 * apply discount to price of order
-	 * 
+	 *
 	 * @param price of order with taxes
 	 */
 	public float addDiscount(float price) {
@@ -29,7 +28,7 @@ public class RegisteredCustomer {
 
 	/**
 	 * add to this adherent to fidelity program the nb of cookie he purchased
-	 * 
+	 *
 	 * @param nbCookies purchased
 	 */
 	public void addCookiePoints(int nbCookies) {
@@ -44,7 +43,7 @@ public class RegisteredCustomer {
 
 	/**
 	 * Obtain quantity of cookies bought
-	 * 
+	 *
 	 * @return MAX 30
 	 */
 	public int getCookiePoints() {

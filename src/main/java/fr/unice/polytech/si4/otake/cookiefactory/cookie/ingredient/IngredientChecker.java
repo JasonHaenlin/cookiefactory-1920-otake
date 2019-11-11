@@ -4,18 +4,30 @@ import java.util.List;
 
 import org.apache.commons.lang3.EnumUtils;
 
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Ingredient;
-
 /**
  * ListTypeChecker
  */
 public class IngredientChecker {
     private final List<Class<? extends Ingredient>> listClass;
 
+    /**
+     * create a new ingredient checker with the enum classes to check in the recipes
+     *
+     * @param listClass
+     */
     public IngredientChecker(List<Class<? extends Ingredient>> listClass) {
         this.listClass = listClass;
     }
 
+    /**
+     * check if the quantity of an ingredient in a recipe is correct
+     *
+     * @param <E>
+     * @param type an enum inherited from Ingredient
+     * @param list of ingredients to check
+     * @param max  the max number of ingredients from the specific type to check
+     * @return true if the recipe is wrong, false otherwise
+     */
     @SuppressWarnings("unchecked")
     public <E extends Enum<E>> boolean isQuantityAbused(Class<? extends Ingredient> type, List<Ingredient> list,
             int max) {
@@ -28,6 +40,12 @@ public class IngredientChecker {
         return quantity > max;
     }
 
+    /**
+     * verify a list of ingredients based on the enum classes put in the constructor
+     *
+     * @param enumList : ingredients to check
+     * @return true if it is ok, false otherwise
+     */
     public boolean verify(List<Ingredient> enumList) {
         for (Class<? extends Ingredient> c : listClass) {
             if (!isEnumTypePresent(c, enumList)) {

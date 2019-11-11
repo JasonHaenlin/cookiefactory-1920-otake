@@ -49,15 +49,15 @@ public class RegisteredCustomerStepdefs implements En {
             assertTrue(r.getCookiePoints() > 0 && r.getCookiePoints() < 30);
         });
         Then("the adherent pays full price", () -> {
-            RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
+            parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
             assertEquals(o.getPrice(), o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice());
         });
         Then("the adherent will get discount on next purchase", () -> {
             RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
-            assertEquals(r.getCookiePoints(), RegisteredCustomer.QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT);
+            assertEquals(RegisteredCustomer.QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT, r.getCookiePoints());
         });
         Then("the adherent pays with {float} percent discount on their purchase", (Float discountPercent) -> {
-            RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
+            parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
             float fullPrice = (float) (o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice());
             assertNotEquals(fullPrice, o.getPrice());
         });
