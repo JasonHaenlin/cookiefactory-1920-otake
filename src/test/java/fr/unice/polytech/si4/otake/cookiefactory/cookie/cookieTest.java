@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.IngredientNotPresentRuntimeException;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.TooMuchToppingRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.TooMuchIngredientRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Cooking;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Dough;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Flavour;
@@ -46,7 +46,7 @@ public class cookieTest {
             new Cookie("name", Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.MMS, Topping.MMS,
                     Topping.MMS, Topping.MMS, Topping.MMS));
             Assert.fail("Fail ! ");
-        } catch (TooMuchToppingRuntimeException e) {
+        } catch (TooMuchIngredientRuntimeException e) {
             assertTrue(true);
         }
     }

@@ -48,7 +48,7 @@ public class IngredientChecker {
      */
     public boolean verify(List<Ingredient> enumList) {
         for (Class<? extends Ingredient> c : listClass) {
-            if (!isEnumTypePresent(c, enumList)) {
+            if (!isEnumTypePresentOnce(c, enumList)) {
                 return false;
             }
         }
@@ -56,13 +56,14 @@ public class IngredientChecker {
     }
 
     @SuppressWarnings("unchecked")
-    private <E extends Enum<E>> boolean isEnumTypePresent(Class<? extends Ingredient> type, List<Ingredient> list) {
+    private <E extends Enum<E>> boolean isEnumTypePresentOnce(Class<? extends Ingredient> type, List<Ingredient> list) {
+        int c = 0;
         for (Ingredient i : list) {
             if (EnumUtils.isValidEnum((Class<E>) type, i.toString())) {
-                return true;
+                c++;
             }
         }
-        return false;
+        return c == 1;
     }
 
 }

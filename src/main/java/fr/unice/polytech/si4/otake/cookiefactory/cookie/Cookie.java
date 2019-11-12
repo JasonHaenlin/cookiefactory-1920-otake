@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Objects;
 
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.IngredientNotPresentRuntimeException;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.TooMuchToppingRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.TooMuchIngredientRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Cooking;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Dough;
+import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Flavour;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Ingredient;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.IngredientChecker;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Mix;
@@ -43,7 +44,10 @@ public class Cookie {
 			throw new IngredientNotPresentRuntimeException();
 		}
 		if (this.checker.isQuantityAbused(Topping.class, ingredients, Cookie.MAX_TOPPINGS)) {
-			throw new TooMuchToppingRuntimeException(Cookie.MAX_TOPPINGS);
+			throw new TooMuchIngredientRuntimeException("Topping", Cookie.MAX_TOPPINGS);
+		}
+		if (this.checker.isQuantityAbused(Flavour.class, ingredients, 1)) {
+			throw new TooMuchIngredientRuntimeException("Flavour", 1);
 		}
 		this.name = name;
 		this.ingredients = ingredients;

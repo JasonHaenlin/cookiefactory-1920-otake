@@ -36,6 +36,18 @@ public class IngredientCheckerTest {
     public void ingredientVerifyTypeTest() {
         List<Ingredient> list = new ArrayList<>();
         list.add(Cooking.CRUNCHY);
+        list.add(Flavour.CHILI);
+
+        assertFalse(checker.verify(list));
+
+        list.add(Dough.CHOCOLATE);
+
+        assertTrue(checker.verify(list));
+    }
+
+    @Test
+    public void ingredientVerifyTypeOversizeTest() {
+        List<Ingredient> list = new ArrayList<>();
         list.add(Cooking.CRUNCHY);
         list.add(Flavour.CHILI);
 
@@ -44,6 +56,27 @@ public class IngredientCheckerTest {
         list.add(Dough.CHOCOLATE);
 
         assertTrue(checker.verify(list));
+
+        list.add(Cooking.CHEWY);
+
+        assertFalse(checker.verify(list));
+    }
+
+    @Test
+    public void flavourQuantitytest() {
+        List<Ingredient> list = new ArrayList<>();
+        list.add(Cooking.CRUNCHY);
+        list.add(Dough.CHOCOLATE);
+
+        assertFalse(checker.isQuantityAbused(Flavour.class, list, 1));
+
+        list.add(Flavour.CHILI);
+
+        assertFalse(checker.isQuantityAbused(Flavour.class, list, 1));
+
+        list.add(Flavour.CHILI);
+
+        assertTrue(checker.isQuantityAbused(Flavour.class, list, 1));
     }
 
     @Test
