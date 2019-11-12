@@ -3,11 +3,13 @@ package fr.unice.polytech.si4.otake.cookiefactory;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ShopFinder {
 
-    private HashMap<String, List<Shop>> shopCache;
+    private HashMap<String, Set<Shop>> shopCache;
 
     ShopFinder() {
         shopCache = new HashMap<>();
@@ -21,7 +23,7 @@ public class ShopFinder {
     private void addKeyToMap(String key, Shop shop) {
         key = normalizeKey(key);
         if (!shopCache.containsKey(key)) {
-            shopCache.put(key, new ArrayList<>());
+            shopCache.put(key, new HashSet<>());
         }
         shopCache.get(key).add(shop);
     }
@@ -33,7 +35,7 @@ public class ShopFinder {
 
     private void removeShopFromKey(Shop shop, String key) {
         key = normalizeKey(key);
-        List<Shop> matchingKeyShop = getShopsByKey(key);
+        Set<Shop> matchingKeyShop = new HashSet<>(getShopsByKey(key));
         matchingKeyShop.remove(shop);
         shopCache.put(key, matchingKeyShop);
     }

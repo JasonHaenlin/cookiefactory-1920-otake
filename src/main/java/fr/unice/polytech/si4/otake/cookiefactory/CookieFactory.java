@@ -11,14 +11,26 @@ public class CookieFactory {
 
 	private Map<Cookie, Float> allCookies;
 
+	/**
+	 * new CookieFactory to manage the Cookies recipes
+	 */
 	public CookieFactory() {
 		this(new HashMap<Cookie, Float>());
 	}
 
+	/**
+	 * new CookieFactory to manage the Cookies recipes
+	 */
 	public CookieFactory(Map<Cookie, Float> maps) {
 		this.allCookies = maps;
 	}
 
+	/**
+	 * get a cookie by his name
+	 *
+	 * @param name
+	 * @return the cookie if it exist, null otherwise
+	 */
 	public Cookie getCookie(String name) {
 		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
 			Cookie cookie = entry.getKey();
@@ -29,6 +41,11 @@ public class CookieFactory {
 		return null;
 	}
 
+	/**
+	 * get all the cookies in the factory
+	 *
+	 * @return a list of cookies
+	 */
 	public List<Cookie> getCookies() {
 		List<Cookie> cookiesreturn = new ArrayList<>(allCookies.size());
 		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
@@ -38,30 +55,23 @@ public class CookieFactory {
 	}
 
 	/**
+	 * add a new cookie recipe in the factory
 	 *
 	 * @param recipe
+	 * @return false if the cookie already exist, true otherwise
 	 */
 	public boolean addRecipe(Cookie recipe) {
-		if (this.allCookies.containsKey(recipe)) {
-			return false;
-		} else {
-			this.allCookies.put(recipe, (float) 0.0);
-		}
-		return true;
-
+		return this.allCookies.putIfAbsent(recipe, (float) 0.0) == null;
 	}
 
 	/**
+	 * remove a cookie recipe from the factory
 	 *
 	 * @param recipe
+	 * @return true if the recipe has been removed, false otherwise
 	 */
 	public boolean removeRecipe(Cookie recipe) {
-		if (this.allCookies.containsKey(recipe)) {
-			this.allCookies.remove(recipe);
-			return true;
-		} else {
-			return false;
-		}
+		return this.allCookies.remove(recipe) != null;
 	}
 
 	public Map<Cookie, Float> getStatistic() {
@@ -77,7 +87,6 @@ public class CookieFactory {
 				Float statistic = (float) 0;
 				allCookies.put(entry.getKey(), statistic);
 			}
-
 		}
 		return allCookies;
 	}

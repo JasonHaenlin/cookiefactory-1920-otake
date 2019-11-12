@@ -26,7 +26,8 @@ public class ShopManagementStepdefs implements En {
         });
 
         Then("the price is calculated according to the shop taxes policy", () -> {
-            assertEquals(myShop.getTaxes() * order.getPrice() + order.getPrice(), myShop.applyTaxes(order));
+            assertEquals(myShop.getTaxes() * order.getPriceWithoutTaxes() + order.getPriceWithoutTaxes(),
+                    myShop.applyTaxes(order));
         });
 
         When("the store manager wants to change the store taxes to {float}", (Float newTaxes) -> {
@@ -41,8 +42,10 @@ public class ShopManagementStepdefs implements En {
 
         Then("the new taxes applies to the cookies ordering", () -> {
             assertNotEquals((float) 0.001, myShop.getTaxes());
-            assertNotEquals(0.001 * order.getPrice() + order.getPrice(), myShop.applyTaxes(order));
-            assertEquals(myShop.getTaxes() * order.getPrice() + order.getPrice(), myShop.applyTaxes(order));
+            assertNotEquals(0.001 * order.getPriceWithoutTaxes() + order.getPriceWithoutTaxes(),
+                    myShop.applyTaxes(order));
+            assertEquals(myShop.getTaxes() * order.getPriceWithoutTaxes() + order.getPriceWithoutTaxes(),
+                    myShop.applyTaxes(order));
         });
 
     }

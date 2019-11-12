@@ -28,17 +28,17 @@ public class Scheduler {
 		return closing;
 	}
 
+	void setSchedule(int opening, int closing) {
+		setClosing(closing);
+		setOpening(opening);
+	}
+
 	void setOpening(int opening) {
 		this.opening.set(Calendar.HOUR_OF_DAY, opening);
 	}
 
 	void setClosing(int closing) {
 		this.closing.set(Calendar.HOUR_OF_DAY, closing);
-	}
-
-	void setSchedule(int opening, int closing) {
-		setClosing(closing);
-		setOpening(opening);
 	}
 
 }

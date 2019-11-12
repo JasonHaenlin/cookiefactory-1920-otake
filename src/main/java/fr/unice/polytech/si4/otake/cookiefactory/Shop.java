@@ -1,6 +1,7 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class Shop {
 
@@ -40,9 +41,7 @@ public class Shop {
 	 * @param registerCustomer
 	 */
 	public boolean addOrder(Order order, RegisteredCustomer registerCustomer) {
-		if (registerCustomer.getCookiePoints() == RegisteredCustomer.QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT) {
-			order.setPriceWithoutTaxes(registerCustomer.addDiscount(order.getPriceWithoutTaxes()));
-		}
+		order.setPriceWithoutTaxes(registerCustomer.addDiscountIfEligible(order.getPriceWithoutTaxes()));
 		if (addOrder(order)) {
 			registerCustomer.addCookiePoints(order.getQuantity());
 			return true;
@@ -78,7 +77,7 @@ public class Shop {
 	 * @param order
 	 */
 	public float applyTaxes(Order order) {
-		order.setPriceWithTaxes(order.getPrice() * this.taxes + order.getPrice());
+		order.setPriceWithTaxes(order.getPriceWithoutTaxes() * this.taxes + order.getPriceWithoutTaxes());
 		return order.getPriceWithTaxes();
 	}
 
@@ -92,6 +91,26 @@ public class Shop {
 
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Shop)) {
+			return false;
+		}
+		Shop shop = (Shop) obj;
+		return this.hashCode() == shop.hashCode();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.city, this.name);
 	}
 
 }

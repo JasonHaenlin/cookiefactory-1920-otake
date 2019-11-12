@@ -50,7 +50,7 @@ public class RegisteredCustomerStepdefs implements En {
         });
         Then("the adherent pays full price", () -> {
             parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
-            assertEquals(o.getPrice(), o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice());
+            assertEquals(o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice(), o.getPriceWithoutTaxes());
         });
         Then("the adherent will get discount on next purchase", () -> {
             RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
@@ -59,7 +59,7 @@ public class RegisteredCustomerStepdefs implements En {
         Then("the adherent pays with {float} percent discount on their purchase", (Float discountPercent) -> {
             parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
             float fullPrice = (float) (o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice());
-            assertNotEquals(fullPrice, o.getPrice());
+            assertNotEquals(fullPrice, o.getPriceWithoutTaxes());
         });
         When("the registered customer choose to adhere to the fidelity program", () -> {
             parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]).setSubscribed(true);

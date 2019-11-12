@@ -66,6 +66,14 @@ public class Cookie {
 		return this.price;
 	}
 
+	public void incrementUnit(int unit) {
+		this.unitsSold += unit;
+	}
+
+	public int getUnitsSold() {
+		return this.unitsSold;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
@@ -86,14 +94,6 @@ public class Cookie {
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.ingredients);
-	}
-
-	public void incrementUnit(int unit) {
-		this.unitsSold += unit;
-	}
-
-	public int getUnitsSold() {
-		return this.unitsSold;
 	}
 
 }

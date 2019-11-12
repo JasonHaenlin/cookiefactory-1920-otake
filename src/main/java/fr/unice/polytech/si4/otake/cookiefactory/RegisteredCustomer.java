@@ -12,18 +12,23 @@ public class RegisteredCustomer {
 	public RegisteredCustomer(String id, boolean isSubscribed) {
 		this.id = id;
 		this.isSubscribed = isSubscribed;
-		discount = DEFAULT_DISCOUNT;
-		unitsOfCookiesBeforeDiscount = QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT;
+		this.discount = DEFAULT_DISCOUNT;
+		this.unitsOfCookiesBeforeDiscount = QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT;
 	}
 
 	/**
-	 * apply discount to price of order
+	 * add a discount to the price if eligible
 	 *
-	 * @param price of order with taxes
+	 * @param price
+	 * @return the new price or the old price if not eligible
 	 */
-	public float addDiscount(float price) {
-		unitsOfCookiesBeforeDiscount = QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT;
-		return price - (price * discount);
+	public float addDiscountIfEligible(float price) {
+		float d = 0;
+		if (unitsOfCookiesBeforeDiscount <= 0) {
+			d = this.discount;
+			unitsOfCookiesBeforeDiscount = QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT;
+		}
+		return price - (price * d);
 	}
 
 	/**

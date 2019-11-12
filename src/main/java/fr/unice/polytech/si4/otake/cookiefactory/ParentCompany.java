@@ -1,21 +1,32 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ParentCompany {
-	private List<RegisteredCustomer> registeredCustomers;
-	private List<Shop> shops;
-	private ShopFinder shopFinder;
+	private final Set<RegisteredCustomer> registeredCustomers;
+	private final Set<Shop> shops;
+	private final ShopFinder shopFinder;
 
+	/**
+	 * parentCompany where we can manage the registeredCustomer and the shops
+	 */
 	public ParentCompany() {
-		registeredCustomers = new ArrayList<>();
-		shops = new ArrayList<>();
-		shopFinder = new ShopFinder();
+		this.registeredCustomers = new HashSet<>();
+		this.shops = new HashSet<>();
+		this.shopFinder = new ShopFinder();
 	}
 
+	/**
+	 * add a new shop with a city and a name
+	 *
+	 * @param city
+	 * @param name
+	 */
 	public void addShop(String city, String name) {
 		Shop shop = new Shop(city, name);
 		shops.add(shop);
@@ -93,10 +104,10 @@ public class ParentCompany {
 	}
 
 	public List<RegisteredCustomer> getRegisteredCustomers() {
-		return registeredCustomers;
+		return new ArrayList<>(this.registeredCustomers);
 	}
 
 	public List<Shop> getShops() {
-		return shops;
+		return new ArrayList<>(this.shops);
 	}
 }
