@@ -1,4 +1,4 @@
-package fr.unice.polytech.si4.otake.cookiefactory;
+package fr.unice.polytech.si4.otake.cookiefactory.order;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -118,7 +118,7 @@ public class Order {
 		return priceWithTaxes;
 	}
 
-	void setPriceWithTaxes(float priceWithTaxes) {
+	public void setPriceWithTaxes(float priceWithTaxes) {
 		this.priceWithTaxes = priceWithTaxes;
 	}
 

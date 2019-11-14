@@ -3,9 +3,9 @@ package fr.unice.polytech.si4.otake;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import fr.unice.polytech.si4.otake.cookiefactory.Order;
-import fr.unice.polytech.si4.otake.cookiefactory.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
+import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import io.cucumber.java8.En;
 
 public class ShopManagementStepdefs implements En {

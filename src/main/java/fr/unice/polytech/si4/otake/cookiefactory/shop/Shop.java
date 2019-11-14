@@ -1,7 +1,10 @@
-package fr.unice.polytech.si4.otake.cookiefactory;
+package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
 import java.util.Calendar;
 import java.util.Objects;
+
+import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
+import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 
 public class Shop {
 
@@ -24,7 +27,8 @@ public class Shop {
 		this.city = city;
 		this.taxes = taxes;
 		this.name = name;
-		schedule = new Scheduler(openingTime, closingTime);
+		this.schedule = new Scheduler(openingTime, closingTime);
+
 	}
 
 	public boolean addOrder(Order order) {

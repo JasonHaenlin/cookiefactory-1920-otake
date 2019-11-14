@@ -3,7 +3,7 @@ package fr.unice.polytech.si4.otake;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import fr.unice.polytech.si4.otake.cookiefactory.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
 import io.cucumber.java8.En;

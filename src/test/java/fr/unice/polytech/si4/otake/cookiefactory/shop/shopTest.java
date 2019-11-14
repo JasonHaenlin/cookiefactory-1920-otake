@@ -1,4 +1,4 @@
-package fr.unice.polytech.si4.otake.cookiefactory;
+package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -8,10 +8,9 @@ import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.unice.polytech.si4.otake.cookiefactory.Order;
-import fr.unice.polytech.si4.otake.cookiefactory.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
+import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 
 public class shopTest {
 
@@ -42,7 +41,5 @@ public class shopTest {
         // Now the order should have been added to the shop.
         assertEquals(order, testShop.getOrder());
     }
-
-
 
 }

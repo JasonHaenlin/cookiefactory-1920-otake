@@ -7,6 +7,9 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.ShopFinder;
+
 public class ParentCompany {
 	private final Set<RegisteredCustomer> registeredCustomers;
 	private final Set<Shop> shops;

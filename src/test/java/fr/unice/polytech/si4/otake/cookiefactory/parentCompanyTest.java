@@ -7,6 +7,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
+
 public class parentCompanyTest {
 
     private ParentCompany parentCompany;

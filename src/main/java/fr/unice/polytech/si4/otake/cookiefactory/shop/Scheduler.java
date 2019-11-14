@@ -1,4 +1,4 @@
-package fr.unice.polytech.si4.otake.cookiefactory;
+package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
 import java.util.Calendar;
 

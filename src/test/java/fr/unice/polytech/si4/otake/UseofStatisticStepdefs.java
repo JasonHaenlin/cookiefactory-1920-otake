@@ -5,10 +5,10 @@ import static org.junit.Assert.assertTrue;
 import java.util.Map;
 
 import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
-import fr.unice.polytech.si4.otake.cookiefactory.Order;
-import fr.unice.polytech.si4.otake.cookiefactory.Status;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
+import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.order.Status;
 import io.cucumber.java8.En;
 
 public class UseofStatisticStepdefs implements En {
