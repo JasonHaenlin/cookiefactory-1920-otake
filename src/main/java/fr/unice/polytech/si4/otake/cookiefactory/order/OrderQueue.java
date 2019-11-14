@@ -36,6 +36,10 @@ public class OrderQueue {
         return this.archivedOrders;
     }
 
+    public List<Order> toRetrieve() {
+        return this.ordersToRetrieve;
+    }
+
     public Order next() {
         Order o = this.orders.remove();
         o.updateStatus(Status.READY);
@@ -43,9 +47,13 @@ public class OrderQueue {
         return peek();
     }
 
-    public void add(Order order) {
+    public boolean add(Order order) {
+        if (order == null) {
+            return false;
+        }
         order.updateStatus(Status.WAITING);
         this.orders.add(order);
+        return true;
     }
 
     public Order peek() {
@@ -53,6 +61,9 @@ public class OrderQueue {
     }
 
     public boolean archive(Order orderToArchive) {
+        if (orderToArchive == null) {
+            return false;
+        }
         orderToArchive.updateStatus(Status.RETRIEVED);
         if (this.orders.remove(orderToArchive) || this.ordersToRetrieve.remove(orderToArchive)) {
             this.archivedOrders.add(orderToArchive);
