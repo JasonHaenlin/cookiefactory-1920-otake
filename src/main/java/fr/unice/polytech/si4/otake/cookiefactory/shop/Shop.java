@@ -115,6 +115,10 @@ public class Shop {
 		return o.retrieved();
 	}
 
+	public Order getCurrentOrder() {
+		return this.orders.peek();
+	}
+
 	public Order getNextOrder() {
 		return this.orders.next();
 	}
