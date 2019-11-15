@@ -5,12 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoAppointmentRuntimeException;
 
 public class Order {
 
-	private static int orderId = 1;
-
-	private final int id;
+	private int id;
 	private final Map<Cookie, Integer> orderContent;
 
 	private Calendar appointmentDate;
@@ -18,12 +17,17 @@ public class Order {
 	private float priceWithTaxes;
 	private Status status;
 
+	private OrderObserver obs;
+
 	/**
 	 * create a new order when cookies can be add
 	 */
 	public Order() {
-		this.id = Order.orderId++;
 		this.orderContent = new HashMap<>();
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**
@@ -79,13 +83,20 @@ public class Order {
 	/**
 	 * Update the status of the order
 	 *
-	 * @param status : READY, RETRIEVED, IN_PROGRESS, WAITING
+	 * @param status : READY, RETRIEVED, WAITING
 	 */
 	public void updateStatus(Status status) {
 		if (status == Status.WAITING) {
 			updateCookiesSolds();
 		}
 		this.status = status;
+	}
+
+	public boolean retrieved() {
+		if (obs == null) {
+			return false;
+		}
+		return obs.retrieved(this);
 	}
 
 	boolean hasBeenRetrieved() {
@@ -135,6 +146,9 @@ public class Order {
 	}
 
 	public Calendar getAppointmentDate() {
+		if (appointmentDate == null) {
+			throw new NoAppointmentRuntimeException();
+		}
 		return appointmentDate;
 	}
 
@@ -144,5 +158,9 @@ public class Order {
 
 	public int getId() {
 		return id;
+	}
+
+	public void setObs(OrderObserver obs) {
+		this.obs = obs;
 	}
 }

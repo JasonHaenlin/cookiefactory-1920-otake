@@ -5,15 +5,20 @@ import java.util.Objects;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.order.OrderQueue;
 
 public class Shop {
 
-	private String city;
-	private float taxes;
-	private String name;
-	private Order order;
-	private Scheduler schedule;
 	private static final float DEFAULT_TAXES = (float) 0.30;
+
+	private final String city;
+	private final String name;
+	private final OrderQueue orders;
+	private final Scheduler schedule;
+
+	private int orderCount;
+
+	private float taxes;
 
 	public Shop(String city, String name) {
 		this(city, DEFAULT_TAXES, name);
@@ -28,13 +33,16 @@ public class Shop {
 		this.taxes = taxes;
 		this.name = name;
 		this.schedule = new Scheduler(openingTime, closingTime);
+		this.orders = new OrderQueue();
+		this.orderCount = 0;
 
 	}
 
 	public boolean addOrder(Order order) {
 		if (checkAppointmentDate(order.getAppointmentDate())) {
-			this.order = order;
-			return true;
+			order.setId(this.orderCount);
+			this.orderCount++;
+			return orders.add(order);
 		}
 		return false;
 	}
@@ -77,6 +85,7 @@ public class Shop {
 	}
 
 	/**
+	 * apply the taxes of a shop to an order
 	 *
 	 * @param order
 	 */
@@ -89,8 +98,25 @@ public class Shop {
 		return city;
 	}
 
-	public Order getOrder() {
-		return order;
+	public Order getOrderToRetrieve(int id) {
+		for (Order o : orders.toRetrieve()) {
+			if (o.getId() == id) {
+				return o;
+			}
+		}
+		return null;
+	}
+
+	public boolean retrieved(int id) {
+		Order o = getOrderToRetrieve(id);
+		if (o == null) {
+			return false;
+		}
+		return o.retrieved();
+	}
+
+	public Order getNextOrder() {
+		return this.orders.next();
 	}
 
 	public String getName() {

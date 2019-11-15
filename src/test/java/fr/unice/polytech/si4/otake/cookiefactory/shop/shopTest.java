@@ -1,6 +1,7 @@
 package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 import java.util.Calendar;
@@ -32,14 +33,16 @@ public class shopTest {
         // Set the appointment hour to 20h.
         order.setAppointmentDate(appointmentDate);
         testShop.addOrder(order);
+        assertFalse(order.retrieved());
         // The shop closes at 19h, so the order shouldn't have been added to the shop.
-        assertNull(testShop.getOrder());
+        assertNull(testShop.getOrderToRetrieve(0));
         appointmentDate.set(Calendar.HOUR_OF_DAY, 18);
         // Changes the appointment hour to 18h
         order.setAppointmentDate(appointmentDate);
         testShop.addOrder(order);
+        testShop.getNextOrder();
         // Now the order should have been added to the shop.
-        assertEquals(order, testShop.getOrder());
+        assertEquals(order, testShop.getOrderToRetrieve(0));
     }
 
 }

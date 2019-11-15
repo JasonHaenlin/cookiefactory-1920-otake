@@ -10,7 +10,7 @@ import java.util.Stack;
 /**
  * OrderQueue
  */
-public class OrderQueue {
+public class OrderQueue implements OrderObserver {
 
     private final Queue<Order> orders;
     private final Stack<Order> archivedOrders;
@@ -51,6 +51,7 @@ public class OrderQueue {
         if (order == null) {
             return false;
         }
+        order.setObs(this);
         order.updateStatus(Status.WAITING);
         this.orders.add(order);
         return true;
@@ -70,6 +71,11 @@ public class OrderQueue {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean retrieved(Order order) {
+        return archive(order);
     }
 
 }
