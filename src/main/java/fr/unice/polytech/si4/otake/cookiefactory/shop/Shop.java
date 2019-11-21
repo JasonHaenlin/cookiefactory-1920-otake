@@ -23,6 +23,7 @@ public class Shop {
 
 	private float taxes;
 
+<<<<<<< HEAD
 	public Shop(String city, String name, RecipeBook Fact) {
 		this(city, DEFAULT_TAXES, name,Fact);
 	}
@@ -32,6 +33,17 @@ public class Shop {
 	}
 
 	public Shop(String city, float taxes, String name, int openingTime, int closingTime, RecipeBook Fact) {
+=======
+	public Shop(String city, String name, CookieFactory Fact) {
+		this(city, DEFAULT_TAXES, name, Fact);
+	}
+
+	public Shop(String city, float taxes, String name, CookieFactory Fact) {
+		this(city, taxes, name, 8, 20, Fact);
+	}
+
+	public Shop(String city, float taxes, String name, int openingTime, int closingTime, CookieFactory Fact) {
+>>>>>>> GH-32 create basic discounts objects
 		this.city = city;
 		this.taxes = taxes;
 		this.name = name;
@@ -76,8 +88,13 @@ public class Shop {
 	 *
 	 * @param date
 	 */
+<<<<<<< HEAD
 	public boolean checkAppointmentDate(SimpleDate date) {
 		return date.getHour() > schedule.getOpeningHour() && date.getHour() < schedule.getClosingHour();
+=======
+	private boolean checkAppointmentDate(Calendar date) {
+		return date.after(schedule.getOpening()) && date.before(schedule.getClosing());
+>>>>>>> GH-32 create basic discounts objects
 	}
 
 	public float getTaxes() {

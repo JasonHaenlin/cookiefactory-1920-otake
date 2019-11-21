@@ -36,7 +36,7 @@ public class Cookie {
 	 * @param name
 	 * @param ingredients
 	 */
-	public Cookie(String name, List<Ingredient> ingredients,Boolean isCustom) {
+	public Cookie(String name, List<Ingredient> ingredients, Boolean isCustom) {
 		if (name == null) {
 			throw new IllegalArgumentException(NAME_CAN_NOT_BE_NULL);
 		}
@@ -62,7 +62,7 @@ public class Cookie {
 			m += i.getPrice();
 		}
 		if (this.isCustom) {
-			m = m*1.20;
+			m = m * 1.20;
 		}
 		return m;
 	}
@@ -83,7 +83,7 @@ public class Cookie {
 		return this.unitsSold;
 	}
 
-	public Boolean isCustom(){
+	public Boolean isCustom() {
 		return this.isCustom;
 	}
 

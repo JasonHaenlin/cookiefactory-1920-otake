@@ -17,6 +17,8 @@ public class Order {
 	private float priceWithTaxes;
 	private Status status;
 
+	private String code;
+
 	private OrderObserver obs;
 
 	/**
@@ -78,6 +80,20 @@ public class Order {
 			entry.getKey().incrementUnit(entry.getValue());
 		}
 
+	}
+
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
 	}
 
 	/**

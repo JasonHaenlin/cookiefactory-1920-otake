@@ -53,8 +53,7 @@ public class OrderQueue implements OrderObserver {
         }
         order.setObs(this);
         order.updateStatus(Status.WAITING);
-        this.orders.add(order);
-        return true;
+        return this.orders.add(order);
     }
 
     public Order peek() {
