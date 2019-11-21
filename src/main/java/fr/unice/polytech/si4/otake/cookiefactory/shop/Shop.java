@@ -3,6 +3,7 @@ package fr.unice.polytech.si4.otake.cookiefactory.shop;
 import java.util.Calendar;
 import java.util.Objects;
 
+import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderQueue;
@@ -15,26 +16,28 @@ public class Shop {
 	private final String name;
 	private final OrderQueue orders;
 	private final Scheduler schedule;
+	private final CookieFactory factory;
 
 	private int orderCount;
 
 	private float taxes;
 
-	public Shop(String city, String name) {
-		this(city, DEFAULT_TAXES, name);
+	public Shop(String city, String name,CookieFactory Fact) {
+		this(city, DEFAULT_TAXES, name,Fact);
 	}
 
-	public Shop(String city, float taxes, String name) {
-		this(city, taxes, name, 8, 20);
+	public Shop(String city, float taxes, String name,CookieFactory Fact) {
+		this(city, taxes, name, 8, 20,Fact);
 	}
 
-	public Shop(String city, float taxes, String name, int openingTime, int closingTime) {
+	public Shop(String city, float taxes, String name, int openingTime, int closingTime,CookieFactory Fact) {
 		this.city = city;
 		this.taxes = taxes;
 		this.name = name;
 		this.schedule = new Scheduler(openingTime, closingTime);
 		this.orders = new OrderQueue();
 		this.orderCount = 0;
+		this.factory = Fact;
 
 	}
 

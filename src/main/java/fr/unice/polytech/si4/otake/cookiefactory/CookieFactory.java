@@ -49,7 +49,9 @@ public class CookieFactory {
 	public List<Cookie> getCookies() {
 		List<Cookie> cookiesreturn = new ArrayList<>(allCookies.size());
 		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
-			cookiesreturn.add(entry.getKey());
+			if (!entry.getKey().isCustom()) {
+				cookiesreturn.add(entry.getKey());
+			}
 		}
 		return cookiesreturn;
 	}

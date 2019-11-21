@@ -14,6 +14,7 @@ public class ParentCompany {
 	private final Set<RegisteredCustomer> registeredCustomers;
 	private final Set<Shop> shops;
 	private final ShopFinder shopFinder;
+	private final CookieFactory factory;
 
 	/**
 	 * parentCompany where we can manage the registeredCustomer and the shops
@@ -22,6 +23,7 @@ public class ParentCompany {
 		this.registeredCustomers = new HashSet<>();
 		this.shops = new HashSet<>();
 		this.shopFinder = new ShopFinder();
+		this.factory = new CookieFactory();
 	}
 
 	/**
@@ -31,7 +33,7 @@ public class ParentCompany {
 	 * @param name
 	 */
 	public void addShop(String city, String name) {
-		Shop shop = new Shop(city, name);
+		Shop shop = new Shop(city, name,factory);
 		shops.add(shop);
 		shopFinder.addShop(shop);
 	}

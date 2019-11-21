@@ -13,20 +13,19 @@ public enum Recipe {
     CHOCOCOLALALA("Chococolalala") {
         @Override
         public Cookie create() {
-            return new Cookie("Chococolalala", Arrays.asList(Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE,Flavour.VANILLA)
-                     );
+            return new Cookie("Chococolalala", Arrays.asList(Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE,Topping.WHITECHOCOLATE,Flavour.VANILLA),Boolean.FALSE);
         }
     },
     DARKTEMPTATION("Dark Temptation") {
 		@Override
 		public Cookie create() {
-            return new Cookie("Dark Temptation",Arrays.asList(Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE,Flavour.CINNAMON));
+            return new Cookie("Dark Temptation",Arrays.asList(Cooking.CRUNCHY, Dough.CHOCOLATE, Mix.MIXED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE,Flavour.CINNAMON),Boolean.FALSE);
         }
     },
     SOOCHOCOLATE("Soooo Chocolate") {
 		@Override
 		public Cookie create() {
-            return new Cookie("Soooo Chocolate", Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE));
+            return new Cookie("Soooo Chocolate", Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED,Topping.MILKCHOCOLATE,Topping.MILKCHOCOLATE,Topping.WHITECHOCOLATE),Boolean.FALSE);
 		}
     };
 

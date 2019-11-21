@@ -24,6 +24,7 @@ public class Cookie {
 	private final double price;
 	private final List<Ingredient> ingredients;
 	private final IngredientChecker checker;
+	private final Boolean isCustom;
 
 	private int unitsSold;
 
@@ -35,7 +36,7 @@ public class Cookie {
 	 * @param name
 	 * @param ingredients
 	 */
-	public Cookie(String name, List<Ingredient> ingredients) {
+	public Cookie(String name, List<Ingredient> ingredients,Boolean isCustom) {
 		if (name == null) {
 			throw new IllegalArgumentException(NAME_CAN_NOT_BE_NULL);
 		}
@@ -50,6 +51,7 @@ public class Cookie {
 			throw new TooMuchIngredientRuntimeException("Flavour", 1);
 		}
 		this.name = name;
+		this.isCustom = isCustom;
 		this.ingredients = ingredients;
 		this.price = computePrice();
 	}
@@ -58,6 +60,9 @@ public class Cookie {
 		double m = 0;
 		for (Ingredient i : ingredients) {
 			m += i.getPrice();
+		}
+		if (this.isCustom) {
+			m = m*1.20;
 		}
 		return m;
 	}
@@ -76,6 +81,10 @@ public class Cookie {
 
 	public int getUnitsSold() {
 		return this.unitsSold;
+	}
+
+	public Boolean isCustom(){
+		return this.isCustom;
 	}
 
 	@Override

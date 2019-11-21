@@ -12,6 +12,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 public class parentCompanyTest {
 
     private ParentCompany parentCompany;
+    private CookieFactory factory;
 
     @Before
     public void parentCompanyCreation() {
@@ -20,10 +21,10 @@ public class parentCompanyTest {
 
     @Test
     public void getShopsByTermTest() {
-        Shop shop1 = new Shop("Antibes", "Les bons cookies");
-        Shop shop2 = new Shop("Antibes", "Cookie Miam");
-        Shop shop3 = new Shop("Avignon", "J'aime les cookies");
-        Shop shop4 = new Shop("Avignon", "Cookie Miam");
+        Shop shop1 = new Shop("Antibes", "Les bons cookies",factory);
+        Shop shop2 = new Shop("Antibes", "Cookie Miam",factory);
+        Shop shop3 = new Shop("Avignon", "J'aime les cookies",factory);
+        Shop shop4 = new Shop("Avignon", "Cookie Miam",factory);
         parentCompany.addShop(shop1);
         parentCompany.addShop(shop2);
         parentCompany.addShop(shop3);

@@ -27,13 +27,13 @@ public class cookieTest {
     @Before
     public void cookieCreation() {
         this.cookie = new Cookie("name",
-                Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP));
+                Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP), false);
     }
 
     @Test
     public void noToppingTest() {
         try {
-            new Cookie("name", Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED));
+            new Cookie("name", Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED), false);
             assertTrue(true);
         } catch (Exception e) {
             Assert.fail("Fail ! ");
@@ -44,7 +44,7 @@ public class cookieTest {
     public void toMuchToppingTest() {
         try {
             new Cookie("name", Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.MMS, Topping.MMS,
-                    Topping.MMS, Topping.MMS, Topping.MMS));
+                    Topping.MMS, Topping.MMS, Topping.MMS), false);
             Assert.fail("Fail ! ");
         } catch (TooMuchIngredientRuntimeException e) {
             assertTrue(true);
@@ -54,7 +54,7 @@ public class cookieTest {
     @Test
     public void cookieFailTest() {
         try {
-            new Cookie(null, null);
+            new Cookie(null, null, false);
             Assert.fail("Fail ! ");
         } catch (IllegalArgumentException e) {
             assertTrue(true);
@@ -64,7 +64,7 @@ public class cookieTest {
     @Test
     public void cookieBadCreationTest() {
         try {
-            new Cookie("name", Arrays.asList(Cooking.CHEWY));
+            new Cookie("name", Arrays.asList(Cooking.CHEWY), false);
             Assert.fail("Fail ! ");
         } catch (IngredientNotPresentRuntimeException e) {
             assertTrue(true);
@@ -73,8 +73,8 @@ public class cookieTest {
 
     @Test
     public void equalsCookiesTest() {
-        assertTrue(this.cookie.equals(
-                new Cookie("name", Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP))));
+        assertTrue(this.cookie.equals(new Cookie("name",
+                Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP), false)));
         assertFalse(this.cookie.equals(null));
         assertTrue(this.cookie.equals(this.cookie));
     }
@@ -82,10 +82,14 @@ public class cookieTest {
     @Test
     public void cookiePriceTest() {
         Cookie cuteLittleCookie = new Cookie("coocute",
-                Arrays.asList(Cooking.CHEWY, Dough.PEANUTBUTTER, Mix.MIXED, Topping.WHITECHOCOLATE));
+                Arrays.asList(Cooking.CHEWY, Dough.PEANUTBUTTER, Mix.MIXED, Topping.WHITECHOCOLATE), false);
         assertEquals(2.3, cuteLittleCookie.getPrice());
+        Cookie customCuteLittleCookie = new Cookie("coocute",
+        Arrays.asList(Cooking.CHEWY, Dough.PEANUTBUTTER, Mix.MIXED, Topping.WHITECHOCOLATE), true);
+assertEquals(2.76, customCuteLittleCookie.getPrice());
         cuteLittleCookie = new Cookie("coocute",
-                Arrays.asList(Cooking.CHEWY, Dough.PEANUTBUTTER, Mix.MIXED, Topping.WHITECHOCOLATE, Flavour.CHILI));
+                Arrays.asList(Cooking.CHEWY, Dough.PEANUTBUTTER, Mix.MIXED, Topping.WHITECHOCOLATE, Flavour.CHILI),
+                false);
         assertEquals(3.3, cuteLittleCookie.getPrice());
     }
 }

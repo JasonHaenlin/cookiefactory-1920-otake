@@ -9,6 +9,7 @@ import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
@@ -16,10 +17,12 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 public class shopTest {
 
     Shop testShop;
+    CookieFactory factory;
 
     @Before
     public void shopCreation() {
-        testShop = new Shop("Antibes", 5, "Antibes-Cookie", 8, 19);
+        factory = new CookieFactory();
+        testShop = new Shop("Antibes", 5, "Antibes-Cookie", 8, 19,factory);
     }
 
     @Test

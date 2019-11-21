@@ -9,9 +9,9 @@ import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
-import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 
 public class orderTest {
@@ -19,11 +19,13 @@ public class orderTest {
     Order order;
     Shop shop;
     Calendar cal;
+    CookieFactory factory;
 
     @Before
     public void orderCreation() {
         order = new Order();
-        shop = new Shop("Biot", "time");
+        factory = new CookieFactory();
+        shop = new Shop("Biot", "time",factory);
         cal = Calendar.getInstance();
         cal.clear();
         cal.set(Calendar.HOUR_OF_DAY, 13);

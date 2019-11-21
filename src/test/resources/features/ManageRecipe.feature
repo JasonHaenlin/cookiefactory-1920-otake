@@ -1,4 +1,4 @@
-Feature: Manage Recipe
+Feature: Manage Basic Recipe and Custom Recipe
 
 Background:
     Given a Cookie Factory with some recipes

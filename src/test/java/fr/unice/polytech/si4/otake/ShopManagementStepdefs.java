@@ -3,6 +3,7 @@ package fr.unice.polytech.si4.otake;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
@@ -11,12 +12,13 @@ import io.cucumber.java8.En;
 public class ShopManagementStepdefs implements En {
 
     Shop myShop;
+    CookieFactory factory;
     Order order;
 
     public ShopManagementStepdefs() {
 
         Given("the shop {string} of {string} has taxes of {float}", (String name, String city, Float taxes) -> {
-            myShop = new Shop("Nice", taxes, "Nice granny cookie");
+            myShop = new Shop("Nice", taxes, "Nice granny cookie",factory);
         });
 
         When("a customer makes an order of {int} of his favourite cookie", (Integer nbOfFavCookie) -> {
