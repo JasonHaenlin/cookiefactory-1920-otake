@@ -4,13 +4,11 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.Calendar;
-
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
@@ -20,12 +18,12 @@ public class orderTest {
     Order order;
     Shop shop;
     SimpleDate date;
-    CookieFactory factory;
+    RecipeBook factory;
 
     @Before
     public void orderCreation() {
         order = new Order();
-        factory = new CookieFactory();
+        factory = new RecipeBook();
         shop = new Shop("Biot", "time",factory);
         date = new SimpleDate("00-00-00 13:00");
     }

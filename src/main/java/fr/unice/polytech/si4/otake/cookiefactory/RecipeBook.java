@@ -7,21 +7,21 @@ import java.util.Map;
 
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 
-public class CookieFactory {
+public class RecipeBook {
 
 	private Map<Cookie, Float> allCookies;
 
 	/**
-	 * new CookieFactory to manage the Cookies recipes
+	 * new RecipeBook to manage the Cookies recipes
 	 */
-	public CookieFactory() {
+	public RecipeBook() {
 		this(new HashMap<Cookie, Float>());
 	}
 
 	/**
-	 * new CookieFactory to manage the Cookies recipes
+	 * new RecipeBook to manage the Cookies recipes
 	 */
-	public CookieFactory(Map<Cookie, Float> maps) {
+	public RecipeBook(Map<Cookie, Float> maps) {
 		this.allCookies = maps;
 	}
 
@@ -42,7 +42,7 @@ public class CookieFactory {
 	}
 
 	/**
-	 * get all the cookies in the factory
+	 * get all the cookies in the book
 	 *
 	 * @return a list of cookies
 	 */
@@ -57,7 +57,7 @@ public class CookieFactory {
 	}
 
 	/**
-	 * add a new cookie recipe in the factory
+	 * add a new cookie recipe in the book
 	 *
 	 * @param recipe
 	 * @return false if the cookie already exist, true otherwise
@@ -67,7 +67,7 @@ public class CookieFactory {
 	}
 
 	/**
-	 * remove a cookie recipe from the factory
+	 * remove a cookie recipe from the book
 	 *
 	 * @param recipe
 	 * @return true if the recipe has been removed, false otherwise

@@ -4,12 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
-import java.util.Calendar;
-
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
@@ -17,11 +15,11 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 public class shopTest {
 
     Shop testShop;
-    CookieFactory factory;
+    RecipeBook factory;
 
     @Before
     public void shopCreation() {
-        factory = new CookieFactory();
+        factory = new RecipeBook();
         testShop = new Shop("Antibes", 5, "Antibes-Cookie", 8, 19,factory);
     }
 

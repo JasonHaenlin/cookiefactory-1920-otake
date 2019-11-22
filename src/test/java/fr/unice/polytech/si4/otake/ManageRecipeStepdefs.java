@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.Arrays;
 
-import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Cooking;
@@ -21,7 +21,7 @@ public class ManageRecipeStepdefs implements En {
     Cookie cookieobj2;
     Cookie cookieobj3;
     Cookie customCookie;
-    CookieFactory factory;
+    RecipeBook factory;
 
     public ManageRecipeStepdefs() {
 
@@ -31,7 +31,7 @@ public class ManageRecipeStepdefs implements En {
             cookieobj3 = Recipe.CHOCOCOLALALA.create();
             customCookie = new Cookie("custom",
                     Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP), true);
-            factory = new CookieFactory();
+            factory = new RecipeBook();
             factory.addRecipe(cookieobj);
             assertFalse(factory.addRecipe(cookieobj));
             factory.addRecipe(cookieobj2);

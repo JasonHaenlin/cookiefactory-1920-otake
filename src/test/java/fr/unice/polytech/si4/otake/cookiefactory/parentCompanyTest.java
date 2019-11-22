@@ -12,7 +12,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 public class parentCompanyTest {
 
     private ParentCompany parentCompany;
-    private CookieFactory factory;
+    private RecipeBook factory;
 
     @Before
     public void parentCompanyCreation() {

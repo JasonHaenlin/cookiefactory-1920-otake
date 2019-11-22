@@ -18,7 +18,7 @@ public class cookiefactoryTest {
     Cookie cookieobj2;
     Cookie cookieobj3;
     Cookie result;
-    CookieFactory factory;
+    RecipeBook factory;
     Order order;
     Order order2;
     Order order3;
@@ -29,7 +29,7 @@ public class cookiefactoryTest {
         cookieobj = Recipe.SOOCHOCOLATE.create();
         cookieobj2 = Recipe.DARKTEMPTATION.create();
         cookieobj3 = Recipe.CHOCOCOLALALA.create();
-        factory = new CookieFactory();
+        factory = new RecipeBook();
         order = new Order();
         order2 = new Order();
         order3 = new Order();

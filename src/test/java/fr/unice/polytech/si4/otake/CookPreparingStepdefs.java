@@ -3,9 +3,7 @@ package fr.unice.polytech.si4.otake;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Calendar;
-
-import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Status;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
@@ -16,7 +14,7 @@ import io.cucumber.java8.En;
  * CookPreparingStepdefs
  */
 public class CookPreparingStepdefs implements En {
-    CookieFactory factory;
+    RecipeBook factory;
     Shop shop;
     Order o;
     Order o1;
