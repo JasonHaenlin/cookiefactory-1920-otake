@@ -32,10 +32,15 @@ public class DiscountQueue {
     }
 
     void applyDiscounts(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
+        double reductions = 0;
+        double nr;
         for (Discount discount : discounts) {
-            if (discount.applyIfEligible(order, registeredCustomer, shop) && discount.exclusive) {
+            nr = discount.applyIfEligible(order, registeredCustomer, shop);
+            reductions += nr;
+            if (nr != (float) 0.0 && discount.exclusive) {
                 break;
             }
         }
+        order.applyDiscount((float) reductions);
     }
 }

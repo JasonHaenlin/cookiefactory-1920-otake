@@ -12,21 +12,23 @@ import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 public class Discount implements Comparable<Discount> {
     private final DiscountBehaviour discBeh;
     private final DiscountTrigger discTrig;
-    private final float reduction;
+    private final double reduction;
     public final boolean exclusive;
 
-    Discount(boolean exclusive, float reduction, DiscountTrigger discTrig, DiscountBehaviour discBeh) {
+    Discount(boolean exclusive, double reduction, DiscountTrigger discTrig, DiscountBehaviour discBeh) {
         this.discBeh = discBeh;
         this.discTrig = discTrig;
         this.exclusive = exclusive;
         this.reduction = reduction;
     }
 
-    boolean applyIfEligible(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
+    double applyIfEligible(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
         if (this.discTrig.check(order, registeredCustomer, shop)) {
-            return this.discBeh.apply(order, registeredCustomer, shop, reduction);
+            if (this.discBeh.apply(order, registeredCustomer, shop)) {
+                return this.reduction;
+            }
         }
-        return false;
+        return 0;
     }
 
     @Override
@@ -78,9 +80,7 @@ public class Discount implements Comparable<Discount> {
         public static DiscountBehaviour basic() {
             return new DiscountBehaviour() {
                 @Override
-                public boolean apply(Order order, RegisteredCustomer registeredCustomer, Shop shop, float reduction) {
-                    float price = order.getPriceWithTaxes();
-                    order.setPriceWithTaxes((float) (price - (price * reduction)));
+                public boolean apply(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
                     return true;
                 }
             };
@@ -90,7 +90,7 @@ public class Discount implements Comparable<Discount> {
         public static DiscountBehaviour products(int min) {
             return new DiscountBehaviour() {
                 @Override
-                public boolean apply(Order order, RegisteredCustomer registeredCustomer, Shop shop, float reduction) {
+                public boolean apply(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
                     return order.getQuantity() >= min;
                 }
             };

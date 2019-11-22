@@ -168,6 +168,10 @@ public class Order {
 		return appointmentDate;
 	}
 
+	public void applyDiscount(float reduction) {
+		this.priceWithTaxes = (this.priceWithTaxes - (this.priceWithTaxes * reduction));
+	}
+
 	public Status getStatus() {
 		return status;
 	}
