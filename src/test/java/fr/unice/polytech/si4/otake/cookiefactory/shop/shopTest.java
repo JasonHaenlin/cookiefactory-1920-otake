@@ -48,4 +48,49 @@ public class shopTest {
         assertEquals(order, testShop.getOrderToRetrieve(0));
     }
 
+    @Test
+    public void getAffluenceTest(){
+        Cookie cookie = Recipe.CHOCOCOLALALA.create();
+
+        Order order1 = new Order();
+        order1.addCookie(cookie);
+        Calendar appointmentDate1 = Calendar.getInstance();
+        appointmentDate1.clear();
+        appointmentDate1.set(Calendar.HOUR_OF_DAY, 15);
+        order1.setAppointmentDate(appointmentDate1);
+
+        Order order2 = new Order();
+        order2.addCookie(cookie);
+        Calendar appointmentDate2 = Calendar.getInstance();
+        appointmentDate2.clear();
+        appointmentDate2.set(Calendar.HOUR_OF_DAY, 15);
+        order2.setAppointmentDate(appointmentDate2);
+
+        Order order3 = new Order();
+        order3.addCookie(cookie);
+        Calendar appointmentDate3 = Calendar.getInstance();
+        appointmentDate3.clear();
+        appointmentDate3.set(Calendar.HOUR_OF_DAY, 17);
+        order3.setAppointmentDate(appointmentDate3);
+
+        testShop.addOrder(order1);
+        testShop.addOrder(order2);
+        testShop.addOrder(order3);
+
+        testShop.getNextOrder();
+        testShop.getNextOrder();
+        testShop.getNextOrder();
+
+        testShop.retrieved(order1.getId());
+        testShop.retrieved(order3.getId());
+
+        assertEquals(1, testShop.getAffluence().get(15).intValue());
+        assertEquals(1, testShop.getAffluence().get(17).intValue());
+
+        testShop.retrieved(order2.getId());
+
+        assertEquals(2, testShop.getAffluence().get(15).intValue());
+        assertEquals(0, testShop.getAffluence().get(14).intValue());
+    }
+
 }

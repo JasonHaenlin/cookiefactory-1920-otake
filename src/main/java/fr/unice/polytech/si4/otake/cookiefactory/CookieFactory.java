@@ -92,5 +92,4 @@ public class CookieFactory {
 		}
 		return allCookies;
 	}
-
 }

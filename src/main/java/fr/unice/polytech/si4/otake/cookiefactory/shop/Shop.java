@@ -1,7 +1,6 @@
 package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
-import java.util.Calendar;
-import java.util.Objects;
+import java.util.*;
 
 import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
@@ -17,6 +16,8 @@ public class Shop {
 	private final OrderQueue orders;
 	private final Scheduler schedule;
 	private final CookieFactory factory;
+
+	private Map<Integer, Float> affluencePercentagePerHour = new HashMap<>();
 
 	private int orderCount;
 
@@ -95,6 +96,22 @@ public class Shop {
 	public float applyTaxes(Order order) {
 		order.setPriceWithTaxes(order.getPriceWithoutTaxes() * this.taxes + order.getPriceWithoutTaxes());
 		return order.getPriceWithTaxes();
+	}
+
+	public Map<Integer, Integer> getAffluence(){
+		Stack<Order> retrievedOrders = this.orders.getArchive();
+		Map<Integer, Integer> affluenceMap = new HashMap<>();
+		// Init map with 0 orders for each hours.
+		for(int i = 0; i <= 23; i++){
+			affluenceMap.putIfAbsent(i, 0);
+		}
+
+		for(Order o : retrievedOrders){
+			int hour = o.getAppointmentDate().get(Calendar.HOUR_OF_DAY);
+			affluenceMap.put(hour, affluenceMap.get(hour)+1);
+		}
+
+		return affluenceMap;
 	}
 
 	public String getLocation() {
