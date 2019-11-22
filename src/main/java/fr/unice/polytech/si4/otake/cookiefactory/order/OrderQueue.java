@@ -17,15 +17,11 @@ public class OrderQueue implements OrderObserver {
     private final List<Order> ordersToRetrieve;
 
     public OrderQueue() {
-        this.orders = new PriorityQueue<>(10, new Comparator<Order>() {
-            @Override
-            public int compare(Order o1, Order o2) {
-                return o1.getAppointmentDate().compareTo(o2.getAppointmentDate());
-            }
-
-        });
+        this.orders = new PriorityQueue<>(10,
+                (Order o1, Order o2) -> o1.getAppointmentDate().compareTo(o2.getAppointmentDate()));
         this.archivedOrders = new Stack<>();
         this.ordersToRetrieve = new ArrayList<>();
+
     }
 
     public int size() {

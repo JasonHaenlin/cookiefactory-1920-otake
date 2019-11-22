@@ -16,12 +16,7 @@ public class DiscountQueue {
     private final Queue<Discount> discounts;
 
     DiscountQueue() {
-        this.discounts = new PriorityQueue<>(10, new Comparator<Discount>() {
-            @Override
-            public int compare(Discount d1, Discount d2) {
-                return d1.compareTo(d2);
-            }
-        });
+        this.discounts = new PriorityQueue<>(10, (Discount d1, Discount d2) -> d1.compareTo(d2));
     }
 
     boolean add(Discount discount) {

@@ -1,8 +1,10 @@
 package fr.unice.polytech.si4.otake.cookiefactory.discount;
 
 import java.util.Calendar;
+import java.util.Map;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
+import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 
@@ -12,8 +14,8 @@ import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 public class Discount implements Comparable<Discount> {
     private final DiscountBehaviour discBeh;
     private final DiscountTrigger discTrig;
-    private final double reduction;
     public final boolean exclusive;
+    private double reduction;
 
     Discount(boolean exclusive, double reduction, DiscountTrigger discTrig, DiscountBehaviour discBeh) {
         this.discBeh = discBeh;
@@ -23,12 +25,19 @@ public class Discount implements Comparable<Discount> {
     }
 
     double applyIfEligible(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
-        if (this.discTrig.check(order, registeredCustomer, shop)) {
-            if (this.discBeh.apply(order, registeredCustomer, shop)) {
-                return this.reduction;
-            }
+        if (this.discTrig.check(order, registeredCustomer, shop)
+                && this.discBeh.apply(order, registeredCustomer, shop)) {
+            return this.reduction;
         }
         return 0;
+
+    }
+
+    /**
+     * @param reduction the reduction to set
+     */
+    public void setReduction(double reduction) {
+        this.reduction = reduction;
     }
 
     @Override
@@ -44,55 +53,49 @@ public class Discount implements Comparable<Discount> {
     }
 
     public static class Trigger {
+
+        private Trigger() {
+        }
+
         public static DiscountTrigger code(String code) {
-            return new DiscountTrigger() {
-                @Override
-                public boolean check(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
-                    return order.getCode().equals(code);
-                }
-            };
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> order.getCode().equals(code);
+
         }
 
         public static DiscountTrigger hour() {
-            return new DiscountTrigger() {
-                @Override
-                public boolean check(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
-                    int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                    int closingTime = shop.getSchedule().getClosing().get(Calendar.HOUR_OF_DAY);
-                    return closingTime - currentTime <= 1;
-                }
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
+                int currentTime = order.getAppointmentDate().get(Calendar.HOUR_OF_DAY);
+                int closingTime = shop.getSchedule().getClosing().get(Calendar.HOUR_OF_DAY);
+                return closingTime - currentTime <= 1;
             };
         }
 
         public static DiscountTrigger seniority() {
-            return new DiscountTrigger() {
-                @Override
-                public boolean check(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
-                    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-                    int year = registeredCustomer.getRegistrationDate().get(Calendar.YEAR);
-                    return currentYear - year >= 1;
-                }
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
+                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                int year = registeredCustomer.getRegistrationDate().get(Calendar.YEAR);
+                return currentYear - year >= 1;
             };
         }
     }
 
     public static class Behaviour {
-        public static DiscountBehaviour basic() {
-            return new DiscountBehaviour() {
-                @Override
-                public boolean apply(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
-                    return true;
-                }
-            };
 
+        private Behaviour() {
+        }
+
+        public static DiscountBehaviour basic() {
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> true;
         }
 
         public static DiscountBehaviour products(int min) {
-            return new DiscountBehaviour() {
-                @Override
-                public boolean apply(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
-                    return order.getQuantity() >= min;
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
+                for (Map.Entry<Cookie, Integer> c : order.getTheOrderContent().entrySet()) {
+                    if (c.getValue() >= min) {
+                        return true;
+                    }
                 }
+                return false;
             };
 
         }
