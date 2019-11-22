@@ -1,11 +1,11 @@
 package fr.unice.polytech.si4.otake.cookiefactory.order;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Stack;
 
 /**
  * OrderQueue
@@ -13,13 +13,13 @@ import java.util.Stack;
 public class OrderQueue implements OrderObserver {
 
     private final Queue<Order> orders;
-    private final Stack<Order> archivedOrders;
+    private final Deque<Order> archivedOrders;
     private final List<Order> ordersToRetrieve;
 
     public OrderQueue() {
         this.orders = new PriorityQueue<>(10,
                 (Order o1, Order o2) -> o1.getAppointmentDate().compareTo(o2.getAppointmentDate()));
-        this.archivedOrders = new Stack<>();
+        this.archivedOrders = new LinkedList<>();
         this.ordersToRetrieve = new ArrayList<>();
 
     }
@@ -28,7 +28,7 @@ public class OrderQueue implements OrderObserver {
         return this.orders.size();
     }
 
-    public Stack<Order> getArchive() {
+    public Deque<Order> getArchive() {
         return this.archivedOrders;
     }
 

@@ -2,12 +2,8 @@ package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Calendar;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import fr.unice.polytech.si4.otake.cookiefactory.shop.Scheduler;
 
 public class schedulerTest {
 

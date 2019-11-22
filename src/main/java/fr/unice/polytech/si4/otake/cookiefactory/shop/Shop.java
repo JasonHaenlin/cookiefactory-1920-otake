@@ -17,40 +17,26 @@ public class Shop {
 	private final Scheduler schedule;
 	private final RecipeBook recipeBook;
 
-	private Map<Integer, Float> affluencePercentagePerHour = new HashMap<>();
-
 	private int orderCount;
 
 	private float taxes;
 
-<<<<<<< HEAD
-	public Shop(String city, String name, RecipeBook Fact) {
-		this(city, DEFAULT_TAXES, name,Fact);
+	public Shop(String city, String name, RecipeBook recipeBook) {
+		this(city, DEFAULT_TAXES, name, recipeBook);
 	}
 
-	public Shop(String city, float taxes, String name, RecipeBook Fact) {
-		this(city, taxes, name, 8, 20,Fact);
+	public Shop(String city, float taxes, String name, RecipeBook recipeBook) {
+		this(city, taxes, name, 8, 20, recipeBook);
 	}
 
-	public Shop(String city, float taxes, String name, int openingTime, int closingTime, RecipeBook Fact) {
-=======
-	public Shop(String city, String name, CookieFactory Fact) {
-		this(city, DEFAULT_TAXES, name, Fact);
-	}
-
-	public Shop(String city, float taxes, String name, CookieFactory Fact) {
-		this(city, taxes, name, 8, 20, Fact);
-	}
-
-	public Shop(String city, float taxes, String name, int openingTime, int closingTime, CookieFactory Fact) {
->>>>>>> GH-32 create basic discounts objects
+	public Shop(String city, float taxes, String name, int openingTime, int closingTime, RecipeBook recipeBook) {
 		this.city = city;
 		this.taxes = taxes;
 		this.name = name;
 		this.schedule = new Scheduler(openingTime, closingTime);
 		this.orders = new OrderQueue();
 		this.orderCount = 0;
-		this.recipeBook = Fact;
+		this.recipeBook = recipeBook;
 
 	}
 
@@ -88,13 +74,8 @@ public class Shop {
 	 *
 	 * @param date
 	 */
-<<<<<<< HEAD
 	public boolean checkAppointmentDate(SimpleDate date) {
 		return date.getHour() > schedule.getOpeningHour() && date.getHour() < schedule.getClosingHour();
-=======
-	private boolean checkAppointmentDate(Calendar date) {
-		return date.after(schedule.getOpening()) && date.before(schedule.getClosing());
->>>>>>> GH-32 create basic discounts objects
 	}
 
 	public float getTaxes() {
@@ -115,17 +96,17 @@ public class Shop {
 		return order.getPriceWithTaxes();
 	}
 
-	public Map<Integer, Integer> getAffluence(){
-		Stack<Order> retrievedOrders = this.orders.getArchive();
-		Map<Integer, Integer> affluenceMap = new HashMap<>();
+	public Map<Integer, Integer> getAffluence() {
+		Queue<Order> retrievedOrders = this.orders.getArchive();
+		Map<Integer, Integer> affluenceMap = new HashMap<>(24);
 		// Init map with 0 orders for each hours.
-		for(int i = 0; i <= 23; i++){
+		for (int i = 0; i <= 23; i++) {
 			affluenceMap.putIfAbsent(i, 0);
 		}
 
-		for(Order o : retrievedOrders){
+		for (Order o : retrievedOrders) {
 			int hour = o.getAppointmentDate().getHour();
-			affluenceMap.put(hour, affluenceMap.get(hour)+1);
+			affluenceMap.put(hour, affluenceMap.get(hour) + 1);
 		}
 
 		return affluenceMap;

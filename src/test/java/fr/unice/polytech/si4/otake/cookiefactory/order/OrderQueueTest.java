@@ -50,7 +50,7 @@ public class OrderQueueTest {
         assertEquals(o1, od.peek());
         assertEquals(o3, od.toRetrieve().get(0));
         assertTrue(od.archive(o2));
-        assertEquals(o2, od.getArchive().firstElement());
+        assertEquals(o2, od.getArchive().pollFirst());
         assertTrue(od.archive(o3));
         assertEquals(o1, od.peek());
         assertFalse(od.add(null));

@@ -2,6 +2,7 @@ package fr.unice.polytech.si4.otake.cookiefactory.discount;
 
 import java.util.Calendar;
 import java.util.Map;
+import java.util.Objects;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
@@ -42,14 +43,33 @@ public class Discount implements Comparable<Discount> {
 
     @Override
     public int compareTo(Discount d) {
-        if (this.exclusive == d.exclusive) {
+        if (this.exclusive == d.exclusive || this.equals(d)) {
             return 0;
         }
         if (this.exclusive) {
             return -1;
         }
         return 1;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Discount)) {
+            return false;
+        }
+        Discount d = (Discount) obj;
+        return this.hashCode() == d.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.exclusive, this.reduction);
     }
 
     public static class Trigger {
@@ -64,8 +84,8 @@ public class Discount implements Comparable<Discount> {
 
         public static DiscountTrigger hour() {
             return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
-                int currentTime = order.getAppointmentDate().get(Calendar.HOUR_OF_DAY);
-                int closingTime = shop.getSchedule().getClosing().get(Calendar.HOUR_OF_DAY);
+                int currentTime = order.getAppointmentDate().getHour();
+                int closingTime = shop.getSchedule().getClosingHour();
                 return closingTime - currentTime <= 1;
             };
         }

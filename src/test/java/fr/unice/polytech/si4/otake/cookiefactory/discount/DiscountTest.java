@@ -2,8 +2,6 @@ package fr.unice.polytech.si4.otake.cookiefactory.discount;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Calendar;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +10,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
 /**
  * DiscountTest
@@ -44,9 +43,7 @@ public class DiscountTest {
     public void discountHourTest() {
         this.d1 = new Discount(false, 0.1, Discount.Trigger.hour(), Discount.Behaviour.basic());
         Shop s = new Shop("city", 0, "name", 8, 20, null);
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 19);
-        this.o.setAppointmentDate(c);
+        this.o.setAppointmentDate(new SimpleDate("0-0-0 19:00"));
         float red = (float) this.d1.applyIfEligible(o, null, s);
         this.o.applyDiscount(red);
         assertEquals((float) 9, o.getPriceWithTaxes());

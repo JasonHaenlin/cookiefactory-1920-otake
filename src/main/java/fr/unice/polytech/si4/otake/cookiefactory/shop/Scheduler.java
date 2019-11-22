@@ -1,7 +1,5 @@
 package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
-import java.util.Calendar;
-
 public class Scheduler {
 
 	private final SimpleDate closing;
@@ -16,13 +14,11 @@ public class Scheduler {
 		this.closing = new SimpleDate("00-00-00 " + closing + ":00");
 	}
 
-	/*public SimpleDate getOpening(){
-		return opening;
-	}
-
-	public SimpleDate getClosing(){
-		return closing;
-	}*/
+	/*
+	 * public SimpleDate getOpening(){ return opening; }
+	 * 
+	 * public SimpleDate getClosing(){ return closing; }
+	 */
 
 	public int getOpeningHour() {
 		return opening.getHour();
