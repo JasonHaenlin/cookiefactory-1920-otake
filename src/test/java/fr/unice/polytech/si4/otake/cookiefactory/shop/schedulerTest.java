@@ -20,20 +20,20 @@ public class schedulerTest {
 
     @Test
     public void setOpeningTest() {
-        schedule.setOpening(10);
-        assertEquals(10, schedule.getOpening().get(Calendar.HOUR_OF_DAY));
+        schedule.setOpeningHour(10);
+        assertEquals(10, schedule.getOpeningHour());
     }
 
     @Test
     public void setClosingTest() {
-        schedule.setClosing(17);
-        assertEquals(17, schedule.getClosing().get(Calendar.HOUR_OF_DAY));
+        schedule.setClosingHour(17);
+        assertEquals(17, schedule.getClosingHour());
     }
 
     @Test
     public void setScheduleTest() {
         schedule.setSchedule(10, 17);
-        assertEquals(10, schedule.getOpening().get(Calendar.HOUR_OF_DAY));
-        assertEquals(17, schedule.getClosing().get(Calendar.HOUR_OF_DAY));
+        assertEquals(10, schedule.getOpeningHour());
+        assertEquals(17, schedule.getClosingHour());
     }
 }

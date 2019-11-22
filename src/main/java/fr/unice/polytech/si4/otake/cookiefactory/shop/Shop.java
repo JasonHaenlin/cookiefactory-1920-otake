@@ -76,8 +76,8 @@ public class Shop {
 	 *
 	 * @param date
 	 */
-	public boolean checkAppointmentDate(Calendar date) {
-		return date.after(schedule.getOpening()) && date.before(schedule.getClosing());
+	public boolean checkAppointmentDate(SimpleDate date) {
+		return date.getHour() > schedule.getOpeningHour() && date.getHour() < schedule.getClosingHour();
 	}
 
 	public float getTaxes() {
@@ -107,7 +107,7 @@ public class Shop {
 		}
 
 		for(Order o : retrievedOrders){
-			int hour = o.getAppointmentDate().get(Calendar.HOUR_OF_DAY);
+			int hour = o.getAppointmentDate().getHour();
 			affluenceMap.put(hour, affluenceMap.get(hour)+1);
 		}
 

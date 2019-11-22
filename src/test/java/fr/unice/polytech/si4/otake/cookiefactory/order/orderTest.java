@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Calendar;
 
+import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class orderTest {
 
     Order order;
     Shop shop;
-    Calendar cal;
+    SimpleDate date;
     CookieFactory factory;
 
     @Before
@@ -26,9 +27,7 @@ public class orderTest {
         order = new Order();
         factory = new CookieFactory();
         shop = new Shop("Biot", "time",factory);
-        cal = Calendar.getInstance();
-        cal.clear();
-        cal.set(Calendar.HOUR_OF_DAY, 13);
+        date = new SimpleDate("00-00-00 13:00");
     }
 
     @Test
@@ -40,30 +39,25 @@ public class orderTest {
 
     @Test
     public void setAppointmentDateTest() {
-        Calendar cal = Calendar.getInstance();
-        cal.clear();
-        cal.set(Calendar.HOUR_OF_DAY, 15);
-        order.setAppointmentDate(cal);
+        SimpleDate appointmentDate1 = new SimpleDate("00-00-00 15:00");
+        order.setAppointmentDate(appointmentDate1);
 
-        Calendar cal2 = Calendar.getInstance();
-        cal2.clear();
-        cal2.set(Calendar.HOUR_OF_DAY, 13);
-        assertTrue(cal2.before(order.getAppointmentDate()));
+        SimpleDate appointmentDate2 = new SimpleDate("00-00-00 13:00");
+        assertTrue(appointmentDate2.before(order.getAppointmentDate()));
 
-        cal2.set(Calendar.HOUR_OF_DAY, 17);
-        assertTrue(cal2.after(order.getAppointmentDate()));
+        appointmentDate2.setHour(17);
+        assertTrue(appointmentDate2.after(order.getAppointmentDate()));
 
-        cal2.set(Calendar.HOUR_OF_DAY, 15);
-        assertEquals(cal2, order.getAppointmentDate());
-
+        appointmentDate1.setHour(15);
+        assertEquals(appointmentDate1, order.getAppointmentDate());
     }
 
     @Test
     public void orderIdTest() {
         Order order1 = new Order();
         Order order2 = new Order();
-        order1.setAppointmentDate(cal);
-        order2.setAppointmentDate(cal);
+        order1.setAppointmentDate(date);
+        order2.setAppointmentDate(date);
         shop.addOrder(order1);
         shop.addOrder(order2);
         assertTrue("order2 should have a lower id than order1", order1.getId() < order2.getId());
@@ -72,7 +66,7 @@ public class orderTest {
     @Test
     public void orderRetrievedTest() {
         Order o1 = new Order();
-        o1.setAppointmentDate(cal);
+        o1.setAppointmentDate(date);
         shop.addOrder(o1);
         assertNull(shop.getOrderToRetrieve(0), "order id 1 should be null");
         shop.getNextOrder();

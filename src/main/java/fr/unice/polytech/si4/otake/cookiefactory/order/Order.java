@@ -1,18 +1,18 @@
 package fr.unice.polytech.si4.otake.cookiefactory.order;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoAppointmentRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
 public class Order {
 
 	private int id;
 	private final Map<Cookie, Integer> orderContent;
 
-	private Calendar appointmentDate;
+	private SimpleDate appointmentDate;
 	private float priceWithoutTaxes;
 	private float priceWithTaxes;
 	private Status status;
@@ -141,11 +141,11 @@ public class Order {
 		return priceWithoutTaxes;
 	}
 
-	public void setAppointmentDate(Calendar date) {
+	public void setAppointmentDate(SimpleDate date) {
 		this.appointmentDate = date;
 	}
 
-	public Calendar getAppointmentDate() {
+	public SimpleDate getAppointmentDate() {
 		if (appointmentDate == null) {
 			throw new NoAppointmentRuntimeException();
 		}

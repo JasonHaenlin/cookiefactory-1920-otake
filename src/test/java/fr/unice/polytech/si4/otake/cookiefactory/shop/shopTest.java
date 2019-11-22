@@ -30,16 +30,15 @@ public class shopTest {
         Cookie cookie = Recipe.SOOCHOCOLATE.create();
         Order order = new Order();
         order.addCookie(cookie);
-        Calendar appointmentDate = Calendar.getInstance();
-        appointmentDate.clear();
-        appointmentDate.set(Calendar.HOUR_OF_DAY, 20);
+
+        SimpleDate appointmentDate = new SimpleDate("00-00-00 20:00");
         // Set the appointment hour to 20h.
         order.setAppointmentDate(appointmentDate);
         testShop.addOrder(order);
         assertFalse(order.retrieved());
         // The shop closes at 19h, so the order shouldn't have been added to the shop.
         assertNull(testShop.getOrderToRetrieve(0));
-        appointmentDate.set(Calendar.HOUR_OF_DAY, 18);
+        appointmentDate.setHour(18);
         // Changes the appointment hour to 18h
         order.setAppointmentDate(appointmentDate);
         testShop.addOrder(order);
@@ -54,23 +53,17 @@ public class shopTest {
 
         Order order1 = new Order();
         order1.addCookie(cookie);
-        Calendar appointmentDate1 = Calendar.getInstance();
-        appointmentDate1.clear();
-        appointmentDate1.set(Calendar.HOUR_OF_DAY, 15);
+        SimpleDate appointmentDate1 = new SimpleDate("00-00-00 15:00");
         order1.setAppointmentDate(appointmentDate1);
 
         Order order2 = new Order();
         order2.addCookie(cookie);
-        Calendar appointmentDate2 = Calendar.getInstance();
-        appointmentDate2.clear();
-        appointmentDate2.set(Calendar.HOUR_OF_DAY, 15);
+        SimpleDate appointmentDate2 = new SimpleDate("00-00-00 15:00");
         order2.setAppointmentDate(appointmentDate2);
 
         Order order3 = new Order();
         order3.addCookie(cookie);
-        Calendar appointmentDate3 = Calendar.getInstance();
-        appointmentDate3.clear();
-        appointmentDate3.set(Calendar.HOUR_OF_DAY, 17);
+        SimpleDate appointmentDate3 = new SimpleDate("00-00-00 17:00");
         order3.setAppointmentDate(appointmentDate3);
 
         testShop.addOrder(order1);

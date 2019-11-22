@@ -9,6 +9,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.CookieFactory;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Status;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 import io.cucumber.java8.En;
 
 /**
@@ -26,14 +27,10 @@ public class CookPreparingStepdefs implements En {
             shop = new Shop("city", "name",factory);
             o1 = new Order();
             o2 = new Order();
-            Calendar cal = Calendar.getInstance();
-            cal.clear();
-            cal.set(Calendar.HOUR_OF_DAY, 14);
-            Calendar cal2 = Calendar.getInstance();
-            cal2.clear();
-            cal2.set(Calendar.HOUR_OF_DAY, 12);
-            o1.setAppointmentDate(cal);
-            o2.setAppointmentDate(cal2);
+            SimpleDate date1 = new SimpleDate("00-00-00 14:00");
+            SimpleDate date2 = new SimpleDate("00-00-00 12:00");
+            o1.setAppointmentDate(date1);
+            o2.setAppointmentDate(date2);
             shop.addOrder(o1);
             shop.addOrder(o2);
         });

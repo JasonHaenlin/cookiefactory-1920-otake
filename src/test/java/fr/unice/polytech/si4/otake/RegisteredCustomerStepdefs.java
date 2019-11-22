@@ -11,6 +11,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 import io.cucumber.java8.En;
 
 public class RegisteredCustomerStepdefs implements En {
@@ -38,10 +39,8 @@ public class RegisteredCustomerStepdefs implements En {
             o = new Order();
             for (int i = 0; i < nbCookies; i++)
                 o.addCookie(Recipe.SOOCHOCOLATE.create());
-            Calendar cal = Calendar.getInstance();
-            cal.clear();
-            cal.set(Calendar.HOUR_OF_DAY, 15);
-            o.setAppointmentDate(cal);
+            SimpleDate date = new SimpleDate("00-00-00 15:00");
+            o.setAppointmentDate(date);
             s.addOrder(o, r);
         });
         Then("the adherent's cookiePoints increase", () -> {

@@ -1,5 +1,6 @@
 package fr.unice.polytech.si4.otake.cookiefactory.order;
 
+import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,9 +29,12 @@ public class OrderQueueTest {
         Calendar cal3 = Calendar.getInstance();
         cal3.set(Calendar.HOUR_OF_DAY, 10);
 
-        o1.setAppointmentDate(cal1);
-        o2.setAppointmentDate(cal2);
-        o3.setAppointmentDate(cal3);
+        SimpleDate date1 = new SimpleDate("00-00-00 15:00");
+        SimpleDate date2 = new SimpleDate("00-00-00 18:00");
+        SimpleDate date3 = new SimpleDate("00-00-00 10:00");
+        o1.setAppointmentDate(date1);
+        o2.setAppointmentDate(date2);
+        o3.setAppointmentDate(date3);
     }
 
     @Test
