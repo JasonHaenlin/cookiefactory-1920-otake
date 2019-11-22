@@ -18,14 +18,14 @@ public class Discount implements Comparable<Discount> {
     public final boolean exclusive;
     private double reduction;
 
-    Discount(boolean exclusive, double reduction, DiscountTrigger discTrig, DiscountBehaviour discBeh) {
+    public Discount(boolean exclusive, double reduction, DiscountTrigger discTrig, DiscountBehaviour discBeh) {
         this.discBeh = discBeh;
         this.discTrig = discTrig;
         this.exclusive = exclusive;
         this.reduction = reduction;
     }
 
-    double applyIfEligible(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
+    public double applyIfEligible(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
         if (this.discTrig.check(order, registeredCustomer, shop)
                 && this.discBeh.apply(order, registeredCustomer, shop)) {
             return this.reduction;
