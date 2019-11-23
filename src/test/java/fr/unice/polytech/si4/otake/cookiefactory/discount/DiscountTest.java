@@ -30,13 +30,13 @@ public class DiscountTest {
     public void disountCodeTest() {
         this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.basic());
         this.o.setCode("CODE");
-        float red = (float) this.d1.applyIfEligible(o, null, null);
+        double red =  this.d1.applyIfEligible(o, null, null);
         this.o.applyDiscount(red);
-        assertEquals((float) 9, o.getPriceWithTaxes());
+        assertEquals( 9, o.getPriceWithTaxes());
         this.o.setCode("NOPE");
-        red = (float) this.d1.applyIfEligible(o, null, null);
+        red =  this.d1.applyIfEligible(o, null, null);
         this.o.applyDiscount(red);
-        assertEquals((float) 9, o.getPriceWithTaxes());
+        assertEquals( 9, o.getPriceWithTaxes());
     }
 
     @Test
@@ -44,9 +44,9 @@ public class DiscountTest {
         this.d1 = new Discount(false, 0.1, Discount.Trigger.hour(), Discount.Behaviour.basic());
         Shop s = new Shop("city", 0, "name", 8, 20, null);
         this.o.setAppointmentDate(new SimpleDate("0-0-0 19:00"));
-        float red = (float) this.d1.applyIfEligible(o, null, s);
+        double red =  this.d1.applyIfEligible(o, null, s);
         this.o.applyDiscount(red);
-        assertEquals((float) 9, o.getPriceWithTaxes());
+        assertEquals( 9, o.getPriceWithTaxes());
     }
 
     @Test
@@ -57,8 +57,8 @@ public class DiscountTest {
             this.o.addCookie(c);
         }
         RegisteredCustomer rc = new RegisteredCustomer("1", true);
-        float red = (float) this.d1.applyIfEligible(o, rc, null);
+        double red =  this.d1.applyIfEligible(o, rc, null);
         this.o.applyDiscount(red);
-        assertEquals((float) 10, o.getPriceWithTaxes());
+        assertEquals( 10, o.getPriceWithTaxes());
     }
 }
