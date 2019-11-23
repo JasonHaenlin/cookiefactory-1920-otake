@@ -1,4 +1,4 @@
-package fr.unice.polytech.si4.otake.cookiefactory.cookie;
+package fr.unice.polytech.si4.otake.cookiefactory.product.cookie;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,12 +9,12 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Cooking;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Dough;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Flavour;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Ingredient;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.IngredientChecker;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Topping;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Cooking;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Dough;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Flavour;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Ingredient;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.IngredientChecker;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Topping;
 
 /**
  * ListTypeCheckerTest
@@ -68,15 +68,15 @@ public class IngredientCheckerTest {
         list.add(Cooking.CRUNCHY);
         list.add(Dough.CHOCOLATE);
 
-        assertFalse(checker.isQuantityAbused(Flavour.class, list, 1));
+        assertFalse(checker.isQuantityExcessive(Flavour.class, list, 1));
 
         list.add(Flavour.CHILI);
 
-        assertFalse(checker.isQuantityAbused(Flavour.class, list, 1));
+        assertFalse(checker.isQuantityExcessive(Flavour.class, list, 1));
 
         list.add(Flavour.CHILI);
 
-        assertTrue(checker.isQuantityAbused(Flavour.class, list, 1));
+        assertTrue(checker.isQuantityExcessive(Flavour.class, list, 1));
     }
 
     @Test
@@ -85,16 +85,16 @@ public class IngredientCheckerTest {
         list.add(Cooking.CRUNCHY);
         list.add(Cooking.CRUNCHY);
         list.add(Flavour.CHILI);
-        assertFalse("0 > 2 error", checker.isQuantityAbused(Topping.class, list, 2));
+        assertFalse("0 > 2 error", checker.isQuantityExcessive(Topping.class, list, 2));
 
         list.add(Topping.WHITECHOCOLATE);
         list.add(Topping.WHITECHOCOLATE);
 
-        assertFalse("2 > 2 error", checker.isQuantityAbused(Topping.class, list, 2));
+        assertFalse("2 > 2 error", checker.isQuantityExcessive(Topping.class, list, 2));
 
         list.add(Topping.REESEBUTTERCUP);
 
-        assertTrue("3 > 2 error", checker.isQuantityAbused(Topping.class, list, 2));
+        assertTrue("3 > 2 error", checker.isQuantityExcessive(Topping.class, list, 2));
     }
 
 }

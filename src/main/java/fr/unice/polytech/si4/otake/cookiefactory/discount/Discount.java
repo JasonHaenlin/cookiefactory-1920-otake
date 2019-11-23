@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 

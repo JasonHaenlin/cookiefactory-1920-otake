@@ -1,6 +1,6 @@
 package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Ingredient;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Ingredient;
 
 import java.util.HashMap;
 import java.util.Map;

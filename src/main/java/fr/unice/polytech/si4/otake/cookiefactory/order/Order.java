@@ -3,7 +3,7 @@ package fr.unice.polytech.si4.otake.cookiefactory.order;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
@@ -77,7 +77,7 @@ public class Order {
 
 	private void updateCookiesSolds() {
 		for (Map.Entry<Cookie, Integer> entry : orderContent.entrySet()) {
-			entry.getKey().incrementUnit(entry.getValue());
+			entry.getKey().incrementUnits(entry.getValue());
 		}
 
 	}

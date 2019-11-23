@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import io.cucumber.java8.En;
 
 public class GetCookiesStepdefs implements En {

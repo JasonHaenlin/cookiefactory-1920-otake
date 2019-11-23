@@ -1,4 +1,4 @@
-package fr.unice.polytech.si4.otake.cookiefactory.cookie.exception;
+package fr.unice.polytech.si4.otake.cookiefactory.product.cookie.exception;
 
 /**
  * NoToppingRuntimeException

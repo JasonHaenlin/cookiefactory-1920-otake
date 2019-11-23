@@ -1,4 +1,4 @@
-package fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient;
+package fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient;
 
 public enum Topping implements Ingredient {
 	// @formatter:off

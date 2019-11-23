@@ -1,22 +1,21 @@
-package fr.unice.polytech.si4.otake.cookiefactory.cookie;
+package fr.unice.polytech.si4.otake.cookiefactory.product.cookie;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.IngredientNotPresentRuntimeException;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.TooMuchIngredientRuntimeException;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Cooking;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Dough;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Flavour;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Ingredient;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.IngredientChecker;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Mix;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Topping;
+import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.exception.IngredientNotPresentRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.exception.TooMuchIngredientRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Cooking;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Dough;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Flavour;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Ingredient;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.IngredientChecker;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Mix;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Topping;
 
-public class Cookie {
-
-	private static final String NAME_CAN_NOT_BE_NULL = "Name can not be null";
+public class Cookie extends Product {
 
 	private static final int MAX_TOPPINGS = 3;
 
@@ -25,8 +24,6 @@ public class Cookie {
 	private final List<Ingredient> ingredients;
 	private final IngredientChecker checker;
 	private final Boolean isCustom;
-
-	private int unitsSold;
 
 	/**
 	 * create a new Cookie with a name and the specific ingredients Need at least 1
@@ -37,6 +34,7 @@ public class Cookie {
 	 * @param ingredients
 	 */
 	public Cookie(String name, List<Ingredient> ingredients, Boolean isCustom) {
+		super(name);
 		if (name == null) {
 			throw new IllegalArgumentException(NAME_CAN_NOT_BE_NULL);
 		}
@@ -44,10 +42,10 @@ public class Cookie {
 		if (!this.checker.verify(ingredients)) {
 			throw new IngredientNotPresentRuntimeException();
 		}
-		if (this.checker.isQuantityAbused(Topping.class, ingredients, Cookie.MAX_TOPPINGS)) {
+		if (this.checker.isQuantityExcessive(Topping.class, ingredients, Cookie.MAX_TOPPINGS)) {
 			throw new TooMuchIngredientRuntimeException("Topping", Cookie.MAX_TOPPINGS);
 		}
-		if (this.checker.isQuantityAbused(Flavour.class, ingredients, 1)) {
+		if (this.checker.isQuantityExcessive(Flavour.class, ingredients, 1)) {
 			throw new TooMuchIngredientRuntimeException("Flavour", 1);
 		}
 		this.name = name;
@@ -56,7 +54,8 @@ public class Cookie {
 		this.price = computePrice();
 	}
 
-	private final double computePrice() {
+	@Override
+	protected double computePrice() {
 		double m = 0;
 		for (Ingredient i : ingredients) {
 			m += i.getPrice();
@@ -67,20 +66,8 @@ public class Cookie {
 		return m;
 	}
 
-	public String getName() {
-		return this.name;
-	}
-
 	public double getPrice() {
 		return this.price;
-	}
-
-	public void incrementUnit(int unit) {
-		this.unitsSold += unit;
-	}
-
-	public int getUnitsSold() {
-		return this.unitsSold;
 	}
 
 	public Boolean isCustom() {

@@ -16,6 +16,7 @@ public class Shop {
 	private final OrderQueue orders;
 	private final Scheduler schedule;
 	private final RecipeBook recipeBook;
+	private final ShopInventory inventory;
 
 	private int orderCount;
 
@@ -28,8 +29,11 @@ public class Shop {
 	public Shop(String city, float taxes, String name, RecipeBook recipeBook) {
 		this(city, taxes, name, 8, 20, recipeBook);
 	}
-
 	public Shop(String city, float taxes, String name, int openingTime, int closingTime, RecipeBook recipeBook) {
+		this(city,taxes,name,openingTime,closingTime, recipeBook, new ShopInventory());
+	}
+
+	public Shop(String city, float taxes, String name, int openingTime, int closingTime, RecipeBook recipeBook, ShopInventory inventory) {
 		this.city = city;
 		this.taxes = taxes;
 		this.name = name;
@@ -37,7 +41,8 @@ public class Shop {
 		this.orders = new OrderQueue();
 		this.orderCount = 0;
 		this.recipeBook = recipeBook;
-
+		this.inventory = inventory;
+		//TODO update to real inventory when ready OR use mock for all test ¯\_(ツ)_/¯
 	}
 
 	public boolean addOrder(Order order) {

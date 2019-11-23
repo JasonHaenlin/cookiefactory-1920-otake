@@ -1,4 +1,4 @@
-package fr.unice.polytech.si4.otake.cookiefactory.cookie;
+package fr.unice.polytech.si4.otake.cookiefactory.product.cookie;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -10,13 +10,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.IngredientNotPresentRuntimeException;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.exception.TooMuchIngredientRuntimeException;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Cooking;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Dough;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Flavour;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Mix;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Topping;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.exception.IngredientNotPresentRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.exception.TooMuchIngredientRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Cooking;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Dough;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Flavour;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Mix;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Topping;
 
 /**
  * cookieTest

@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 
 public class orderTest {

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 
 public class RecipeBook {
 
@@ -79,11 +79,11 @@ public class RecipeBook {
 	public Map<Cookie, Float> getStatistic() {
 		int soldSum = 0;
 		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
-			soldSum += entry.getKey().getUnitsSold();
+			soldSum += entry.getKey().getUnits();
 		}
 		for (Map.Entry<Cookie, Float> entry : allCookies.entrySet()) {
 			if (soldSum > 0) {
-				Float statistic = ((entry.getKey().getUnitsSold() / (float) soldSum) * 100);
+				Float statistic = ((entry.getKey().getUnits() / (float) soldSum) * 100);
 				allCookies.put(entry.getKey(), statistic);
 			} else {
 				Float statistic = (float) 0;

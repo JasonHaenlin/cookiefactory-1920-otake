@@ -1,4 +1,4 @@
-package fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient;
+package fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient;
 
 import java.util.List;
 
@@ -29,8 +29,8 @@ public class IngredientChecker {
      * @return true if the recipe is wrong, false otherwise
      */
     @SuppressWarnings("unchecked")
-    public <E extends Enum<E>> boolean isQuantityAbused(Class<? extends Ingredient> type, List<Ingredient> list,
-            int max) {
+    public <E extends Enum<E>> boolean isQuantityExcessive(Class<? extends Ingredient> type, List<Ingredient> list,
+                                                           int max) {
         int quantity = 0;
         for (Ingredient i : list) {
             if (EnumUtils.isValidEnum((Class<E>) type, i.toString())) {

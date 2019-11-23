@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.util.Arrays;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.Recipe;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Cooking;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Dough;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Mix;
-import fr.unice.polytech.si4.otake.cookiefactory.cookie.ingredient.Topping;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Cooking;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Dough;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Mix;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Topping;
 import io.cucumber.java8.En;
 
 public class ManageRecipeStepdefs implements En {
