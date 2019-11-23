@@ -36,7 +36,7 @@ public class DiscountEventStepdefs implements En {
         });
         And("his passing from {double} to {double}", (Double p, Double r) -> {
             assertEquals(10, this.o.getPriceWithTaxes());
-            this.o.applyDiscount((float) this.finalReduction);
+            this.o.applyDiscount(this.finalReduction);
             assertEquals(9, this.o.getPriceWithTaxes());
         });
 

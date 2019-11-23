@@ -3,22 +3,22 @@ package fr.unice.polytech.si4.otake.cookiefactory.order;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
+import fr.unice.polytech.si4.otake.cookiefactory.product.ProductType;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
-
+//TODO NEED STRONG TEST for products, don't have the time for now :'(
 public class Order {
 
 	private int id;
-	private final Map<Cookie, Integer> orderContent;
+	private final Map<Product, Integer> orderContent;
 
 	private SimpleDate appointmentDate;
-	private float priceWithoutTaxes;
-	private float priceWithTaxes;
+	private double priceWithoutTaxes;
+	private double priceWithTaxes;
 	private Status status;
-
 	private String code;
-
 	private OrderObserver obs;
 
 	/**
@@ -31,6 +31,8 @@ public class Order {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
 
 	/**
 	 * add a cookie in the basked
@@ -70,14 +72,16 @@ public class Order {
 
 	private void buildPriceWithoutTaxes() {
 		priceWithoutTaxes = 0;
-		for (Map.Entry<Cookie, Integer> entry : orderContent.entrySet()) {
+		for (Map.Entry<Product, Integer> entry : orderContent.entrySet()) {
 			priceWithoutTaxes += entry.getKey().getPrice() * entry.getValue();
 		}
 	}
 
 	private void updateCookiesSolds() {
-		for (Map.Entry<Cookie, Integer> entry : orderContent.entrySet()) {
-			entry.getKey().incrementUnits(entry.getValue());
+		for (Map.Entry<Product, Integer> entry : orderContent.entrySet()) {
+			ProductType type = entry.getKey().getProductType();
+			if(type == ProductType.CUSTOM_COOKIE || type == ProductType.ON_MENU_COOKIE)
+				entry.getKey().incrementUnits(entry.getValue());
 		}
 
 	}
@@ -122,38 +126,38 @@ public class Order {
 	/**
 	 * retrieve the content of the order
 	 *
-	 * @return a map of cookies with the quantities
+	 * @return a map of products with the quantities
 	 */
-	public Map<Cookie, Integer> getTheOrderContent() {
+	public Map<Product, Integer> getTheOrderContent() {
 		return this.orderContent;
 	}
 
 	/**
-	 * get the quantity of cookies in the basket
+	 * get the quantity of product in the basket
 	 *
-	 * @return the number of cookies
+	 * @return the number of product
 	 */
 	public int getQuantity() {
 		int quantity = 0;
-		for (Map.Entry<Cookie, Integer> e : orderContent.entrySet()) {
+		for (Map.Entry<Product, Integer> e : orderContent.entrySet()) {
 			quantity += e.getValue();
 		}
 		return quantity;
 	}
 
-	public float getPriceWithTaxes() {
+	public double getPriceWithTaxes() {
 		return priceWithTaxes;
 	}
 
-	public void setPriceWithTaxes(float priceWithTaxes) {
+	public void setPriceWithTaxes(double priceWithTaxes) {
 		this.priceWithTaxes = priceWithTaxes;
 	}
 
-	public void setPriceWithoutTaxes(float priceWithoutTaxes) {
+	public void setPriceWithoutTaxes(double priceWithoutTaxes) {
 		this.priceWithoutTaxes = priceWithoutTaxes;
 	}
 
-	public float getPriceWithoutTaxes() {
+	public double getPriceWithoutTaxes() {
 		return priceWithoutTaxes;
 	}
 
@@ -168,7 +172,7 @@ public class Order {
 		return appointmentDate;
 	}
 
-	public void applyDiscount(float reduction) {
+	public void applyDiscount(double reduction) {
 		this.priceWithTaxes = (this.priceWithTaxes - (this.priceWithTaxes * reduction));
 	}
 

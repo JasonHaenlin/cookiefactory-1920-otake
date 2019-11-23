@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
+import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
@@ -110,7 +111,7 @@ public class Discount implements Comparable<Discount> {
 
         public static DiscountBehaviour products(int min) {
             return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
-                for (Map.Entry<Cookie, Integer> c : order.getTheOrderContent().entrySet()) {
+                for (Map.Entry<Product, Integer> c : order.getTheOrderContent().entrySet()) {
                     if (c.getValue() >= min) {
                         return true;
                     }

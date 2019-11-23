@@ -26,7 +26,7 @@ public class RegisteredCustomer {
 	 * @param price
 	 * @return the new price or the old price if not eligible
 	 */
-	public float addDiscountIfEligible(float price) {
+	public double addDiscountIfEligible(double price) {
 		float d = (float) 0.;
 		if (unitsOfCookiesBeforeDiscount <= 0) {
 			d = this.discount;

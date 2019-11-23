@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
+import fr.unice.polytech.si4.otake.cookiefactory.product.ProductType;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.exception.IngredientNotPresentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.exception.TooMuchIngredientRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Cooking;
@@ -18,12 +19,10 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Toppi
 public class Cookie extends Product {
 
 	private static final int MAX_TOPPINGS = 3;
-
-	private final String name;
-	private final double price;
 	private final List<Ingredient> ingredients;
 	private final IngredientChecker checker;
 	private final Boolean isCustom;
+
 
 	/**
 	 * create a new Cookie with a name and the specific ingredients Need at least 1
@@ -34,7 +33,7 @@ public class Cookie extends Product {
 	 * @param ingredients
 	 */
 	public Cookie(String name, List<Ingredient> ingredients, Boolean isCustom) {
-		super(name);
+		super(name, isCustom? ProductType.CUSTOM_COOKIE: ProductType.ON_MENU_COOKIE );
 		if (name == null) {
 			throw new IllegalArgumentException(NAME_CAN_NOT_BE_NULL);
 		}
@@ -48,7 +47,6 @@ public class Cookie extends Product {
 		if (this.checker.isQuantityExcessive(Flavour.class, ingredients, 1)) {
 			throw new TooMuchIngredientRuntimeException("Flavour", 1);
 		}
-		this.name = name;
 		this.isCustom = isCustom;
 		this.ingredients = ingredients;
 		this.price = computePrice();
