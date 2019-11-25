@@ -23,7 +23,6 @@ public class Cookie extends Product {
 	private final IngredientChecker checker;
 	private final Boolean isCustom;
 
-
 	/**
 	 * create a new Cookie with a name and the specific ingredients Need at least 1
 	 * Cooking, 1 Dough and 1 Mix. You can add from 0 to 3 Toppings with a optional
@@ -33,7 +32,7 @@ public class Cookie extends Product {
 	 * @param ingredients
 	 */
 	public Cookie(String name, List<Ingredient> ingredients, Boolean isCustom) {
-		super(name, isCustom? ProductType.CUSTOM_COOKIE: ProductType.ON_MENU_COOKIE );
+		super(name, isCustom ? ProductType.CUSTOM_COOKIE : ProductType.ON_MENU_COOKIE);
 		if (name == null) {
 			throw new IllegalArgumentException(NAME_CAN_NOT_BE_NULL);
 		}
@@ -53,7 +52,7 @@ public class Cookie extends Product {
 	}
 
 	@Override
-	protected double computePrice() {
+	protected final double computePrice() {
 		double m = 0;
 		for (Ingredient i : ingredients) {
 			m += i.getPrice();

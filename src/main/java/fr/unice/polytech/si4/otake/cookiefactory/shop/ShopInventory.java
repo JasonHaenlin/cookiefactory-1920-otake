@@ -22,39 +22,34 @@ public class ShopInventory {
 
     /**
      * fill the shop's stock from this ingredient
-     * 
+     *
      * @param ingredient to fill
      * @param quantity   to fill
      */
     void fillIngredient(Ingredient ingredient, int quantity) {
-        if (ingredients.containsKey(ingredient)) {
-            ingredients.put(ingredient, (ingredients.get(ingredient) + quantity));
-        } else {
-            ingredients.put(ingredient, quantity);
+        Integer inStock = ingredients.get(ingredient);
+        if (inStock == null) {
+            inStock = 0;
         }
+        ingredients.put(ingredient, inStock + quantity);
     }
 
     /**
      * use an ingredient in the shop's inventory, use to make a cookie
-     * 
+     *
      * @param ingredient needed for the cookie
      * @param quantity   needed for the cookie
      */
     void useIngredient(Ingredient ingredient, int quantity) {
-        if (ingredients.containsKey(ingredient)) {
-            if (ingredients.get(ingredient) >= quantity)
-                ingredients.put(ingredient, (ingredients.get(ingredient) - quantity));
+        Integer inStock = ingredients.get(ingredient);
+        if (inStock != null && inStock >= quantity) {
+            ingredients.put(ingredient, (ingredients.get(ingredient) - quantity));
         }
         throw new NotEnoughQuantityIngredientException();
     }
 
     int quantityOf(Ingredient ingredient) {
-        if (ingredients.containsKey(ingredient))
-            return ingredients.get(ingredient);
-        return 0;
-    }
-
-    boolean contains(Ingredient ingredient) {
-        return ingredients.containsKey(ingredient);
+        Integer inStock = ingredients.get(ingredient);
+        return inStock != null ? inStock : 0;
     }
 }

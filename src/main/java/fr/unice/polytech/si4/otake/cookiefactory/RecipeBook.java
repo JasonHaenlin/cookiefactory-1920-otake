@@ -83,7 +83,7 @@ public class RecipeBook {
 		}
 		for (Map.Entry<Cookie, Double> entry : allCookies.entrySet()) {
 			if (soldSum > 0) {
-				Double statistic = ((entry.getKey().getUnits() / soldSum) * 100.);
+				Double statistic = ((entry.getKey().getUnits() / (double) soldSum) * 100.);
 				allCookies.put(entry.getKey(), statistic);
 			} else {
 				Double statistic = 0.;
