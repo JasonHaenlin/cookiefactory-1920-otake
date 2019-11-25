@@ -17,8 +17,8 @@ public class ShopManagementStepdefs implements En {
 
     public ShopManagementStepdefs() {
 
-        Given("the shop {string} of {string} has taxes of {float}", (String name, String city, Float taxes) -> {
-            myShop = new Shop("Nice", taxes, "Nice granny cookie",factory);
+        Given("the shop {string} of {string} has taxes of {double}", (String name, String city, Double taxes) -> {
+            myShop = new Shop("Nice", taxes, "Nice granny cookie", factory);
         });
 
         When("a customer makes an order of {int} of his favourite cookie", (Integer nbOfFavCookie) -> {
@@ -32,7 +32,7 @@ public class ShopManagementStepdefs implements En {
                     myShop.applyTaxes(order));
         });
 
-        When("the store manager wants to change the store taxes to {float}", (Float newTaxes) -> {
+        When("the store manager wants to change the store taxes to {double}", (Double newTaxes) -> {
             myShop.setTaxes(newTaxes);
         });
 
@@ -43,7 +43,7 @@ public class ShopManagementStepdefs implements En {
         });
 
         Then("the new taxes applies to the cookies ordering", () -> {
-            assertNotEquals((float) 0.001, myShop.getTaxes());
+            assertNotEquals(0.001, myShop.getTaxes());
             assertNotEquals(0.001 * order.getPriceWithoutTaxes() + order.getPriceWithoutTaxes(),
                     myShop.applyTaxes(order));
             assertEquals(myShop.getTaxes() * order.getPriceWithoutTaxes() + order.getPriceWithoutTaxes(),

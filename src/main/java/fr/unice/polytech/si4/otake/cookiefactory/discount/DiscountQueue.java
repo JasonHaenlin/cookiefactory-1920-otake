@@ -31,10 +31,10 @@ public class DiscountQueue {
         for (Discount discount : discounts) {
             nr = discount.applyIfEligible(order, registeredCustomer, shop);
             reductions += nr;
-            if (nr != (float) 0.0 && discount.exclusive) {
+            if (nr != 0.0 && discount.exclusive) {
                 break;
             }
         }
-        order.applyDiscount((float) reductions);
+        order.applyDiscount(reductions);
     }
 }

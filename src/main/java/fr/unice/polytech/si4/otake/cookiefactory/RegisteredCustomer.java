@@ -6,11 +6,11 @@ public class RegisteredCustomer {
 
 	private boolean isSubscribed;
 	private String id;
-	private float discount;
+	private double discount;
 	private final Calendar registrationDate;
 	private int unitsOfCookiesBeforeDiscount;
 	public static final int QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT = 30;
-	public static final float DEFAULT_DISCOUNT = (float) 0.10;
+	public static final double DEFAULT_DISCOUNT = 0.10;
 
 	public RegisteredCustomer(String id, boolean isSubscribed) {
 		this.id = id;
@@ -27,7 +27,7 @@ public class RegisteredCustomer {
 	 * @return the new price or the old price if not eligible
 	 */
 	public double addDiscountIfEligible(double price) {
-		float d = (float) 0.;
+		double d = 0.;
 		if (unitsOfCookiesBeforeDiscount <= 0) {
 			d = this.discount;
 			unitsOfCookiesBeforeDiscount = QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT;

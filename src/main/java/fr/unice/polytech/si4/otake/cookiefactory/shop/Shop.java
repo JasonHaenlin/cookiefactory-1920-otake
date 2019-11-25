@@ -9,7 +9,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.OrderQueue;
 
 public class Shop {
 
-	private static final float DEFAULT_TAXES = (float) 0.30;
+	private static final double DEFAULT_TAXES = 0.30;
 
 	private final String city;
 	private final String name;
@@ -20,20 +20,22 @@ public class Shop {
 
 	private int orderCount;
 
-	private float taxes;
+	private double taxes;
 
 	public Shop(String city, String name, RecipeBook recipeBook) {
 		this(city, DEFAULT_TAXES, name, recipeBook);
 	}
 
-	public Shop(String city, float taxes, String name, RecipeBook recipeBook) {
+	public Shop(String city, double taxes, String name, RecipeBook recipeBook) {
 		this(city, taxes, name, 8, 20, recipeBook);
 	}
-	public Shop(String city, float taxes, String name, int openingTime, int closingTime, RecipeBook recipeBook) {
-		this(city,taxes,name,openingTime,closingTime, recipeBook, new ShopInventory());
+
+	public Shop(String city, double taxes, String name, int openingTime, int closingTime, RecipeBook recipeBook) {
+		this(city, taxes, name, openingTime, closingTime, recipeBook, new ShopInventory());
 	}
 
-	public Shop(String city, float taxes, String name, int openingTime, int closingTime, RecipeBook recipeBook, ShopInventory inventory) {
+	public Shop(String city, double taxes, String name, int openingTime, int closingTime, RecipeBook recipeBook,
+			ShopInventory inventory) {
 		this.city = city;
 		this.taxes = taxes;
 		this.name = name;
@@ -42,7 +44,7 @@ public class Shop {
 		this.orderCount = 0;
 		this.recipeBook = recipeBook;
 		this.inventory = inventory;
-		//TODO update to real inventory when ready OR use mock for all test ¯\_(ツ)_/¯
+		// TODO update to real inventory when ready OR use mock for all test ¯\_(ツ)_/¯
 	}
 
 	public boolean addOrder(Order order) {
@@ -83,11 +85,11 @@ public class Shop {
 		return date.getHour() > schedule.getOpeningHour() && date.getHour() < schedule.getClosingHour();
 	}
 
-	public float getTaxes() {
+	public double getTaxes() {
 		return this.taxes;
 	}
 
-	public void setTaxes(float taxes) {
+	public void setTaxes(double taxes) {
 		this.taxes = taxes;
 	}
 

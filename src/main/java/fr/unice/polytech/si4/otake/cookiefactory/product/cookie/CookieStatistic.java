@@ -3,13 +3,13 @@ package fr.unice.polytech.si4.otake.cookiefactory.product.cookie;
 public class CookieStatistic {
 
 	private int unitsSold;
-	private float percentageSold;
+	private double percentageSold;
 
 	public CookieStatistic() {
 		this(0, 0);
 	}
 
-	public CookieStatistic(int unit, float percentage) {
+	public CookieStatistic(int unit, double percentage) {
 		this.percentageSold = percentage;
 		this.unitsSold = unit;
 	}
@@ -22,7 +22,7 @@ public class CookieStatistic {
 		percentageSold = (percentageSold / perc) * 100;
 	}
 
-	public float getPercentageSold() {
+	public double getPercentageSold() {
 		return this.percentageSold;
 	}
 

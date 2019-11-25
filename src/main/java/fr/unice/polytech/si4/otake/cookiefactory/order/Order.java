@@ -8,6 +8,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.ProductType;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+
 //TODO NEED STRONG TEST for products, don't have the time for now :'(
 public class Order {
 
@@ -31,8 +32,6 @@ public class Order {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 	/**
 	 * add a cookie in the basked
@@ -80,7 +79,7 @@ public class Order {
 	private void updateCookiesSolds() {
 		for (Map.Entry<Product, Integer> entry : orderContent.entrySet()) {
 			ProductType type = entry.getKey().getProductType();
-			if(type == ProductType.CUSTOM_COOKIE || type == ProductType.ON_MENU_COOKIE)
+			if (type == ProductType.CUSTOM_COOKIE || type == ProductType.ON_MENU_COOKIE)
 				entry.getKey().incrementUnits(entry.getValue());
 		}
 

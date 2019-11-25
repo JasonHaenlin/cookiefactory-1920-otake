@@ -21,7 +21,7 @@ public class UseofStatisticStepdefs implements En {
     Order order;
     Order order2;
     Order order3;
-    Map<Cookie, Float> stat;
+    Map<Cookie, Double> stat;
 
     public UseofStatisticStepdefs() {
 
@@ -57,13 +57,13 @@ public class UseofStatisticStepdefs implements En {
         });
 
         Then("The lowest percentage but nevertheless higher than 0 corresponds to the least ordered cookie", () -> {
-            Float perc = (float) 100;
-            for (Map.Entry<Cookie, Float> entry : stat.entrySet()) {
+            Double perc = 100.;
+            for (Map.Entry<Cookie, Double> entry : stat.entrySet()) {
                 if (entry.getValue() < perc) {
                     perc = entry.getValue();
                 }
             }
-            for (Map.Entry<Cookie, Float> entry : stat.entrySet()) {
+            for (Map.Entry<Cookie, Double> entry : stat.entrySet()) {
                 if (entry.getValue() == perc) {
                     result = entry.getKey();
                 }

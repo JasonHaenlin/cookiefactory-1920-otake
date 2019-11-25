@@ -22,7 +22,7 @@ public class cookiefactoryTest {
     Order order;
     Order order2;
     Order order3;
-    Map<Cookie, Float> stat;
+    Map<Cookie, Double> stat;
 
     @Before
     public void factoryCreation() {
@@ -54,13 +54,13 @@ public class cookiefactoryTest {
     @Test
     public void getStatisticTest() {
         this.stat = this.factory.getStatistic();
-        Float perc = (float) 100;
-        for (Map.Entry<Cookie, Float> entry : stat.entrySet()) {
+        Double perc = 100.;
+        for (Map.Entry<Cookie, Double> entry : stat.entrySet()) {
             if (entry.getValue() < perc) {
                 perc = entry.getValue();
             }
         }
-        for (Map.Entry<Cookie, Float> entry : stat.entrySet()) {
+        for (Map.Entry<Cookie, Double> entry : stat.entrySet()) {
             if (entry.getValue() == perc) {
                 result = entry.getKey();
             }

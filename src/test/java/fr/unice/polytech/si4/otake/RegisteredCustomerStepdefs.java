@@ -53,9 +53,9 @@ public class RegisteredCustomerStepdefs implements En {
             RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
             assertEquals(RegisteredCustomer.QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT, r.getCookiePoints());
         });
-        Then("the adherent pays with {float} percent discount on their purchase", (Float discountPercent) -> {
+        Then("the adherent pays with {double} percent discount on their purchase", (Double discountPercent) -> {
             parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
-            float fullPrice = (float) (o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice());
+            double fullPrice = (o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice());
             assertNotEquals(fullPrice, o.getPriceWithoutTaxes());
         });
         When("the registered customer choose to adhere to the fidelity program", () -> {
