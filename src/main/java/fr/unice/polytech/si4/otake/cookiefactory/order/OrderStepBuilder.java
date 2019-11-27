@@ -24,6 +24,7 @@ public class OrderStepBuilder {
      * build the basket
      */
     public interface ProductStep {
+
         ProductStep addProduct(Product product);
 
         ProductStep addProduct(Product product, int quantity);
@@ -69,7 +70,7 @@ public class OrderStepBuilder {
     /**
      * orderSteps
      */
-    public static class OrderSteps implements ProductStep, AppointmentStep, CodeStep, PaymentStep, BuildStep {
+    private static class OrderSteps implements ProductStep, AppointmentStep, CodeStep, PaymentStep, BuildStep {
 
         private final Map<Product, Integer> content;
         private SimpleDate appointmentDate;
