@@ -38,7 +38,6 @@ public class OrderQueue implements OrderObserver {
 
     public Order next() {
         Order o = this.orders.remove();
-        o.updateStatus(Status.READY);
         this.ordersToRetrieve.add(o);
         return peek();
     }
@@ -48,7 +47,6 @@ public class OrderQueue implements OrderObserver {
             return false;
         }
         order.setObs(this);
-        order.updateStatus(Status.WAITING);
         return this.orders.add(order);
     }
 
@@ -60,7 +58,6 @@ public class OrderQueue implements OrderObserver {
         if (orderToArchive == null) {
             return false;
         }
-        orderToArchive.updateStatus(Status.RETRIEVED);
         if (this.orders.remove(orderToArchive) || this.ordersToRetrieve.remove(orderToArchive)) {
             this.archivedOrders.add(orderToArchive);
             return true;
