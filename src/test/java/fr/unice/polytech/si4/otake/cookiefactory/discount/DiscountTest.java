@@ -10,6 +10,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
@@ -20,12 +21,6 @@ public class DiscountTest {
 
     Discount d1;
     Order o;
-
-    @Before
-    public void init() {
-        this.o = new Order(null, null, null);
-        this.o.setPriceWithTaxes(10);
-    }
 
     @Test
     public void disountCodeTest() {
@@ -53,14 +48,14 @@ public class DiscountTest {
         assertEquals(9, o.getPriceWithTaxes());
     }
 
-    @Ignore
     @Test
     public void discountSeniorityTest() {
         this.d1 = new Discount(false, 0.1, Discount.Trigger.seniority(), Discount.Behaviour.products(10));
+        Shop s = new Shop("city", 0, "name", 8, 20, null);
         Cookie c = Recipe.CHOCOCOLALALA.create();
-        for (int i = 0; i < 10; i++) {
-            // this.o.addCookie(c);
-        }
+        this.o = OrderStepBuilder.newOrder().addProduct(c, 10).validateBasket()
+                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().validatePayment().build(s);
+        this.o.setPriceWithTaxes(10);
         RegisteredCustomer rc = new RegisteredCustomer("1", true);
         double red = this.d1.applyIfEligible(o, rc, null);
         this.o.applyDiscount(red);

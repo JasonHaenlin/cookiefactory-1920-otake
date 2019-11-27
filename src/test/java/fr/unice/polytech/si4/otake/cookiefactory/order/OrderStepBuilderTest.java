@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.ProductStep;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
@@ -39,6 +40,8 @@ public class OrderStepBuilderTest {
                     .build(s);
         // @formatter:on
         assertNotNull(o);
+
+        ProductStep ps = OrderStepBuilder.newOrder();
     }
 
     @Test
