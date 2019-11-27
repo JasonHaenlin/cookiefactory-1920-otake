@@ -16,9 +16,9 @@ import org.junit.Before;
  */
 public class OrderQueueTest {
 
-    Order o1 = new Order();
-    Order o2 = new Order();
-    Order o3 = new Order();
+    Order o1;
+    Order o2;
+    Order o3;
 
     @Before
     public void init() {
@@ -28,13 +28,9 @@ public class OrderQueueTest {
         cal2.set(Calendar.HOUR_OF_DAY, 18);
         Calendar cal3 = Calendar.getInstance();
         cal3.set(Calendar.HOUR_OF_DAY, 10);
-
-        SimpleDate date1 = new SimpleDate("00-00-00 15:00");
-        SimpleDate date2 = new SimpleDate("00-00-00 18:00");
-        SimpleDate date3 = new SimpleDate("00-00-00 10:00");
-        o1.setAppointmentDate(date1);
-        o2.setAppointmentDate(date2);
-        o3.setAppointmentDate(date3);
+        this.o1 = new Order(null, new SimpleDate("00-00-00 15:00"), null);
+        this.o2 = new Order(null, new SimpleDate("00-00-00 18:00"), null);
+        this.o3 = new Order(null, new SimpleDate("00-00-00 10:00"), null);
     }
 
     @Test

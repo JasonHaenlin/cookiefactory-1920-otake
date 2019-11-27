@@ -23,7 +23,7 @@ public class DiscountQueueTest {
     @Before
     public void init() {
         this.dq = new DiscountQueue();
-        this.o = new Order();
+        this.o = new Order(null, null, null);
         this.o.setPriceWithTaxes(10);
     }
 
@@ -59,7 +59,6 @@ public class DiscountQueueTest {
         this.dq.add(d3);
         this.dq.applyDiscounts(o, null, null);
         assertEquals(9, o.getPriceWithTaxes());
-        // TODO Find why this doesn't pass
     }
 
     @Test
@@ -101,7 +100,6 @@ public class DiscountQueueTest {
         this.dq.add(d1);
         this.dq.add(d3);
         this.dq.applyDiscounts(o, null, null);
-        // TODO Find why this doesn't pass
         assertEquals(8, o.getPriceWithTaxes());
     }
 }

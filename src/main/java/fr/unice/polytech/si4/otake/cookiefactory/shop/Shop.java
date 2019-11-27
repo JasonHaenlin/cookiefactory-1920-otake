@@ -93,16 +93,6 @@ public class Shop {
 		this.taxes = taxes;
 	}
 
-	/**
-	 * apply the taxes of a shop to an order
-	 *
-	 * @param order
-	 */
-	public double applyTaxes(Order order) {
-		order.setPriceWithTaxes(order.getPriceWithoutTaxes() * this.taxes + order.getPriceWithoutTaxes());
-		return order.getPriceWithTaxes();
-	}
-
 	public Map<Integer, Integer> getAffluence() {
 		Queue<Order> retrievedOrders = this.orders.getArchive();
 		Map<Integer, Integer> affluenceMap = new HashMap<>(24);

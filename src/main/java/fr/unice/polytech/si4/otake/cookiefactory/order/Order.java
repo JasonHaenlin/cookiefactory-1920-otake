@@ -1,95 +1,59 @@
 package fr.unice.polytech.si4.otake.cookiefactory.order;
 
-import java.util.HashMap;
 import java.util.Map;
 
+import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.ProductType;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
 //TODO NEED STRONG TEST for products, don't have the time for now :'(
 public class Order {
 
 	private int id;
-	private final Map<Product, Integer> orderContent;
 
-	private SimpleDate appointmentDate;
+	private final Map<Product, Integer> content;
+	private final String code;
+	private final SimpleDate appointmentDate;
+
 	private double priceWithoutTaxes;
 	private double priceWithTaxes;
-	private Status status;
-	private String code;
+	private boolean retrived;
+
 	private OrderObserver obs;
 
 	/**
 	 * create a new order when cookies can be add
 	 */
-	public Order() {
-		this.orderContent = new HashMap<>();
+	public Order(Map<Product, Integer> content, SimpleDate appointmentDate, String code) {
+		this.content = content;
+		this.appointmentDate = appointmentDate;
+		this.code = code;
+		this.retrived = false;
+		buildPriceWithoutTaxes();
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	/**
-	 * add a cookie in the basked
-	 *
-	 * @param cookie
-	 * @return the number of cookies for the given cookie added
-	 */
-	public int addCookie(Cookie cookie) {
-		Integer t = this.orderContent.get(cookie);
-		if (t == null) {
-			t = 0;
-		}
-		this.orderContent.put(cookie, t + 1);
-		buildPriceWithoutTaxes();
-		return t + 1;
-	}
-
-	/**
-	 * remove a cookie from the basket
-	 *
-	 * @param cookie
-	 * @return true if the cookie has been deleted, false otherwise
-	 */
-	public boolean removeCookie(Cookie cookie) {
-		Integer t = this.orderContent.get(cookie);
-		if (t == null) {
-			return false;
-		}
-		if (t > 1) {
-			this.orderContent.put(cookie, t - 1);
-		} else {
-			this.orderContent.remove(cookie);
-		}
-		buildPriceWithoutTaxes();
-		return true;
-	}
-
 	private void buildPriceWithoutTaxes() {
+		if (this.content == null) {
+			return;
+		}
 		priceWithoutTaxes = 0;
-		for (Map.Entry<Product, Integer> entry : orderContent.entrySet()) {
+		for (Map.Entry<Product, Integer> entry : content.entrySet()) {
 			priceWithoutTaxes += entry.getKey().getPrice() * entry.getValue();
 		}
 	}
 
 	private void updateCookiesSolds() {
-		for (Map.Entry<Product, Integer> entry : orderContent.entrySet()) {
+		for (Map.Entry<Product, Integer> entry : content.entrySet()) {
 			ProductType type = entry.getKey().getProductType();
 			if (type == ProductType.CUSTOM_COOKIE || type == ProductType.ON_MENU_COOKIE)
 				entry.getKey().incrementUnits(entry.getValue());
 		}
 
-	}
-
-	/**
-	 * @param code the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	/**
@@ -99,27 +63,17 @@ public class Order {
 		return code;
 	}
 
-	/**
-	 * Update the status of the order
-	 *
-	 * @param status : READY, RETRIEVED, WAITING
-	 */
-	public void updateStatus(Status status) {
-		if (status == Status.WAITING) {
-			updateCookiesSolds();
-		}
-		this.status = status;
-	}
-
 	public boolean retrieved() {
 		if (obs == null) {
 			return false;
 		}
+		this.retrived = true;
+		updateCookiesSolds();
 		return obs.retrieved(this);
 	}
 
 	boolean hasBeenRetrieved() {
-		return this.status == Status.RETRIEVED;
+		return this.retrived;
 	}
 
 	/**
@@ -128,7 +82,7 @@ public class Order {
 	 * @return a map of products with the quantities
 	 */
 	public Map<Product, Integer> getTheOrderContent() {
-		return this.orderContent;
+		return this.content;
 	}
 
 	/**
@@ -138,7 +92,7 @@ public class Order {
 	 */
 	public int getQuantity() {
 		int quantity = 0;
-		for (Map.Entry<Product, Integer> e : orderContent.entrySet()) {
+		for (Map.Entry<Product, Integer> e : content.entrySet()) {
 			quantity += e.getValue();
 		}
 		return quantity;
@@ -160,10 +114,6 @@ public class Order {
 		return priceWithoutTaxes;
 	}
 
-	public void setAppointmentDate(SimpleDate date) {
-		this.appointmentDate = date;
-	}
-
 	public SimpleDate getAppointmentDate() {
 		if (appointmentDate == null) {
 			throw new NoAppointmentRuntimeException();
@@ -175,8 +125,9 @@ public class Order {
 		this.priceWithTaxes = (this.priceWithTaxes - (this.priceWithTaxes * reduction));
 	}
 
-	public Status getStatus() {
-		return status;
+	public double applyTaxes(double taxes) {
+		this.priceWithTaxes = this.priceWithoutTaxes * taxes + this.priceWithoutTaxes;
+		return this.priceWithTaxes;
 	}
 
 	public int getId() {
