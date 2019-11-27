@@ -2,9 +2,7 @@ package fr.unice.polytech.si4.otake.cookiefactory.order;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
-import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,6 +11,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
 public class orderTest {
 
