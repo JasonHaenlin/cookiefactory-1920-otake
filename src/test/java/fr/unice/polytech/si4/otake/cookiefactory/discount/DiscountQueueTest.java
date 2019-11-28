@@ -7,7 +7,10 @@ import org.junit.Test;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
 /**
  * DiscountQueueTest
@@ -23,7 +26,9 @@ public class DiscountQueueTest {
     @Before
     public void init() {
         this.dq = new DiscountQueue();
-        this.o = new Order(null, null, null);
+        this.o = OrderStepBuilder.newOrder().addProduct(Recipe.CHOCOCOLALALA.create()).validateBasket()
+                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().validatePayment()
+                .build(new Shop("", "name", null));
         this.o.setPriceWithTaxes(10);
     }
 

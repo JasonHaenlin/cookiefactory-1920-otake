@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 import io.cucumber.java8.En;
@@ -19,38 +21,34 @@ public class CookPreparingStepdefs implements En {
     Order o1;
     Order o2;
 
-    // TODO
     public CookPreparingStepdefs() {
         Given("orders in a shop", () -> {
             shop = new Shop("city", "name", factory);
-            // o1 = new Order();
-            // o2 = new Order();
-            // SimpleDate date1 = new SimpleDate("00-00-00 14:00");
-            // SimpleDate date2 = new SimpleDate("00-00-00 12:00");
-            // o1.setAppointmentDate(date1);
-            // o2.setAppointmentDate(date2);
-            // shop.addOrder(o2);
-            // shop.addOrder(o1);
+            o1 = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
+                    .setAppointment(new SimpleDate("00-00-00 14:00")).noCode().validatePayment().build(shop);
+            o2 = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
+                    .setAppointment(new SimpleDate("00-00-00 12:00")).noCode().validatePayment().build(shop);
+            shop.addOrder(o2);
+            shop.addOrder(o1);
         });
         When("the cook want to prepare the first order", () -> {
-            // o = shop.getCurrentOrder();
+            o = shop.getCurrentOrder();
         });
         Then("the cook can retrieve the first order in the queue", () -> {
-            // assertEquals(o2, o);
+            assertEquals(o2, o);
         });
         When("the cook finish the preparation", () -> {
-            // o = shop.getNextOrder();
+            o = shop.getNextOrder();
         });
         Then("the cook can go to the next order", () -> {
-            // assertEquals(o1, o);
+            assertEquals(o1, o);
         });
         When("an order is retrieve by his id", () -> {
-            // assertTrue(shop.retrieved(o2.getId()));
+            assertTrue(shop.retrieved(o2.getId()));
         });
         Then("the order is archive in the queue", () -> {
-            // assertEquals(o1, shop.getCurrentOrder());
-            // TODO
-            // assertTrue(o2.getStatus() == Status.RETRIEVED);
+            assertEquals(o1, shop.getCurrentOrder());
+            assertTrue(o2.hasBeenRetrieved());
         });
     }
 }

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoProductRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
@@ -34,6 +36,8 @@ public class OrderStepBuilder {
         ProductStep removeProduct(Product product, int quantity);
 
         AppointmentStep validateBasket();
+
+        Map<Product, Integer> getContent();
     }
 
     /**
@@ -153,9 +157,17 @@ public class OrderStepBuilder {
         @Override
         public Order build(Shop shop) {
             if (!shop.checkAppointmentDate(this.appointmentDate)) {
-                return null;
+                throw new BadAppointmentRuntimeException();
+            }
+            if (this.content.size() == 0) {
+                throw new NoProductRuntimeException();
             }
             return new Order(this.content, this.appointmentDate, this.code);
+        }
+
+        @Override
+        public Map<Product, Integer> getContent() {
+            return content;
         }
 
     }

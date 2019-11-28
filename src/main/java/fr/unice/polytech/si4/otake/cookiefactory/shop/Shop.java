@@ -1,6 +1,9 @@
 package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Queue;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;

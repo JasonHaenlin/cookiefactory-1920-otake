@@ -2,15 +2,13 @@ package fr.unice.polytech.si4.otake.cookiefactory.discount;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
@@ -25,12 +23,16 @@ public class DiscountTest {
     @Test
     public void disountCodeTest() {
         this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.basic());
-        this.o = new Order(null, null, "CODE");
+        this.o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
+                .setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").validatePayment()
+                .build(new Shop("city", "name", null));
         this.o.setPriceWithTaxes(10);
         double red = this.d1.applyIfEligible(o, null, null);
         this.o.applyDiscount(red);
         assertEquals(9, o.getPriceWithTaxes());
-        this.o = new Order(null, null, "NOPE");
+        this.o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
+                .setAppointment(new SimpleDate("00-00-00 13:00")).withCode("NOPE").validatePayment()
+                .build(new Shop("city", "name", null));
         this.o.setPriceWithTaxes(10);
         red = this.d1.applyIfEligible(o, null, null);
         this.o.applyDiscount(red);
@@ -41,7 +43,8 @@ public class DiscountTest {
     public void discountHourTest() {
         this.d1 = new Discount(false, 0.1, Discount.Trigger.hour(), Discount.Behaviour.basic());
         Shop s = new Shop("city", 0, "name", 8, 20, null);
-        this.o = new Order(null, new SimpleDate("0-0-0 19:00"), null);
+        this.o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
+                .setAppointment(new SimpleDate("00-00-00 19:00")).noCode().validatePayment().build(s);
         this.o.setPriceWithTaxes(10);
         double red = this.d1.applyIfEligible(o, null, s);
         this.o.applyDiscount(red);

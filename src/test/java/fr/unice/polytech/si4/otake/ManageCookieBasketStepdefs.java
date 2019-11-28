@@ -4,47 +4,44 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
+import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.ProductStep;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import io.cucumber.java8.En;
 
 public class ManageCookieBasketStepdefs implements En {
 
-    Cookie cookieobj;
-    Cookie cookieobj2;
-    Cookie cookieobj3;
+    Cookie c1;
+    Cookie c2;
+    Cookie c3;
     Order orderobj;
+    ProductStep pstep;
 
     public ManageCookieBasketStepdefs() {
 
-        // TODO
         Given("a basket containing cookies", () -> {
-            // cookieobj = Recipe.SOOCHOCOLATE.create();
-            // cookieobj2 = Recipe.DARKTEMPTATION.create();
-            // cookieobj3 = Recipe.CHOCOCOLALALA.create();
-            // orderobj = new Order();
-            // orderobj.addCookie(cookieobj);
-            // orderobj.addCookie(cookieobj2);
-            // orderobj.addCookie(cookieobj3);
+            c1 = Recipe.SOOCHOCOLATE.create();
+            c2 = Recipe.DARKTEMPTATION.create();
+            c3 = Recipe.CHOCOCOLALALA.create();
+            pstep = OrderStepBuilder.newOrder();
+            pstep.addProduct(c1).addProduct(c2).addProduct(c3);
+
         });
-        // TODO
         When("Billy delete one cookie", () -> {
-            // assertEquals(1, orderobj.getTheOrderContent().get(cookieobj));
-            // orderobj.removeCookie(cookieobj);
+            assertEquals(1, pstep.getContent().get(c1));
+            pstep.removeProduct(c1);
         });
-        // TODO
         Then("The cookie is not in the basket anymore", () -> {
-            // assertFalse(orderobj.getTheOrderContent().containsKey(cookieobj));
+            assertFalse(pstep.getContent().containsKey(c1));
         });
-        // TODO
         When("Billy add one cookie", () -> {
-            // orderobj.addCookie(cookieobj);
-            // assertEquals(1, orderobj.getTheOrderContent().get(cookieobj));
-            // orderobj.addCookie(cookieobj);
+            pstep.addProduct(c1);
+            assertEquals(1, pstep.getContent().get(c1));
+            pstep.addProduct(c1);
         });
-        // TODO
         Then("The cookie is added in the basket", () -> {
-            // assertEquals(2, orderobj.getTheOrderContent().get(cookieobj));
+            assertEquals(2, pstep.getContent().get(c1));
         });
     }
 
