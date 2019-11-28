@@ -110,7 +110,7 @@ public class Discount implements Comparable<Discount> {
 
         public static DiscountBehaviour products(int min) {
             return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
-                for (Map.Entry<Product, Integer> c : order.getTheOrderContent().entrySet()) {
+                for (Map.Entry<Product, Integer> c : order.getContent().entrySet()) {
                     if (c.getValue() >= min) {
                         return true;
                     }

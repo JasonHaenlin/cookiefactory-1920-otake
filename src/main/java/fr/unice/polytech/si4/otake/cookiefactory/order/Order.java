@@ -2,7 +2,7 @@ package fr.unice.polytech.si4.otake.cookiefactory.order;
 
 import java.util.Map;
 
-import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoAppointmentRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.ProductType;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
@@ -25,7 +25,7 @@ public class Order {
 	/**
 	 * create a new order when cookies can be add
 	 */
-	public Order(Map<Product, Integer> content, SimpleDate appointmentDate, String code) {
+	Order(Map<Product, Integer> content, SimpleDate appointmentDate, String code) {
 		this.content = content;
 		this.appointmentDate = appointmentDate;
 		this.code = code;
@@ -37,7 +37,7 @@ public class Order {
 		this.id = id;
 	}
 
-	private void buildPriceWithoutTaxes() {
+	private final void buildPriceWithoutTaxes() {
 		if (this.content == null) {
 			return;
 		}
@@ -72,7 +72,7 @@ public class Order {
 		return obs.retrieved(this);
 	}
 
-	boolean hasBeenRetrieved() {
+	public boolean hasBeenRetrieved() {
 		return this.retrived;
 	}
 
@@ -81,7 +81,7 @@ public class Order {
 	 *
 	 * @return a map of products with the quantities
 	 */
-	public Map<Product, Integer> getTheOrderContent() {
+	public Map<Product, Integer> getContent() {
 		return this.content;
 	}
 
@@ -116,7 +116,7 @@ public class Order {
 
 	public SimpleDate getAppointmentDate() {
 		if (appointmentDate == null) {
-			throw new NoAppointmentRuntimeException();
+			throw new BadAppointmentRuntimeException();
 		}
 		return appointmentDate;
 	}
