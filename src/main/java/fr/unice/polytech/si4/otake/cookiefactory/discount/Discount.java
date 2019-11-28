@@ -92,9 +92,21 @@ public class Discount implements Comparable<Discount> {
 
         public static DiscountTrigger seniority() {
             return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
+                if (registeredCustomer == null) {
+                    return false;
+                }
                 int currentYear = Calendar.getInstance().get(Calendar.YEAR);
                 int year = registeredCustomer.getRegistrationDate().get(Calendar.YEAR);
                 return currentYear - year >= 1;
+            };
+        }
+
+        public static DiscountTrigger fidelity(int nbBeforeDiscount) {
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
+                if (registeredCustomer == null) {
+                    return false;
+                }
+                return registeredCustomer.getCookiePoints() >= nbBeforeDiscount;
             };
         }
     }
@@ -117,7 +129,16 @@ public class Discount implements Comparable<Discount> {
                 }
                 return false;
             };
+        }
 
+        public static DiscountBehaviour customerPoints(int removePoints) {
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
+                if (registeredCustomer == null) {
+                    return false;
+                }
+                registeredCustomer.removePoints(removePoints);
+                return true;
+            };
         }
     }
 

@@ -23,7 +23,6 @@ Feature: Managing a registered customer
     Then the adherent will get discount on next purchase
     Then the adherent order 10 cookies
     Then the adherent pays with 10.0 percent discount on their purchase
-    Then the adherent now has 10 cookiePoints in his account
+    Then the adherent now has 20 cookiePoints in his account
     Then the adherent order 10 cookies
     Then the adherent pays full price
-
