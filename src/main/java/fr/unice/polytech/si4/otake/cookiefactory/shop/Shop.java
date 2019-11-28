@@ -67,7 +67,7 @@ public class Shop {
 	public boolean addOrder(Order order, RegisteredCustomer registerCustomer) {
 		order.setPriceWithoutTaxes(registerCustomer.addDiscountIfEligible(order.getPriceWithoutTaxes()));
 		if (addOrder(order)) {
-			registerCustomer.addCookiePoints(order.getQuantity());
+			registerCustomer.addPoints(order.getQuantity());
 			return true;
 		}
 		return false;

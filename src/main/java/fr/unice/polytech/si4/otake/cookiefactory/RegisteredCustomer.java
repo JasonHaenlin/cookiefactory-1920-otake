@@ -8,15 +8,15 @@ public class RegisteredCustomer {
 	private String id;
 	private double discount;
 	private final Calendar registrationDate;
-	private int unitsOfCookiesBeforeDiscount;
-	public static final int QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT = 30;
+	private int unitsOfPoints;
+	public static final int POINT_BEFORE_DISCOUNT = 30;
 	public static final double DEFAULT_DISCOUNT = 0.10;
 
 	public RegisteredCustomer(String id, boolean isSubscribed) {
 		this.id = id;
 		this.isSubscribed = isSubscribed;
 		this.discount = DEFAULT_DISCOUNT;
-		this.unitsOfCookiesBeforeDiscount = QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT;
+		this.unitsOfPoints = 0;
 		this.registrationDate = Calendar.getInstance();
 	}
 
@@ -28,9 +28,9 @@ public class RegisteredCustomer {
 	 */
 	public double addDiscountIfEligible(double price) {
 		double d = 0.;
-		if (unitsOfCookiesBeforeDiscount <= 0) {
+		if (unitsOfPoints >= POINT_BEFORE_DISCOUNT) {
 			d = this.discount;
-			unitsOfCookiesBeforeDiscount = QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT;
+			unitsOfPoints -= POINT_BEFORE_DISCOUNT;
 		}
 		return price - (price * d);
 	}
@@ -38,12 +38,14 @@ public class RegisteredCustomer {
 	/**
 	 * add to this adherent to fidelity program the nb of cookie he purchased
 	 *
-	 * @param nbCookies purchased
+	 * @param points purchased
 	 */
-	public void addCookiePoints(int nbCookies) {
-		unitsOfCookiesBeforeDiscount -= nbCookies;
-		if (unitsOfCookiesBeforeDiscount < 0)
-			unitsOfCookiesBeforeDiscount = 0;
+	public void addPoints(int points) {
+		unitsOfPoints += points;
+	}
+
+	public void removePoints(int points) {
+		unitsOfPoints -= points;
 	}
 
 	public String getId() {
@@ -60,10 +62,10 @@ public class RegisteredCustomer {
 	/**
 	 * Obtain quantity of cookies bought
 	 *
-	 * @return MAX 30
+	 * @return nb of points
 	 */
 	public int getCookiePoints() {
-		return QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT - unitsOfCookiesBeforeDiscount;
+		return unitsOfPoints;
 	}
 
 	public void setSubscribed(boolean subscribed) {

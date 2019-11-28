@@ -49,7 +49,7 @@ public class RegisteredCustomerStepdefs implements En {
         });
         Then("the adherent will get discount on next purchase", () -> {
             RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
-            assertEquals(RegisteredCustomer.QUANTITY_OF_COOKIES_NEEDED_TO_OBTAIN_DISCOUNT, r.getCookiePoints());
+            assertTrue(r.getCookiePoints() >= RegisteredCustomer.POINT_BEFORE_DISCOUNT);
         });
         Then("the adherent pays with {double} percent discount on their purchase", (Double discountPercent) -> {
             parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
