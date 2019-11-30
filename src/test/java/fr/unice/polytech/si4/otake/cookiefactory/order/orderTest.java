@@ -31,6 +31,32 @@ public class orderTest {
         date = new SimpleDate("00-00-00 13:00");
     }
 
+
+    @Test
+    public void addCookieProductTest(){
+        Cookie cookie = Recipe.CHOCOCOLALALA.create();
+        Cookie cookie1 = Recipe.SOOCHOCOLATE.create();
+        Cookie cookie2 = Recipe.SOOCHOCOLATE.create();
+        Product product = Recipe.SOOCHOCOLATE.create();
+        Map<Product, Integer> products = new HashMap<>();
+
+        products.put(cookie, 1);
+        assertEquals(1,products.get(cookie));
+
+        products.put(cookie1,1);
+        assertEquals(1, products.get(cookie1));
+
+        products.put(cookie2 , products.get(cookie2) + 1);
+        assertEquals(2, products.get(cookie2));
+
+        products.put(product, products.get(product) + 1);
+        assertEquals(3, products.get(product));
+
+        order = new Order(products, null, null);
+        assertEquals(1, order.getContent().get(cookie));
+        assertEquals(3, order.getContent().get(cookie1));
+    }
+
     @Test
     public void addCookieTest() {
         Cookie cookie = Recipe.SOOCHOCOLATE.create();
