@@ -67,7 +67,12 @@ public class Cookie extends Product {
 		return this.price;
 	}
 
-	public Boolean isCustom() {
+
+	public List<Ingredient> getIngredients(){
+		return ingredients;
+	}
+
+	public Boolean isCustom(){
 		return this.isCustom;
 	}
 
