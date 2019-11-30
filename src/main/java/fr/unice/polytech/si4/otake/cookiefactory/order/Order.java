@@ -7,7 +7,6 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.ProductType;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
-//TODO NEED STRONG TEST for products, don't have the time for now :'(
 public class Order {
 
 	private int id;

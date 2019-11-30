@@ -3,12 +3,15 @@ package fr.unice.polytech.si4.otake.cookiefactory.order;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.unice.polytech.si4.otake.App;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoProductRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * OrderStepBuilder
@@ -79,6 +82,7 @@ public class OrderStepBuilder {
         private final Map<Product, Integer> content;
         private SimpleDate appointmentDate;
         private String code;
+        private static Logger logger = LogManager.getLogger(OrderSteps.class);
 
         OrderSteps() {
             this.content = new HashMap<>();
@@ -151,6 +155,7 @@ public class OrderStepBuilder {
 
         @Override
         public BuildStep validatePayment() {
+            logger.info( "Paiement réussi!");
             return this;
         }
 
@@ -162,7 +167,9 @@ public class OrderStepBuilder {
             if (this.content.size() == 0) {
                 throw new NoProductRuntimeException();
             }
-            return new Order(this.content, this.appointmentDate, this.code);
+            Order o = new Order(this.content, this.appointmentDate, this.code);
+            logger.info("Vous avez été débité de {}€", o.getPriceWithTaxes());
+            return o;
         }
 
         @Override
