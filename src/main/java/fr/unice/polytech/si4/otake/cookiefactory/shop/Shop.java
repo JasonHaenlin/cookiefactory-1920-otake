@@ -9,6 +9,7 @@ import java.util.Queue;
 
 import fr.unice.polytech.si4.otake.cookiefactory.CookieFactoryAPI;
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
@@ -206,4 +207,16 @@ public class Shop {
 		return this.parentCompany.getDiscounts();
 	}
 
+	public Storage getStorage() {
+		return inventory;
+	}
+
+	public boolean isCookieAvailable(String cookieName) {
+		RecipeBook recipeBook = parentCompany.getRecipeBook();
+		if (recipeBook.getCookie(cookieName) == null){
+			return false;
+		}
+
+		return inventory.removeFromStockIfEnough(recipeBook.getCookie(cookieName), false);
+	}
 }
