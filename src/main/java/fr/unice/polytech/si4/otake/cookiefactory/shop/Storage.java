@@ -1,5 +1,6 @@
 package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,21 @@ public class Storage {
         }
     }
 
-    public boolean removeFromStockIfEnough(Cookie cookie) {
+    public List<Cookie> removeListFromStockIfEnough(List<Cookie> list){
+        List<Cookie> returnlist = new ArrayList<>();
+        HashMap<Ingredient, Integer> copyStock = new HashMap<Ingredient, Integer>(this.stock);
+        for (Cookie cookie : list) {
+            if (!removeFromStockIfEnough(cookie,true)) {
+                returnlist.add(cookie);
+            }
+        }
+        if (returnlist.size()!=0) {  
+            this.stock = copyStock;
+        } 
+        return returnlist;
+    }
+
+    public boolean removeFromStockIfEnough(Cookie cookie, Boolean updateStock) {
         List<Ingredient> list = cookie.getIngredients();
         for (Ingredient iterable_element : list) {
             int old = stock.get(iterable_element);
@@ -74,7 +89,10 @@ public class Storage {
                 return Boolean.FALSE;
             }
         }
-        updateStock(cookie);
+        if (updateStock) {
+            updateStock(cookie);
+        }
+
         return Boolean.TRUE;
     }
 
