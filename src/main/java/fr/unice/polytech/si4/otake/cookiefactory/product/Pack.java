@@ -9,17 +9,17 @@ import java.util.List;
 public class Pack extends Product {
 
     private PackSize size;
-    private List<Cookie> cookiesInPack;
+    private List<Product> productsInPack;
 
     Pack(String name, ProductType type, PackSize size){
         super(name, type);
         this.size = size;
     }
 
-    Pack(String name, ProductType type, PackSize size, List<Cookie> cookies){
+    Pack(String name, ProductType type, PackSize size, List<Product> products){
         super(name, type);
         this.size = size;
-        this.cookiesInPack = cookies;
+        this.productsInPack = products;
     }
 
     public double computePrice(){
@@ -30,7 +30,7 @@ public class Pack extends Product {
         return size;
     }
 
-    public List<Cookie> getCookiesInPack(){
-        return cookiesInPack;
+    public List<Product> getProductsInPack(){
+        return productsInPack;
     }
 }
