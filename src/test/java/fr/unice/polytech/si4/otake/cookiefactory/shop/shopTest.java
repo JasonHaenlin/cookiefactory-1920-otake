@@ -12,47 +12,47 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 
 public class shopTest {
 
-    Shop testShop;
+	Shop testShop;
 
-    @Before
-    public void shopCreation() {
-        testShop = new Shop("Antibes", "Antibes-Cookie", null);
-    }
+	@Before
+	public void shopCreation() {
+		testShop = new Shop("Antibes", "Antibes-Cookie", null);
+	}
 
-    @Test
-    public void getAffluenceTest() {
-        Cookie cookie = Recipe.CHOCOCOLALALA.create();
+	@Test
+	public void getAffluenceTest() {
+		Cookie cookie = Recipe.CHOCOCOLALALA.create();
 
-        Order order1 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
-                .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().WithoutAccount().validatePayment()
-                .build(testShop);
+		Order order1 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
+				.setAppointment(new SimpleDate("00-00-00 15:00")).noCode().WithoutAccount().validatePayment()
+				.build(testShop);
 
-        Order order2 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
-                .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().WithoutAccount().validatePayment()
-                .build(testShop);
+		Order order2 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
+				.setAppointment(new SimpleDate("00-00-00 15:00")).noCode().WithoutAccount().validatePayment()
+				.build(testShop);
 
-        Order order3 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
-                .setAppointment(new SimpleDate("00-00-00 17:00")).noCode().WithoutAccount().validatePayment()
-                .build(testShop);
+		Order order3 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
+				.setAppointment(new SimpleDate("00-00-00 17:00")).noCode().WithoutAccount().validatePayment()
+				.build(testShop);
 
-        testShop.addOrder(order1);
-        testShop.addOrder(order2);
-        testShop.addOrder(order3);
+		testShop.addOrder(order1);
+		testShop.addOrder(order2);
+		testShop.addOrder(order3);
 
-        testShop.getNextOrder();
-        testShop.getNextOrder();
-        testShop.getNextOrder();
+		testShop.getNextOrder();
+		testShop.getNextOrder();
+		testShop.getNextOrder();
 
-        testShop.retrieved(order1.getId());
-        testShop.retrieved(order3.getId());
+		testShop.retrieved(order1.getId());
+		testShop.retrieved(order3.getId());
 
-        assertEquals(1, testShop.getAffluence().get(15).intValue());
-        assertEquals(1, testShop.getAffluence().get(17).intValue());
+		assertEquals(1, testShop.getAffluence().get(15).intValue());
+		assertEquals(1, testShop.getAffluence().get(17).intValue());
 
-        testShop.retrieved(order2.getId());
+		testShop.retrieved(order2.getId());
 
-        assertEquals(2, testShop.getAffluence().get(15).intValue());
-        assertEquals(0, testShop.getAffluence().get(14).intValue());
-    }
+		assertEquals(2, testShop.getAffluence().get(15).intValue());
+		assertEquals(0, testShop.getAffluence().get(14).intValue());
+	}
 
 }
