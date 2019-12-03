@@ -23,15 +23,9 @@ public class PackOptimizerTest {
     @Before
     public void packOptimizerCreation() {
         packOptimizer = new PackOptimizer();
-<<<<<<< HEAD
-        packOptimizer.addPackType(PackSize.SMALL, smallSize);
-        packOptimizer.addPackType(PackSize.MEDIUM, mediumSize);
-        packOptimizer.addPackType(PackSize.BIG, bigSize);
-=======
         packOptimizer.addPackType(new PackSize(PackType.SMALL, 15), smallPrice);
         packOptimizer.addPackType(new PackSize(PackType.MEDIUM, 20), mediumPrice);
         packOptimizer.addPackType(PackType.BIG, bigSize, bigPrice);
->>>>>>> GH-47 Fixed tests
     }
 
     @Test
@@ -45,11 +39,7 @@ public class PackOptimizerTest {
         assertEquals(3, products1.size());
 
         List<Product> products2 = new ArrayList<>();
-<<<<<<< HEAD
-        for(int i = 0; i < (bigSize*2 + mediumSize + 1); ++i){
-=======
         for (int i = 0; i < (bigSize * 2 + mediumSize + 1); ++i) {
->>>>>>> GH-47 Fixed tests
             products2.add(Recipe.SOOCHOCOLATE.create());
         }
         products2 = packOptimizer.optimizeProducts(products2);

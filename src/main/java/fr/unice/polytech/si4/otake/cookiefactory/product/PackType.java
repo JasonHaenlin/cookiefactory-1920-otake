@@ -3,16 +3,16 @@ package fr.unice.polytech.si4.otake.cookiefactory.product;
 /**
  * PackSize
  */
-public class PackType {
-    public enum PackSize {
+public class PackType implements Comparable<PackType> {
+    public enum TypeSize {
         SMALL, MEDIUM, BIG
     }
 
-    private final int size;
-    private final int price;
-    private final PackSize type;
+    private int size;
+    private double price;
+    private final TypeSize type;
 
-    PackType(PackSize type, int size, int price) {
+    public PackType(TypeSize type, int size, double price) {
         this.type = type;
         this.size = size;
         this.price = price;
@@ -26,10 +26,35 @@ public class PackType {
     }
 
     /**
+     * @param price the price to set
+     */
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    /**
      * @return the type
      */
-    public PackType getType() {
+    public TypeSize getType() {
         return type;
     }
 
+    /**
+     * @return the price
+     */
+    public double getPrice() {
+        return price;
+    }
+
+    /**
+     * @param size the size to set
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    @Override
+    public int compareTo(PackType o) {
+        return this.size - o.size;
+    }
 }

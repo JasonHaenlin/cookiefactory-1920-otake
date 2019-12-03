@@ -1,19 +1,22 @@
 package fr.unice.polytech.si4.otake.cookiefactory.product;
 
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import java.util.*;
 
 public class PackOptimizer {
-    private EnumMap<PackSize, Integer> packSizes = new EnumMap<>(PackSize.class);
-    private Map<Integer, PackSize> sizeToPack = new HashMap<>();
+    private final List<PackType> packs;
 
     public PackOptimizer() {
+        this.packs = new ArrayList<>();
     }
 
-    public void addPackType(PackSize packSize, Integer size) {
-        packSizes.put(packSize, size);
-        sizeToPack.put(size, packSize);
+    public void addPackType(PackType pack) {
+        this.packs.add(pack);
+        Collections.sort(this.packs);
+        Collections.reverse(this.packs);
     }
 
     public List<Product> optimizeProducts(List<Product> products) {
@@ -29,10 +32,8 @@ public class PackOptimizer {
                 otherProducts.add(p);
             }
         }
-        List<Integer> sizes = new ArrayList<>(packSizes.values());
-        Collections.sort(sizes);
-        Collections.reverse(sizes);
-        for (Integer packSize : sizes) {
+        for (PackType pack : this.packs) {
+            int packSize = pack.getSize();
             int nbPackForSize = nbCookies / packSize;
             System.out.println("PackSize = " + packSize + " Nb Pack : " + nbPackForSize);
             for (int i = 0; i < nbPackForSize; ++i) {
@@ -43,8 +44,8 @@ public class PackOptimizer {
                     }
                     cookiesToCheck.subList(0, packSize).clear();
 
-                    Pack pack = new Pack("Pack", ProductType.PACK, sizeToPack.get(packSize), cookiesInPack);
-                    optimizedProducts.add(pack);
+                    Pack newPack = new Pack("Pack", ProductType.PACK, pack, cookiesInPack);
+                    optimizedProducts.add(newPack);
                     nbCookies -= packSize;
                 }
             }
