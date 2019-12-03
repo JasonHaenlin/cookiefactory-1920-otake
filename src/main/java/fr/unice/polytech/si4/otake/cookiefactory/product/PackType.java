@@ -1,5 +1,7 @@
 package fr.unice.polytech.si4.otake.cookiefactory.product;
 
+import java.util.Objects;
+
 /**
  * PackSize
  */
@@ -56,5 +58,25 @@ public class PackType implements Comparable<PackType> {
     @Override
     public int compareTo(PackType o) {
         return this.size - o.size;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof PackType)) {
+            return false;
+        }
+        PackType packtype = (PackType) obj;
+        return this.hashCode() == packtype.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.type,this.size,this.price);
     }
 }

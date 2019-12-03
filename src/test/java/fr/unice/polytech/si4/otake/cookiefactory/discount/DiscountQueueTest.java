@@ -27,7 +27,7 @@ public class DiscountQueueTest {
     public void init() {
         this.dq = new DiscountQueue();
         this.o = OrderStepBuilder.newOrder().addProduct(Recipe.CHOCOCOLALALA.create()).validateBasket()
-                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().validatePayment()
+                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount().validatePayment()
                 .build(new Shop("", "name", null));
         this.o.setPriceWithTaxes(10);
     }
@@ -53,8 +53,8 @@ public class DiscountQueueTest {
             }
         }, new DiscountBehaviour() {
             @Override
-            public boolean apply(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
-                return true;
+            public double apply(Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) {
+                return reduction;
             }
         });
         this.d2 = new Discount(false, 4.5, null, null);
@@ -75,8 +75,8 @@ public class DiscountQueueTest {
             }
         }, new DiscountBehaviour() {
             @Override
-            public boolean apply(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
-                return true;
+            public double apply(Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) {
+                return reduction;
             }
         });
         this.d2 = new Discount(false, 0.1, new DiscountTrigger() {
@@ -86,8 +86,8 @@ public class DiscountQueueTest {
             }
         }, new DiscountBehaviour() {
             @Override
-            public boolean apply(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
-                return true;
+            public double apply(Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) {
+                return reduction;
             }
         });
         this.d3 = new Discount(false, 0.1, new DiscountTrigger() {
@@ -97,8 +97,8 @@ public class DiscountQueueTest {
             }
         }, new DiscountBehaviour() {
             @Override
-            public boolean apply(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
-                return true;
+            public double apply(Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) {
+                return reduction;
             }
         });
         this.dq.add(d2);

@@ -24,7 +24,7 @@ public class OrderStepBuilderTest {
 
     @Before
     public void init() {
-        s = new Shop("city", 5, "name", 10, 19, null);
+        s = new Shop("city", "name", null).withSchedule(10, 19);
         p = Recipe.CHOCOCOLALALA.create();
     }
 
@@ -38,6 +38,7 @@ public class OrderStepBuilderTest {
                     .validateBasket()
                     .setAppointment(new SimpleDate("00-00-00 13:00"))
                     .withCode("CODE")
+                    .WithoutAccount()
                     .validatePayment()
                     .build(s);
         // @formatter:on
@@ -55,6 +56,7 @@ public class OrderStepBuilderTest {
                         .validateBasket()
                         .setAppointment(new SimpleDate("00-00-00 09:00"))
                         .noCode()
+                        .WithoutAccount()
                         .validatePayment()
                         .build(s);
             fail("No BadAppointmentRuntimeException thrown");
@@ -68,6 +70,7 @@ public class OrderStepBuilderTest {
                         .validateBasket()
                         .setAppointment(new SimpleDate("00-00-00 15:00"))
                         .noCode()
+                        .WithoutAccount()
                         .validatePayment()
                         .build(s);
             fail("No NoProductRuntimeException thrown");

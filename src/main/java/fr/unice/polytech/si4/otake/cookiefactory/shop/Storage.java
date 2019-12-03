@@ -13,8 +13,6 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Ingre
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Mix;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Topping;
 
-
-
 public class Storage {
 
     Map<Ingredient, Integer> stock;
@@ -67,17 +65,17 @@ public class Storage {
         }
     }
 
-    public List<Cookie> removeListFromStockIfEnough(List<Cookie> list){
+    public List<Cookie> removeListFromStockIfEnough(List<Cookie> list) {
         List<Cookie> returnlist = new ArrayList<>();
         HashMap<Ingredient, Integer> copyStock = new HashMap<Ingredient, Integer>(this.stock);
         for (Cookie cookie : list) {
-            if (!removeFromStockIfEnough(cookie,true)) {
+            if (!removeFromStockIfEnough(cookie, true)) {
                 returnlist.add(cookie);
             }
         }
-        if (returnlist.size()!=0) {  
+        if (returnlist.size() != 0) {
             this.stock = copyStock;
-        } 
+        }
         return returnlist;
     }
 
@@ -86,14 +84,14 @@ public class Storage {
         for (Ingredient iterable_element : list) {
             int old = stock.get(iterable_element);
             if (old <= 0) {
-                return Boolean.FALSE;
+                return false;
             }
         }
         if (updateStock) {
             updateStock(cookie);
         }
 
-        return Boolean.TRUE;
+        return true;
     }
 
     private void updateStock(Cookie cookie) {

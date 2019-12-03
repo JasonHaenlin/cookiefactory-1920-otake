@@ -20,13 +20,13 @@ public class ShopManagementStepdefs implements En {
     public ShopManagementStepdefs() {
 
         Given("the shop {string} of {string} has taxes of {double}", (String name, String city, Double taxes) -> {
-            myShop = new Shop("Nice", taxes, "Nice granny cookie", factory);
+            myShop = new Shop("Nice", "Nice granny cookie", factory).withCustomTaxes(taxes);
         });
 
         When("a customer makes an order of {int} of his favourite cookie", (Integer nbOfFavCookie) -> {
             order = OrderStepBuilder.newOrder().addProduct(Recipe.DARKTEMPTATION.create(), nbOfFavCookie)
-                    .validateBasket().setAppointment(new SimpleDate("00-00-00 13:00")).noCode().validatePayment()
-                    .build(myShop);
+                    .validateBasket().setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount()
+                    .validatePayment().build(myShop);
         });
 
         Then("the price is calculated according to the shop taxes policy", () -> {
@@ -40,7 +40,8 @@ public class ShopManagementStepdefs implements En {
 
         And("a customer order {int} cookies", (Integer nbCookies) -> {
             order = OrderStepBuilder.newOrder().addProduct(Recipe.DARKTEMPTATION.create(), nbCookies).validateBasket()
-                    .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().validatePayment().build(myShop);
+                    .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount().validatePayment()
+                    .build(myShop);
         });
 
         Then("the new taxes applies to the cookies ordering", () -> {

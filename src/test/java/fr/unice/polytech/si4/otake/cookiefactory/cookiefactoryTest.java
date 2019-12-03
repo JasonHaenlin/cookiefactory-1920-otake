@@ -33,11 +33,11 @@ public class cookiefactoryTest {
         c3 = Recipe.CHOCOCOLALALA.create();
         factory = new RecipeBook();
         o1 = OrderStepBuilder.newOrder().addProduct(c1, 2).addProduct(c2, 2).validateBasket()
-                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().validatePayment().build(s);
+                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount().validatePayment().build(s);
         o2 = OrderStepBuilder.newOrder().addProduct(c1, 2).addProduct(c2, 2).validateBasket()
-                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().validatePayment().build(s);
+                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount().validatePayment().build(s);
         o3 = OrderStepBuilder.newOrder().addProduct(c3, 2).validateBasket()
-                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().validatePayment().build(s);
+                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount().validatePayment().build(s);
         factory.addRecipe(c1);
         factory.addRecipe(c2);
         factory.addRecipe(c3);

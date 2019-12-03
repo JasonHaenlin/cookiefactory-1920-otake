@@ -28,7 +28,7 @@ public class DiscountEventStepdefs implements En {
                     this.d = new Discount(true, r, Discount.Trigger.code(code), Discount.Behaviour.products(q));
                 });
         When("a customer enter a code {string} the discount is applied", (String code) -> {
-            this.o = this.cstep.withCode(code).validatePayment().build(new Shop("", "", null));
+            this.o = this.cstep.withCode(code).WithoutAccount().validatePayment().build(new Shop("", "", null));
             this.finalReduction = this.d.applyIfEligible(this.o, null, null);
         });
         Then("the discount is on with a reduction of {double}", (Double r) -> {
