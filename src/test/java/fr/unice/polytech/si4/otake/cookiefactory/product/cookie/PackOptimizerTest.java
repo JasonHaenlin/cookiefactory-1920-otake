@@ -17,16 +17,13 @@ public class PackOptimizerTest {
     final int smallSize = 2;
     final int mediumSize = 4;
     final int bigSize = 6;
-    final double smallPrice = 5.0;
-    final double mediumPrice = 10.0;
-    final double bigPrice = 15.0;
 
     @Before
     public void packOptimizerCreation(){
         packOptimizer = new PackOptimizer();
-        packOptimizer.addPackType(PackSize.SMALL, smallSize, smallPrice);
-        packOptimizer.addPackType(PackSize.MEDIUM, mediumSize, mediumPrice);
-        packOptimizer.addPackType(PackSize.BIG, bigSize, bigPrice);
+        packOptimizer.addPackType(PackSize.SMALL, smallSize);
+        packOptimizer.addPackType(PackSize.MEDIUM, mediumSize);
+        packOptimizer.addPackType(PackSize.BIG, bigSize);
     }
 
     @Test

@@ -5,17 +5,12 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import java.util.*;
 
 public class PackOptimizer {
-
-    private Map<PackSize, Double> packPrices = new HashMap<>();
-    private Map<Double, PackSize> priceToPack = new HashMap<>();
-    private Map<PackSize, Integer> packSizes = new HashMap<>();
+    private EnumMap<PackSize, Integer> packSizes = new EnumMap<>(PackSize.class);
     private Map<Integer, PackSize> sizeToPack = new HashMap<>();
 
     public PackOptimizer(){}
 
-    public void addPackType(PackSize packSize, Integer size, Double price){
-        packPrices.put(packSize, price);
-        priceToPack.put(price, packSize);
+    public void addPackType(PackSize packSize, Integer size){
         packSizes.put(packSize, size);
         sizeToPack.put(size, packSize);
     }
