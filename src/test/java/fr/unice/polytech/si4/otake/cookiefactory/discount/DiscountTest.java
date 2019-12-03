@@ -63,5 +63,6 @@ public class DiscountTest {
         double red = this.d1.applyIfEligible(o, rc, null);
         this.o.applyDiscount(red);
         assertEquals(10, o.getPriceWithTaxes());
+
     }
 }

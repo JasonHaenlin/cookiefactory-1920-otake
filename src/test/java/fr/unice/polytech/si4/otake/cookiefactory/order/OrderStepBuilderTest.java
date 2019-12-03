@@ -1,6 +1,5 @@
 package fr.unice.polytech.si4.otake.cookiefactory.order;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -49,7 +48,7 @@ public class OrderStepBuilderTest {
     public void badOrdertest() {
         try {
             // @formatter:off
-            Order o = OrderStepBuilder
+            OrderStepBuilder
                         .newOrder()
                         .addProduct(p)
                         .addProduct(p, 10)
@@ -64,7 +63,7 @@ public class OrderStepBuilderTest {
         }
         try {
             // @formatter:off
-            Order o = OrderStepBuilder
+            OrderStepBuilder
                         .newOrder()
                         .validateBasket()
                         .setAppointment(new SimpleDate("00-00-00 15:00"))

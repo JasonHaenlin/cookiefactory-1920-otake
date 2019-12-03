@@ -1,9 +1,12 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import fr.unice.polytech.si4.otake.cookiefactory.product.PackSize;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.ShopFinder;
 
@@ -30,7 +33,7 @@ public class ParentCompany {
 	 * @param name
 	 */
 	public void addShop(String city, String name) {
-		Shop shop = new Shop(city, name,recipeBook);
+		Shop shop = new Shop(city, name, recipeBook);
 		shops.add(shop);
 		shopFinder.addShop(shop);
 	}

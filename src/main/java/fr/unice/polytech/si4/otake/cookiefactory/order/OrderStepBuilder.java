@@ -3,9 +3,6 @@ package fr.unice.polytech.si4.otake.cookiefactory.order;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoProductRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
@@ -81,7 +78,7 @@ public class OrderStepBuilder {
         private final Map<Product, Integer> content;
         private SimpleDate appointmentDate;
         private String code;
-        private static Logger logger = LogManager.getLogger(OrderSteps.class);
+        // private static Logger logger = LogManager.getLogger(OrderSteps.class);
 
         OrderSteps() {
             this.content = new HashMap<>();
@@ -154,7 +151,7 @@ public class OrderStepBuilder {
 
         @Override
         public BuildStep validatePayment() {
-            logger.info( "Paiement réussi!");
+            // logger.info( "Paiement réussi!");
             return this;
         }
 
@@ -167,7 +164,7 @@ public class OrderStepBuilder {
                 throw new NoProductRuntimeException();
             }
             Order o = new Order(this.content, this.appointmentDate, this.code);
-            logger.info("Vous avez été débité de {}€", o.getPriceWithTaxes());
+            // logger.info("Vous avez été débité de {}€", o.getPriceWithTaxes());
             return o;
         }
 
