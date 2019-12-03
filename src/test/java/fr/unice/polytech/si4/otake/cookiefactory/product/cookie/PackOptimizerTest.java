@@ -35,15 +35,21 @@ public class PackOptimizerTest {
         for(int i = 0; i < (bigSize + smallSize + 1); ++i){
             products1.add(Recipe.SOOCHOCOLATE.create());
         }
+        System.out.println("size = " + products1.size());
         products1 = packOptimizer.optimizeProducts(products1);
         assertEquals(3, products1.size());
 
-
         List<Product> products2 = new ArrayList<>();
-        for(int i = 0; i < (bigSize*2 + mediumSize*2 + smallSize + 1); ++i){
+        for(int i = 0; i < (bigSize*2 + mediumSize + 1); ++i){
             products2.add(Recipe.SOOCHOCOLATE.create());
         }
         products2 = packOptimizer.optimizeProducts(products2);
-        assertEquals(6, products2.size());
+        assertEquals(4, products2.size());
+
+        products2.add(Recipe.SOOCHOCOLATE.create());
+        products2.add(Recipe.SOOCHOCOLATE.create());
+        products2 = packOptimizer.optimizeProducts(products2);
+
+        assertEquals(5, products2.size());
     }
 }

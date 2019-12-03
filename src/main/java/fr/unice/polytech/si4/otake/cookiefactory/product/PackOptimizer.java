@@ -2,21 +2,22 @@ package fr.unice.polytech.si4.otake.cookiefactory.product;
 
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PackOptimizer {
 
     private Map<PackSize, Double> packPrices = new HashMap<>();
+    private Map<Double, PackSize> priceToPack = new HashMap<>();
     private Map<PackSize, Integer> packSizes = new HashMap<>();
+    private Map<Integer, PackSize> sizeToPack = new HashMap<>();
 
     public PackOptimizer(){}
 
     public void addPackType(PackSize packSize, Integer size, Double price){
         packPrices.put(packSize, price);
+        priceToPack.put(price, packSize);
         packSizes.put(packSize, size);
+        sizeToPack.put(size, packSize);
     }
 
     public List<Product> optimizeProducts(List<Product> products){
@@ -32,22 +33,24 @@ public class PackOptimizer {
                 otherProducts.add(p);
             }
         }
-
-        for(PackSize packSize : packSizes.keySet()){
-            int size = packSizes.get(packSize);
-            int nbPackForSize = nbCookies/size;
+        List<Integer> sizes = new ArrayList<>(packSizes.values());
+        Collections.sort(sizes);
+        Collections.reverse(sizes);
+        for(Integer packSize : sizes){
+            int nbPackForSize = nbCookies/packSize;
+            System.out.println("PackSize = " + packSize + " Nb Pack : " + nbPackForSize);
             for(int i = 0; i < nbPackForSize; ++i){
                 List<Product> cookiesInPack = new ArrayList<>();
-                if(nbCookies > size){
-                    for(int k = 0; k < size; ++k){
+                if(nbCookies > packSize){
+                    for(int k = 0; k < packSize; ++k){
                         cookiesInPack.add(cookiesToCheck.get(k));
                     }
-                    cookiesToCheck.subList(0, size).clear();
+                    cookiesToCheck.subList(0, packSize).clear();
 
-                    Pack pack = new Pack("Pack", ProductType.PACK, packSize, cookiesInPack);
+                    Pack pack = new Pack("Pack", ProductType.PACK, sizeToPack.get(packSize), cookiesInPack);
                     optimizedProducts.add(pack);
+                    nbCookies -= packSize;
                 }
-                nbCookies -= size;
             }
         }
         optimizedProducts.addAll(cookiesToCheck);
