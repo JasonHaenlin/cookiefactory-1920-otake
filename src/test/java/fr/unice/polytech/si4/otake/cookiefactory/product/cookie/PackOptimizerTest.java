@@ -2,16 +2,16 @@ package fr.unice.polytech.si4.otake.cookiefactory.product.cookie;
 
 import static org.junit.Assert.assertEquals;
 
-import fr.unice.polytech.si4.otake.cookiefactory.product.PackOptimizer;
-import fr.unice.polytech.si4.otake.cookiefactory.product.PackSize;
-import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
-import fr.unice.polytech.si4.otake.cookiefactory.product.PackSize.PackType;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import fr.unice.polytech.si4.otake.cookiefactory.product.PackOptimizer;
+import fr.unice.polytech.si4.otake.cookiefactory.product.PackType;
+import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
+import fr.unice.polytech.si4.otake.cookiefactory.product.PackType.TypeSize;
 
 public class PackOptimizerTest {
 
@@ -19,13 +19,16 @@ public class PackOptimizerTest {
     final int smallSize = 2;
     final int mediumSize = 4;
     final int bigSize = 6;
+    final double smallPrice = 5.0;
+    final double mediumPrice = 10.0;
+    final double bigPrice = 15.0;
 
     @Before
     public void packOptimizerCreation() {
         packOptimizer = new PackOptimizer();
-        packOptimizer.addPackType(new PackSize(PackType.SMALL, 15), smallPrice);
-        packOptimizer.addPackType(new PackSize(PackType.MEDIUM, 20), mediumPrice);
-        packOptimizer.addPackType(PackType.BIG, bigSize, bigPrice);
+        packOptimizer.addPackType(new PackType(TypeSize.SMALL, smallSize, smallPrice));
+        packOptimizer.addPackType(new PackType(TypeSize.MEDIUM, mediumSize, mediumPrice));
+        packOptimizer.addPackType(new PackType(TypeSize.BIG, bigSize, bigPrice));
     }
 
     @Test
@@ -34,7 +37,6 @@ public class PackOptimizerTest {
         for (int i = 0; i < (bigSize + smallSize + 1); ++i) {
             products1.add(Recipe.SOOCHOCOLATE.create());
         }
-        System.out.println("size = " + products1.size());
         products1 = packOptimizer.optimizeProducts(products1);
         assertEquals(3, products1.size());
 

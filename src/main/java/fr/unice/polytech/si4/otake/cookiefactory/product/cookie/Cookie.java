@@ -67,12 +67,11 @@ public class Cookie extends Product {
 		return this.price;
 	}
 
-
-	public List<Ingredient> getIngredients(){
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public Boolean isCustom(){
+	public Boolean isCustom() {
 		return this.isCustom;
 	}
 
@@ -96,6 +95,11 @@ public class Cookie extends Product {
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.ingredients);
+	}
+
+	@Override
+	public int retrieveSize() {
+		return 1;
 	}
 
 }

@@ -29,4 +29,9 @@ public class Pack extends Product {
     public List<Product> getProductsInPack() {
         return productsInPack;
     }
+
+    @Override
+    public int retrieveSize() {
+        return this.size.getSize();
+    }
 }

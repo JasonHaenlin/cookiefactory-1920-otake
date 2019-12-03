@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import java.util.*;
-
 public class PackOptimizer {
     private final List<PackType> packs;
 
@@ -35,7 +33,6 @@ public class PackOptimizer {
         for (PackType pack : this.packs) {
             int packSize = pack.getSize();
             int nbPackForSize = nbCookies / packSize;
-            System.out.println("PackSize = " + packSize + " Nb Pack : " + nbPackForSize);
             for (int i = 0; i < nbPackForSize; ++i) {
                 List<Product> cookiesInPack = new ArrayList<>();
                 if (nbCookies > packSize) {

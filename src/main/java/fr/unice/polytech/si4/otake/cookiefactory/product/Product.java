@@ -14,15 +14,17 @@ public abstract class Product {
 
     protected abstract double computePrice();
 
-    public String getName(){
+    public abstract int retrieveSize();
+
+    public String getName() {
         return this.name;
     }
 
-    public void incrementUnits(Integer value){
-        this.units+=value;
+    public void incrementUnits(Integer value) {
+        this.units += value;
     }
 
-    public int getUnits(){
+    public int getUnits() {
         return this.units;
     }
 
