@@ -12,8 +12,6 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Ingre
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Mix;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Topping;
 
-
-
 public class Storage {
 
     Map<Ingredient, Integer> stock;
@@ -71,11 +69,11 @@ public class Storage {
         for (Ingredient iterable_element : list) {
             int old = stock.get(iterable_element);
             if (old <= 0) {
-                return Boolean.FALSE;
+                return false;
             }
         }
         updateStock(cookie);
-        return Boolean.TRUE;
+        return true;
     }
 
     private void updateStock(Cookie cookie) {

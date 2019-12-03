@@ -83,11 +83,9 @@ public class Cookie extends Product {
 		if (this == obj) {
 			return true;
 		}
-
 		if (!(obj instanceof Cookie)) {
 			return false;
 		}
-
 		Cookie cookie = (Cookie) obj;
 		return this.hashCode() == cookie.hashCode();
 	}
@@ -98,7 +96,7 @@ public class Cookie extends Product {
 	}
 
 	@Override
-	public int retrieveSize() {
+	public int getSize() {
 		return 1;
 	}
 

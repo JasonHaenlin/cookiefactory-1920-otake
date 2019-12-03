@@ -14,18 +14,18 @@ public class DiscountQueue {
 
     private final Queue<Discount> discounts;
 
-    DiscountQueue() {
+    public DiscountQueue() {
         this.discounts = new PriorityQueue<>(10, (Discount d1, Discount d2) -> d1.compareTo(d2));
     }
 
-    boolean add(Discount discount) {
+    public boolean add(Discount discount) {
         if (discount == null) {
             return false;
         }
         return this.discounts.add(discount);
     }
 
-    void applyDiscounts(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
+    public void applyDiscounts(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
         double reductions = 0;
         double nr;
         for (Discount discount : discounts) {

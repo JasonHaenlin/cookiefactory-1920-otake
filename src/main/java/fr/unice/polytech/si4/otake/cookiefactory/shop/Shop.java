@@ -19,35 +19,37 @@ public class Shop {
 	private final OrderQueue orders;
 	private final Scheduler schedule;
 	private final RecipeBook recipeBook;
-	private final ShopInventory inventory;
+	private ShopInventory inventory;
 
 	private int orderCount;
 
 	private double taxes;
 
+	// TODO update to real inventory when ready OR use mock for all test ¯\_(ツ)_/¯
 	public Shop(String city, String name, RecipeBook recipeBook) {
-		this(city, DEFAULT_TAXES, name, recipeBook);
-	}
-
-	public Shop(String city, double taxes, String name, RecipeBook recipeBook) {
-		this(city, taxes, name, 8, 20, recipeBook);
-	}
-
-	public Shop(String city, double taxes, String name, int openingTime, int closingTime, RecipeBook recipeBook) {
-		this(city, taxes, name, openingTime, closingTime, recipeBook, new ShopInventory());
-	}
-
-	public Shop(String city, double taxes, String name, int openingTime, int closingTime, RecipeBook recipeBook,
-			ShopInventory inventory) {
 		this.city = city;
-		this.taxes = taxes;
+		this.taxes = DEFAULT_TAXES;
 		this.name = name;
-		this.schedule = new Scheduler(openingTime, closingTime);
-		this.orders = new OrderQueue();
-		this.orderCount = 0;
 		this.recipeBook = recipeBook;
+		this.schedule = new Scheduler(8, 20);
+		this.orders = new OrderQueue();
+		this.inventory = new ShopInventory();
+		this.orderCount = 0;
+	}
+
+	public Shop withSchedule(int opening, int closing) {
+		this.schedule.setSchedule(opening, closing);
+		return this;
+	}
+
+	public Shop withInventory(ShopInventory inventory) {
 		this.inventory = inventory;
-		// TODO update to real inventory when ready OR use mock for all test ¯\_(ツ)_/¯
+		return this;
+	}
+
+	public Shop withCustomTaxes(double taxes) {
+		this.taxes = taxes;
+		return this;
 	}
 
 	public boolean addOrder(Order order) {

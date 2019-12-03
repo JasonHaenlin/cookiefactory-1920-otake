@@ -3,6 +3,7 @@ package fr.unice.polytech.si4.otake.cookiefactory.order;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoProductRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
@@ -50,9 +51,15 @@ public class OrderStepBuilder {
      * add a discount code like EVENT or CE_<COMPANY>
      */
     public interface CodeStep {
-        PaymentStep withCode(String code);
+        AccountStep withCode(String code);
 
-        PaymentStep noCode();
+        AccountStep noCode();
+    }
+
+    public interface AccountStep {
+        PaymentStep withAccount(RegisteredCustomer rg);
+
+        PaymentStep WithoutAccount();
     }
 
     /**
@@ -73,12 +80,13 @@ public class OrderStepBuilder {
     /**
      * orderSteps
      */
-    private static class OrderSteps implements ProductStep, AppointmentStep, CodeStep, PaymentStep, BuildStep {
+    private static class OrderSteps
+            implements ProductStep, AppointmentStep, CodeStep, PaymentStep, AccountStep, BuildStep {
 
         private final Map<Product, Integer> content;
         private SimpleDate appointmentDate;
         private String code;
-        // private static Logger logger = LogManager.getLogger(OrderSteps.class);
+        private RegisteredCustomer rg;
 
         OrderSteps() {
             this.content = new HashMap<>();
@@ -138,20 +146,31 @@ public class OrderStepBuilder {
         }
 
         @Override
-        public PaymentStep withCode(String code) {
+        public AccountStep withCode(String code) {
             this.code = code;
             return this;
         }
 
         @Override
-        public PaymentStep noCode() {
+        public AccountStep noCode() {
             this.code = "";
             return this;
         }
 
         @Override
+        public PaymentStep withAccount(RegisteredCustomer rg) {
+            this.rg = rg;
+            return this;
+        }
+
+        @Override
+        public PaymentStep WithoutAccount() {
+            this.rg = null;
+            return this;
+        }
+
+        @Override
         public BuildStep validatePayment() {
-            // logger.info( "Paiement réussi!");
             return this;
         }
 
@@ -164,7 +183,8 @@ public class OrderStepBuilder {
                 throw new NoProductRuntimeException();
             }
             Order o = new Order(this.content, this.appointmentDate, this.code);
-            // logger.info("Vous avez été débité de {}€", o.getPriceWithTaxes());
+            o.applyTaxes(shop.getTaxes());
+
             return o;
         }
 

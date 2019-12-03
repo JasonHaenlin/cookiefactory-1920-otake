@@ -14,7 +14,11 @@ public abstract class Product {
 
     protected abstract double computePrice();
 
-    public abstract int retrieveSize();
+    public abstract int getSize();
+
+    public abstract boolean equals(Object obj);
+
+    public abstract int hashCode();
 
     public String getName() {
         return this.name;
@@ -35,4 +39,5 @@ public abstract class Product {
     public ProductType getProductType() {
         return productType;
     }
+
 }

@@ -14,7 +14,6 @@ import io.cucumber.java8.En;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 public class PaymentStepdefs implements En {
     Order order;
     PaymentStep payment;
@@ -24,9 +23,9 @@ public class PaymentStepdefs implements En {
     OrderStepBuilder validator;
     Shop shop = new Shop("city", "name", null);
 
-    public PaymentStepdefs(){
+    public PaymentStepdefs() {
 
-        Given("A complete order",() -> {
+        Given("A complete order", () -> {
             basket = OrderStepBuilder.newOrder();
             Product p1 = Recipe.SOOCHOCOLATE.create();
             Product p2 = Recipe.CHOCOCOLALALA.create();
@@ -35,12 +34,12 @@ public class PaymentStepdefs implements En {
 
         When("The customer begin the validation process", () -> {
             appointment = basket.validateBasket();
-            //TODO choose available shop
-            //TODO choose appointment - done
+            // TODO choose available shop
+            // TODO choose appointment - done
             reduction = appointment.setAppointment(new SimpleDate("00-00-00 13:00"));
-            //TODO build pack if possible
-            //TODO apply reduction - done
-            payment = reduction.noCode();
+            // TODO build pack if possible
+            // TODO apply reduction - done
+            payment = reduction.noCode().WithoutAccount();
         });
 
         Then("The customer pay the due price", () -> {

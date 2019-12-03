@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.ShopFinder;
 
@@ -15,6 +16,7 @@ public class ParentCompany {
 	private final Set<Shop> shops;
 	private final ShopFinder shopFinder;
 	private final RecipeBook recipeBook;
+	private final DiscountQueue discounts;
 
 	/**
 	 * parentCompany where we can manage the registeredCustomer and the shops
@@ -24,6 +26,11 @@ public class ParentCompany {
 		this.shops = new HashSet<>();
 		this.shopFinder = new ShopFinder();
 		this.recipeBook = new RecipeBook();
+		this.discounts = new DiscountQueue();
+		defaultDiscount();
+	}
+
+	private void defaultDiscount() {
 	}
 
 	/**
@@ -46,6 +53,13 @@ public class ParentCompany {
 	public void removeShop(Shop shop) {
 		shops.remove(shop);
 		shopFinder.removeShop(shop);
+	}
+
+	/**
+	 * @return the discounts
+	 */
+	public DiscountQueue getDiscounts() {
+		return discounts;
 	}
 
 	/**

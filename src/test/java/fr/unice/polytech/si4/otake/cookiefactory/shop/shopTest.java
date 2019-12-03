@@ -19,7 +19,7 @@ public class shopTest {
     @Before
     public void shopCreation() {
         factory = new RecipeBook();
-        testShop = new Shop("Antibes", 5, "Antibes-Cookie", 8, 19, factory);
+        testShop = new Shop("Antibes", "Antibes-Cookie", factory);
     }
 
     @Test
@@ -27,13 +27,16 @@ public class shopTest {
         Cookie cookie = Recipe.CHOCOCOLALALA.create();
 
         Order order1 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
-                .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().validatePayment().build(testShop);
+                .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().WithoutAccount().validatePayment()
+                .build(testShop);
 
         Order order2 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
-                .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().validatePayment().build(testShop);
+                .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().WithoutAccount().validatePayment()
+                .build(testShop);
 
         Order order3 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
-                .setAppointment(new SimpleDate("00-00-00 17:00")).noCode().validatePayment().build(testShop);
+                .setAppointment(new SimpleDate("00-00-00 17:00")).noCode().WithoutAccount().validatePayment()
+                .build(testShop);
 
         testShop.addOrder(order1);
         testShop.addOrder(order2);

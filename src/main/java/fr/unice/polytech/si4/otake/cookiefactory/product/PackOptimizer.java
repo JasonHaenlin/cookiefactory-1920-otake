@@ -40,8 +40,8 @@ public class PackOptimizer {
                         cookiesInPack.add(cookiesToCheck.get(k));
                     }
                     cookiesToCheck.subList(0, packSize).clear();
-
-                    Pack newPack = new Pack("Pack", ProductType.PACK, pack, cookiesInPack);
+                    // TODO need to change the list
+                    Pack newPack = new Pack("Pack", ProductType.PACK, pack, cookiesInPack.get(0));
                     optimizedProducts.add(newPack);
                     nbCookies -= packSize;
                 }

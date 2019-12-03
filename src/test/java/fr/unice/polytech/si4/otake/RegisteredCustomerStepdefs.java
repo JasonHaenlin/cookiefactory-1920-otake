@@ -36,7 +36,8 @@ public class RegisteredCustomerStepdefs implements En {
             RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
             Shop s = parentCompany.getShops().get(0);
             o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create(), nbCookies).validateBasket()
-                    .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().validatePayment().build(s);
+                    .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().WithoutAccount().validatePayment()
+                    .build(s);
             s.addOrder(o, r);
         });
         Then("the adherent's cookiePoints increase", () -> {
