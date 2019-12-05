@@ -1,6 +1,5 @@
 package fr.unice.polytech.si4.otake.cookiefactory.product;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Pack extends Product {

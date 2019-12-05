@@ -5,10 +5,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
 
-import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
+import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
+import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderQueue;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NullParentCompanyRuntimeException;
 
 public class Shop {
 
@@ -18,7 +20,7 @@ public class Shop {
 	private final String name;
 	private final OrderQueue orders;
 	private final Scheduler schedule;
-	private final RecipeBook recipeBook;
+	private final ParentCompany parentCompany;
 	private ShopInventory inventory;
 
 	private int orderCount;
@@ -26,11 +28,11 @@ public class Shop {
 	private double taxes;
 
 	// TODO update to real inventory when ready OR use mock for all test ¯\_(ツ)_/¯
-	public Shop(String city, String name, RecipeBook recipeBook) {
+	public Shop(String city, String name, ParentCompany parentCompany) {
 		this.city = city;
 		this.taxes = DEFAULT_TAXES;
 		this.name = name;
-		this.recipeBook = recipeBook;
+		this.parentCompany = parentCompany;
 		this.schedule = new Scheduler(8, 20);
 		this.orders = new OrderQueue();
 		this.inventory = new ShopInventory();
@@ -67,7 +69,6 @@ public class Shop {
 	 * @param registerCustomer
 	 */
 	public boolean addOrder(Order order, RegisteredCustomer registerCustomer) {
-		order.setPriceWithoutTaxes(registerCustomer.addDiscountIfEligible(order.getPriceWithoutTaxes()));
 		if (addOrder(order)) {
 			registerCustomer.addPoints(order.getQuantity());
 			return true;
@@ -87,7 +88,7 @@ public class Shop {
 	 * @param date
 	 */
 	public boolean checkAppointmentDate(SimpleDate date) {
-		return date.getHour() > schedule.getOpeningHour() && date.getHour() < schedule.getClosingHour();
+		return date.getHour() > schedule.getOpeningHour() && date.getHour() <= schedule.getClosingHour();
 	}
 
 	public double getTaxes() {
@@ -165,6 +166,13 @@ public class Shop {
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.city, this.name);
+	}
+
+	public DiscountQueue getDiscounts() {
+		if (parentCompany == null) {
+			throw new NullParentCompanyRuntimeException();
+		}
+		return this.parentCompany.getDiscounts();
 	}
 
 }

@@ -1,6 +1,9 @@
 package fr.unice.polytech.si4.otake;
 
-import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Map;
+
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
@@ -8,19 +11,14 @@ import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 import io.cucumber.java8.En;
 
-import java.util.Map;
-
-import static org.junit.Assert.assertTrue;
-
 public class ShopAffluenceStepdefs implements En {
 
     Shop myShop;
     Map<Integer, Integer> statistics;
-    RecipeBook factory;
 
     public ShopAffluenceStepdefs() {
         Given("A shop named {string} in {string}", (String name, String city) -> {
-            myShop = new Shop(city, name, factory);
+            myShop = new Shop(city, name, null);
         });
 
         And("{int} order retrieved at {int}h and {int} orders retrieved at {int}h",

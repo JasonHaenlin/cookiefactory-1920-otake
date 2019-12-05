@@ -18,6 +18,7 @@ public class Order {
 	private double priceWithoutTaxes;
 	private double priceWithTaxes;
 	private boolean retrived;
+	private double reduction;
 
 	private OrderObserver obs;
 
@@ -29,6 +30,7 @@ public class Order {
 		this.appointmentDate = appointmentDate;
 		this.code = code;
 		this.retrived = false;
+		this.reduction = 0;
 		buildPriceWithoutTaxes();
 	}
 
@@ -121,11 +123,13 @@ public class Order {
 	}
 
 	public void applyDiscount(double reduction) {
+		this.reduction = reduction;
 		this.priceWithTaxes = (this.priceWithTaxes - (this.priceWithTaxes * reduction));
 	}
 
 	public double applyTaxes(double taxes) {
 		this.priceWithTaxes = this.priceWithoutTaxes * taxes + this.priceWithoutTaxes;
+		applyDiscount(reduction);
 		return this.priceWithTaxes;
 	}
 
