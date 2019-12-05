@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
@@ -14,12 +13,10 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 public class shopTest {
 
     Shop testShop;
-    RecipeBook factory;
 
     @Before
     public void shopCreation() {
-        factory = new RecipeBook();
-        testShop = new Shop("Antibes", "Antibes-Cookie", factory);
+        testShop = new Shop("Antibes", "Antibes-Cookie", null);
     }
 
     @Test

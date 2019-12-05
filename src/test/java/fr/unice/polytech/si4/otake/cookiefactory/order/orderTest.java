@@ -10,7 +10,6 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
@@ -22,18 +21,15 @@ public class orderTest {
     Order order;
     Shop shop;
     SimpleDate date;
-    RecipeBook factory;
 
     @Before
     public void orderCreation() {
-        factory = new RecipeBook();
-        shop = new Shop("Biot", "time", factory);
+        shop = new Shop("Biot", "time", null);
         date = new SimpleDate("00-00-00 13:00");
     }
 
-
     @Test
-    public void addCookieProductTest(){
+    public void addCookieProductTest() {
         Cookie cookie = Recipe.CHOCOCOLALALA.create();
         Cookie cookie1 = Recipe.SOOCHOCOLATE.create();
         Cookie cookie2 = Recipe.SOOCHOCOLATE.create();
@@ -41,12 +37,12 @@ public class orderTest {
         Map<Product, Integer> products = new HashMap<>();
 
         products.put(cookie, 1);
-        assertEquals(1,products.get(cookie));
+        assertEquals(1, products.get(cookie));
 
-        products.put(cookie1,1);
+        products.put(cookie1, 1);
         assertEquals(1, products.get(cookie1));
 
-        products.put(cookie2 , products.get(cookie2) + 1);
+        products.put(cookie2, products.get(cookie2) + 1);
         assertEquals(2, products.get(cookie2));
 
         products.put(product, products.get(product) + 1);

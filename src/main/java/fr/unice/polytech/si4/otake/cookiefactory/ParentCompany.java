@@ -1,12 +1,14 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import fr.unice.polytech.si4.otake.cookiefactory.discount.Discount;
 import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.ShopFinder;
@@ -31,6 +33,16 @@ public class ParentCompany {
 	}
 
 	private void defaultDiscount() {
+		this.discounts.add(new Discount(true, 0.1, Discount.Trigger.code("EVENT"), Discount.Behaviour.products(100)));
+		this.discounts.add(new Discount(true, 0.05,
+				Discount.Trigger.codeStartWith("CE", Arrays.asList("POLYTECH", "OTAKE", "AREE AT PHIMAI")),
+				Discount.Behaviour.basic()));
+		this.discounts.add(new Discount(false, 0.01, Discount.Trigger.seniority(), Discount.Behaviour.enrolmentTime()));
+		this.discounts.add(new Discount(false, 0.3, Discount.Trigger.hour(),
+				Discount.Behaviour.elligibleCookies(recipeBook.getCookies())));
+		this.discounts
+				.add(new Discount(false, 0.1, Discount.Trigger.fidelity(30), Discount.Behaviour.customerPoints(30)));
+
 	}
 
 	/**
@@ -40,7 +52,7 @@ public class ParentCompany {
 	 * @param name
 	 */
 	public void addShop(String city, String name) {
-		Shop shop = new Shop(city, name, recipeBook);
+		Shop shop = new Shop(city, name, this);
 		shops.add(shop);
 		shopFinder.addShop(shop);
 	}
@@ -53,13 +65,6 @@ public class ParentCompany {
 	public void removeShop(Shop shop) {
 		shops.remove(shop);
 		shopFinder.removeShop(shop);
-	}
-
-	/**
-	 * @return the discounts
-	 */
-	public DiscountQueue getDiscounts() {
-		return discounts;
 	}
 
 	/**
@@ -128,5 +133,19 @@ public class ParentCompany {
 
 	public List<Shop> getShops() {
 		return new ArrayList<>(this.shops);
+	}
+
+	/**
+	 * @return the recipeBook
+	 */
+	public RecipeBook getRecipeBook() {
+		return recipeBook;
+	}
+
+	/**
+	 * @return the discounts
+	 */
+	public DiscountQueue getDiscounts() {
+		return discounts;
 	}
 }

@@ -8,6 +8,7 @@ import java.util.Objects;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 
 /**
@@ -134,6 +135,14 @@ public class Discount implements Comparable<Discount> {
             return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> reduction;
         }
 
+        public static DiscountBehaviour enrolmentTime() {
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> {
+                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                int year = registeredCustomer.getRegistrationDate().get(Calendar.YEAR);
+                return (currentYear - year) * reduction;
+            };
+        }
+
         public static DiscountBehaviour products(int min) {
             return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> {
                 int count = 0;
@@ -158,7 +167,7 @@ public class Discount implements Comparable<Discount> {
             };
         }
 
-        public static DiscountBehaviour elligibleProducts(List<Product> prods) {
+        public static DiscountBehaviour elligibleCookies(List<Cookie> prods) {
             return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> {
                 double price = 0;
                 double total = 0;
