@@ -68,13 +68,6 @@ public class ParentCompany {
 	}
 
 	/**
-	 * @return the discounts
-	 */
-	public DiscountQueue getDiscounts() {
-		return discounts;
-	}
-
-	/**
 	 *
 	 * @param location, name
 	 */
@@ -149,4 +142,10 @@ public class ParentCompany {
 		return recipeBook;
 	}
 
+	/**
+	 * @return the discounts
+	 */
+	public DiscountQueue getDiscounts() {
+		return discounts;
+	}
 }
