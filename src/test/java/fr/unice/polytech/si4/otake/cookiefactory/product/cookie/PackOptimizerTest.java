@@ -3,7 +3,9 @@ package fr.unice.polytech.si4.otake.cookiefactory.product.cookie;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,24 +35,28 @@ public class PackOptimizerTest {
 
     @Test
     public void optimizeProductsTest() {
-        List<Product> products1 = new ArrayList<>();
-        for (int i = 0; i < (bigSize + smallSize + 1); ++i) {
-            products1.add(Recipe.SOOCHOCOLATE.create());
-        }
+        Map<Product, Integer> products1 = new HashMap<>();
+        Cookie cookie1 = Recipe.SOOCHOCOLATE.create();
+        products1.put(cookie1, (bigSize + smallSize + 1));
         products1 = packOptimizer.optimizeProducts(products1);
         assertEquals(3, products1.size());
 
-        List<Product> products2 = new ArrayList<>();
-        for (int i = 0; i < (bigSize * 2 + mediumSize + 1); ++i) {
-            products2.add(Recipe.SOOCHOCOLATE.create());
-        }
+        Map<Product, Integer> products2 = new HashMap<>();
+        products2.put(cookie1, (bigSize * 2 + mediumSize + 1));
         products2 = packOptimizer.optimizeProducts(products2);
         assertEquals(4, products2.size());
 
-        products2.add(Recipe.SOOCHOCOLATE.create());
-        products2.add(Recipe.SOOCHOCOLATE.create());
+        products2.put(cookie1, products2.get(cookie1)+2);
         products2 = packOptimizer.optimizeProducts(products2);
-
         assertEquals(5, products2.size());
+
+
+        Cookie cookie2 = Recipe.DARKTEMPTATION.create();
+        Map<Product, Integer> products3 = new HashMap<>();
+        products3.put(cookie1, (smallSize+1));
+        products3.put(cookie2, (smallSize+1));
+        products3 = packOptimizer.optimizeProducts(products3);
+        assertEquals(4, products3.size());
+
     }
 }
