@@ -2,11 +2,9 @@ package fr.unice.polytech.si4.otake.cookiefactory.discount;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
@@ -95,9 +93,9 @@ public class DiscountTest {
 
 	@Test
 	public void discrountElligibleProductsTest() {
-		List<Cookie> cs = new ArrayList<>();
-		cs.add(c);
-		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.elligibleCookies(cs));
+		RecipeBook rc = new RecipeBook();
+		rc.addRecipe(c);
+		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.elligibleCookies(rc));
 		this.o = OrderStepBuilder.newOrder().addProduct(p, 5).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").WithoutAccount().validatePayment()
 				.build(s);

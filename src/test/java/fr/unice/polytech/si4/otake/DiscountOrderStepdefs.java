@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
+import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
@@ -26,14 +27,16 @@ public class DiscountOrderStepdefs implements En {
     double fullprice;
     Shop s;
     double taxes;
+    ParentCompany parentC = new ParentCompany();
 
     public DiscountOrderStepdefs() {
         Given("a customer that order at the end of the day", () -> {
             taxes = 0.3;
             p = Recipe.SOOCHOCOLATE.create();
+            parentC.getRecipeBook().addRecipe((Cookie) p);
             pc = new Cookie("customCookie", Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.MIXED), true);
-            fullprice = p.getPrice() * 5 + ((p.getPrice() * 5) * taxes);
-            s = new Shop("city", "name", null).withSchedule(8, 18);
+            fullprice = (p.getPrice() * 5) + ((p.getPrice() * 5) * taxes);
+            s = new Shop("city", "name", parentC).withSchedule(8, 18);
         });
         When("a customer create an order with cookies at {int} o'clock", (Integer day) -> {
             o = OrderStepBuilder.newOrder().addProduct(p, 5).validateBasket()
