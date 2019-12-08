@@ -2,9 +2,6 @@ package fr.unice.polytech.si4.otake.cookiefactory.discount;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
