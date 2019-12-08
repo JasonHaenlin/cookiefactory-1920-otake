@@ -38,8 +38,8 @@ public class ParentCompany {
 				Discount.Trigger.codeStartWith("CE", Arrays.asList("POLYTECH", "OTAKE", "AREE AT PHIMAI")),
 				Discount.Behaviour.basic()));
 		this.discounts.add(new Discount(false, 0.01, Discount.Trigger.seniority(), Discount.Behaviour.enrolmentTime()));
-		this.discounts.add(new Discount(false, 0.3, Discount.Trigger.hour(),
-				Discount.Behaviour.elligibleCookies(recipeBook.getCookies())));
+		this.discounts.add(
+				new Discount(false, 0.3, Discount.Trigger.hour(), Discount.Behaviour.elligibleCookies(recipeBook)));
 		this.discounts
 				.add(new Discount(false, 0.1, Discount.Trigger.fidelity(30), Discount.Behaviour.customerPoints(30)));
 

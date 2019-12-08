@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 
 /**
@@ -167,12 +167,12 @@ public class Discount implements Comparable<Discount> {
             };
         }
 
-        public static DiscountBehaviour elligibleCookies(List<Cookie> prods) {
+        public static DiscountBehaviour elligibleCookies(RecipeBook recipeBook) {
             return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> {
                 double price = 0;
                 double total = 0;
                 for (Map.Entry<Product, Integer> c : order.getContent().entrySet()) {
-                    if (prods.contains(c.getKey())) {
+                    if (recipeBook.getCookies().contains(c.getKey())) {
                         price += c.getKey().getPrice() * c.getValue();
                     }
                     total += c.getKey().getPrice() * c.getValue();
