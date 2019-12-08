@@ -1,10 +1,13 @@
 package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
 
+import fr.unice.polytech.si4.otake.cookiefactory.CookieFactoryAPI;
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
@@ -21,7 +24,8 @@ public class Shop {
 	private final OrderQueue orders;
 	private final Scheduler schedule;
 	private final ParentCompany parentCompany;
-	private ShopInventory inventory;
+	private final Storage inventory;
+	private final List<String> Cinemas;
 
 	private int orderCount;
 
@@ -35,17 +39,13 @@ public class Shop {
 		this.parentCompany = parentCompany;
 		this.schedule = new Scheduler(8, 20);
 		this.orders = new OrderQueue();
-		this.inventory = new ShopInventory();
+		this.inventory = new Storage();
 		this.orderCount = 0;
+		this.Cinemas = new ArrayList<>();
 	}
 
 	public Shop withSchedule(int opening, int closing) {
 		this.schedule.setSchedule(opening, closing);
-		return this;
-	}
-
-	public Shop withInventory(ShopInventory inventory) {
-		this.inventory = inventory;
 		return this;
 	}
 
@@ -146,6 +146,37 @@ public class Shop {
 
 	public String getName() {
 		return name;
+	}
+
+	public void addCinema(String cinema) {
+		this.Cinemas.add(cinema);
+	}
+
+	public void delCinema(String cinema) {
+		for (int i = 0; i < this.Cinemas.size(); i++) {
+			if (this.Cinemas.get(i).equals(cinema)) {
+				this.Cinemas.remove(i);
+			}
+		}
+	}
+
+	private boolean checkCinema(String cinemaName) {
+		for (String string : Cinemas) {
+			if (string.equals(cinemaName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// the ticket need to be "name:ticketid" like : "pathepourchat:EBSU18E"
+	public Boolean checkTicket(String ticket) {
+		String[] arrOfStr = ticket.split(":", 2);
+		CookieFactoryAPI cookiefactoryapi = CookieFactoryAPI.getInstanceCookieFactoryAPI();
+		if (checkCinema(arrOfStr[0]) && cookiefactoryapi.globalyCheck(arrOfStr[1])) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
