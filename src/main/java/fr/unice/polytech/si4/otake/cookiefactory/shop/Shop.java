@@ -21,13 +21,11 @@ public class Shop {
 	private final OrderQueue orders;
 	private final Scheduler schedule;
 	private final ParentCompany parentCompany;
-	private ShopInventory inventory;
 
 	private int orderCount;
 
 	private double taxes;
 
-	// TODO update to real inventory when ready OR use mock for all test ¯\_(ツ)_/¯
 	public Shop(String city, String name, ParentCompany parentCompany) {
 		this.city = city;
 		this.taxes = DEFAULT_TAXES;
@@ -35,17 +33,11 @@ public class Shop {
 		this.parentCompany = parentCompany;
 		this.schedule = new Scheduler(8, 20);
 		this.orders = new OrderQueue();
-		this.inventory = new ShopInventory();
 		this.orderCount = 0;
 	}
 
 	public Shop withSchedule(int opening, int closing) {
 		this.schedule.setSchedule(opening, closing);
-		return this;
-	}
-
-	public Shop withInventory(ShopInventory inventory) {
-		this.inventory = inventory;
 		return this;
 	}
 

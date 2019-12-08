@@ -5,47 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Cooking;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Dough;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Flavour;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Ingredient;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Mix;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Topping;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Ingredient;
 
-public class Storage {
+public class Storage implements StorageObserver {
 
-    Map<Ingredient, Integer> stock;
+    private Map<Ingredient, Integer> stock;
 
-    Storage() {
-        HashMap<Ingredient, Integer> initStock = new HashMap<Ingredient, Integer>();
-        initStock.put(Cooking.CHEWY, 0);
-        initStock.put(Cooking.CRUNCHY, 0);
-        initStock.put(Dough.CHOCOLATE, 0);
-        initStock.put(Dough.OATMEAL, 0);
-        initStock.put(Dough.PEANUTBUTTER, 0);
-        initStock.put(Dough.PLAIN, 0);
-        initStock.put(Flavour.CHILI, 0);
-        initStock.put(Flavour.CINNAMON, 0);
-        initStock.put(Flavour.VANILLA, 0);
-        initStock.put(Mix.MIXED, 0);
-        initStock.put(Mix.TOPPED, 0);
-        initStock.put(Topping.MILKCHOCOLATE, 0);
-        initStock.put(Topping.MMS, 0);
-        initStock.put(Topping.REESEBUTTERCUP, 0);
-        initStock.put(Topping.WHITECHOCOLATE, 0);
-        this.stock = initStock;
-    }
-
-    Storage(HashMap<Ingredient, Integer> maps) {
-        this();
-        for (Map.Entry<Ingredient, Integer> entry : maps.entrySet()) {
-            Ingredient ingredient = entry.getKey();
-            this.stock.put(ingredient, entry.getValue());
+    Storage(RecipeBook recipeBook) {
+        this.stock = new HashMap<>();
+        for (Ingredient i : recipeBook.getIngredients()) {
+            this.stock.put(i, 0);
         }
+        recipeBook.addObserver(this);
     }
 
-    public void addIngredient(Ingredient ingredient, int quantity) {
+    public void addStock(Ingredient ingredient, int quantity) {
         if (this.stock.containsKey(ingredient)) {
             int old = this.stock.get(ingredient);
             this.stock.put(ingredient, old + quantity);
@@ -54,7 +30,7 @@ public class Storage {
         }
     }
 
-    public void deleteIngredient(Ingredient ingredient, int quantity) {
+    public void deleteStock(Ingredient ingredient, int quantity) {
         if (this.stock.containsKey(ingredient)) {
             int old = this.stock.get(ingredient);
             if (old < quantity) {
@@ -100,6 +76,16 @@ public class Storage {
             int old = stock.get(iterable_element);
             stock.put(iterable_element, old - 1);
         }
+    }
+
+    @Override
+    public void addIngredient(Ingredient ingredient) {
+        this.stock.put(ingredient, 0);
+    }
+
+    @Override
+    public void removeIngredient(Ingredient ingredient) {
+        this.stock.remove(ingredient);
     }
 
 }

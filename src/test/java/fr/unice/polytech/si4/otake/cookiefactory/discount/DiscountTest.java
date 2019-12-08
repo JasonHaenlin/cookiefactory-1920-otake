@@ -2,17 +2,19 @@ package fr.unice.polytech.si4.otake.cookiefactory.discount;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 
 /**
  * DiscountTest
@@ -22,22 +24,34 @@ public class DiscountTest {
 	Discount d1;
 	Order o;
 	Shop s = new Shop("city", "name", null);
-	Cookie c = Recipe.CHOCOCOLALALA.create();
-	Cookie c2 = Recipe.DARKTEMPTATION.create();
-	Product p = Recipe.CHOCOCOLALALA.create();
-	Product p2 = Recipe.DARKTEMPTATION.create();
+	HelperRecipe helper;
+	ParentCompany pc;
+	Cookie c;
+	Cookie c2;
+	Product p;
+	Product p2;
+
+	@Before
+	public void init() {
+		this.pc = new ParentCompany();
+		this.helper = new HelperRecipe(pc.getRecipeBook());
+		c = helper.getChocolalala();
+		c2 = helper.getDarkTemptation();
+		p = helper.getChocolalala();
+		p2 = helper.getDarkTemptation();
+	}
 
 	@Test
 	public void disountCodeTest() {
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.basic());
-		this.o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
+		this.o = OrderStepBuilder.newOrder().addProduct(helper.getChocolalala()).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").WithoutAccount().validatePayment()
 				.build(new Shop("city", "name", null));
 		this.o.setPriceWithTaxes(10);
 		double red = this.d1.applyIfEligible(o, null, null);
 		this.o.applyDiscount(red);
 		assertEquals(9, o.getPriceWithTaxes());
-		this.o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
+		this.o = OrderStepBuilder.newOrder().addProduct(helper.getChocolalala()).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("NOPE").WithoutAccount().validatePayment()
 				.build(new Shop("city", "name", null));
 		this.o.setPriceWithTaxes(10);
@@ -49,7 +63,7 @@ public class DiscountTest {
 	@Test
 	public void discountHourTest() {
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.hour(), Discount.Behaviour.basic());
-		this.o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
+		this.o = OrderStepBuilder.newOrder().addProduct(helper.getChocolalala()).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 19:00")).noCode().WithoutAccount().validatePayment().build(s);
 		this.o.setPriceWithTaxes(10);
 		double red = this.d1.applyIfEligible(o, null, s);
@@ -94,7 +108,7 @@ public class DiscountTest {
 	@Test
 	public void discrountElligibleProductsTest() {
 		RecipeBook rc = new RecipeBook();
-		rc.addRecipe(c);
+		rc.add(c);
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.elligibleCookies(rc));
 		this.o = OrderStepBuilder.newOrder().addProduct(p, 5).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").WithoutAccount().validatePayment()

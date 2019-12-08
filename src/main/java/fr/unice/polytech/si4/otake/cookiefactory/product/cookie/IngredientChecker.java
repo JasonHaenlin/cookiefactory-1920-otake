@@ -1,22 +1,20 @@
-package fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient;
+package fr.unice.polytech.si4.otake.cookiefactory.product.cookie;
 
 import java.util.List;
-
-import org.apache.commons.lang3.EnumUtils;
 
 /**
  * ListTypeChecker
  */
 public class IngredientChecker {
-    private final List<Class<? extends Ingredient>> listClass;
+    private final List<IngredientType> types;
 
     /**
      * create a new ingredient checker with the enum classes to check in the recipes
      *
-     * @param listClass
+     * @param types
      */
-    public IngredientChecker(List<Class<? extends Ingredient>> listClass) {
-        this.listClass = listClass;
+    public IngredientChecker(List<IngredientType> types) {
+        this.types = types;
     }
 
     /**
@@ -28,12 +26,10 @@ public class IngredientChecker {
      * @param max  the max number of ingredients from the specific type to check
      * @return true if the recipe is wrong, false otherwise
      */
-    @SuppressWarnings("unchecked")
-    public <E extends Enum<E>> boolean isQuantityExcessive(Class<? extends Ingredient> type, List<Ingredient> list,
-                                                           int max) {
+    public boolean isQuantityExcessive(IngredientType type, List<Ingredient> list, int max) {
         int quantity = 0;
         for (Ingredient i : list) {
-            if (EnumUtils.isValidEnum((Class<E>) type, i.toString())) {
+            if (i.getType() == type) {
                 quantity++;
             }
         }
@@ -47,19 +43,18 @@ public class IngredientChecker {
      * @return true if it is ok, false otherwise
      */
     public boolean verify(List<Ingredient> enumList) {
-        for (Class<? extends Ingredient> c : listClass) {
-            if (!isEnumTypePresentOnce(c, enumList)) {
+        for (IngredientType t : types) {
+            if (!isEnumTypePresentOnce(t, enumList)) {
                 return false;
             }
         }
         return true;
     }
 
-    @SuppressWarnings("unchecked")
-    private <E extends Enum<E>> boolean isEnumTypePresentOnce(Class<? extends Ingredient> type, List<Ingredient> list) {
+    private boolean isEnumTypePresentOnce(IngredientType type, List<Ingredient> list) {
         int c = 0;
         for (Ingredient i : list) {
-            if (EnumUtils.isValidEnum((Class<E>) type, i.toString())) {
+            if (i.getType() == type) {
                 c++;
             }
         }

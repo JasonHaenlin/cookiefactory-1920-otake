@@ -11,18 +11,42 @@ import java.util.stream.Collectors;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Ingredient;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.IngredientType;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.StorageObserver;
 
 public class RecipeBook {
 
 	private final Map<Cookie, Double> cookies;
 	private final Set<Ingredient> ingredients;
+	private final Set<StorageObserver> obs;
 
 	/**
 	 * new RecipeBook to manage the Cookies recipes
+	 *
+	 * names propositions : Dark Temptation, Soooo Chocolate, Chocolalala, etc
 	 */
 	public RecipeBook() {
 		this.cookies = new HashMap<>();
 		this.ingredients = new HashSet<>();
+		this.obs = new HashSet<>();
+	}
+
+	public RecipeBook withDefaultIngredient() {
+		this.ingredients.add(new Ingredient("White Chocolate", 0.80, IngredientType.TOPPING));
+		this.ingredients.add(new Ingredient("Milk Chocolate", 0.90, IngredientType.TOPPING));
+		this.ingredients.add(new Ingredient("Mms", 1.00, IngredientType.TOPPING));
+		this.ingredients.add(new Ingredient("Reese Buttercup", 1.10, IngredientType.TOPPING));
+		this.ingredients.add(new Ingredient("Mixed", 0.50, IngredientType.MIX));
+		this.ingredients.add(new Ingredient("topped", 0.50, IngredientType.MIX));
+		this.ingredients.add(new Ingredient("Vanilla", 0.60, IngredientType.FLAVOUR));
+		this.ingredients.add(new Ingredient("Cinnamon", 0.50, IngredientType.FLAVOUR));
+		this.ingredients.add(new Ingredient("Chili", 1.00, IngredientType.FLAVOUR));
+		this.ingredients.add(new Ingredient("Plain", 0.10, IngredientType.DOUGH));
+		this.ingredients.add(new Ingredient("Chocolate", 0.20, IngredientType.DOUGH));
+		this.ingredients.add(new Ingredient("Peanut Butter", 0.40, IngredientType.DOUGH));
+		this.ingredients.add(new Ingredient("Oatmeal", 0.60, IngredientType.DOUGH));
+		this.ingredients.add(new Ingredient("Crunchy", 0.50, IngredientType.COOKING));
+		this.ingredients.add(new Ingredient("Chewy", 0.60, IngredientType.COOKING));
+		return this;
 	}
 
 	/**
@@ -62,7 +86,7 @@ public class RecipeBook {
 	 * @param recipe
 	 * @return false if the cookie already exist, true otherwise
 	 */
-	public boolean addRecipe(Cookie recipe) {
+	public boolean add(Cookie recipe) {
 		return this.cookies.putIfAbsent(recipe, 0.0) == null;
 	}
 
@@ -72,7 +96,7 @@ public class RecipeBook {
 	 * @param recipe
 	 * @return true if the recipe has been removed, false otherwise
 	 */
-	public boolean removeRecipe(Cookie recipe) {
+	public boolean remove(Cookie recipe) {
 		return this.cookies.remove(recipe) != null;
 	}
 
@@ -102,18 +126,31 @@ public class RecipeBook {
 
 	public void addIngredients(List<Ingredient> ingredients) {
 		for (Ingredient i : ingredients) {
-			this.ingredients.add(i);
+			addIngredient(i);
 		}
 	}
 
-	public boolean addIngredient(Ingredient ingredient) {
-		return this.ingredients.add(ingredient);
+	public boolean addIngredient(Ingredient i) {
+		if (this.ingredients.add(i)) {
+			dispatchAddEvent(i);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean removeIngredient(Ingredient i) {
+		if (this.ingredients.remove(i)) {
+			dispatchRemoveEvent(i);
+			return true;
+		}
+		return false;
 	}
 
 	/**
 	 * @return a specific ingredient
 	 */
 	public Ingredient getIngredient(String name) {
+		name = name.toLowerCase();
 		for (Ingredient i : ingredients) {
 			if (i.getName().equals(name)) {
 				return i;
@@ -128,4 +165,21 @@ public class RecipeBook {
 	public List<Ingredient> getIngredientsByType(IngredientType type) {
 		return ingredients.stream().filter((i) -> i.getType() == type).collect(Collectors.toList());
 	}
+
+	public void dispatchAddEvent(Ingredient i) {
+		this.obs.forEach(o -> o.addIngredient(i));
+	}
+
+	public void dispatchRemoveEvent(Ingredient i) {
+		this.obs.forEach(o -> o.removeIngredient(i));
+	}
+
+	public void addObserver(StorageObserver obs) {
+		this.obs.add(obs);
+	}
+
+	public void removeObserver(StorageObserver obs) {
+		this.obs.remove(obs);
+	}
+
 }

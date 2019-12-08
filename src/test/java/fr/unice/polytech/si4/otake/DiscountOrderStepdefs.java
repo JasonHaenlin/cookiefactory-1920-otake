@@ -9,12 +9,9 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Cooking;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Dough;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Mix;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
 /**
@@ -27,14 +24,17 @@ public class DiscountOrderStepdefs implements En {
     double fullprice;
     Shop s;
     double taxes;
-    ParentCompany parentC = new ParentCompany();
+    ParentCompany parentC;
+    HelperRecipe helper;
 
     public DiscountOrderStepdefs() {
         Given("a customer that order at the end of the day", () -> {
             taxes = 0.3;
-            p = Recipe.SOOCHOCOLATE.create();
-            parentC.getRecipeBook().addRecipe((Cookie) p);
-            pc = new Cookie("customCookie", Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.MIXED), true);
+            parentC = new ParentCompany();
+            helper = new HelperRecipe(parentC.getRecipeBook());
+            p = helper.getSoooChocolate();
+            parentC.getRecipeBook().add((Cookie) p);
+            pc = new Cookie("customCookie", Arrays.asList(helper.chewy, helper.choco, helper.mixed), true);
             fullprice = (p.getPrice() * 5) + ((p.getPrice() * 5) * taxes);
             s = new Shop("city", "name", parentC).withSchedule(8, 18);
         });

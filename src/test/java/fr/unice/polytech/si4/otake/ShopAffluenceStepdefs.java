@@ -4,17 +4,19 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
 public class ShopAffluenceStepdefs implements En {
 
     Shop myShop;
     Map<Integer, Integer> statistics;
+    HelperRecipe helper = new HelperRecipe(new RecipeBook());
 
     public ShopAffluenceStepdefs() {
         Given("A shop named {string} in {string}", (String name, String city) -> {
@@ -39,7 +41,7 @@ public class ShopAffluenceStepdefs implements En {
 
     private void addOrdersAtHour(int nbOrder, int hour) {
         for (int i = 0; i < nbOrder; i++) {
-            Order order = OrderStepBuilder.newOrder().addProduct(Recipe.DARKTEMPTATION.create()).validateBasket()
+            Order order = OrderStepBuilder.newOrder().addProduct(helper.getDarkTemptation()).validateBasket()
                     .setAppointment(new SimpleDate("24-12-2019 " + hour + ":00")).noCode().WithoutAccount()
                     .validatePayment().build(myShop);
 

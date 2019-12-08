@@ -8,13 +8,6 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.ProductType;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.exception.IngredientNotPresentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.exception.TooMuchIngredientRuntimeException;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Cooking;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Dough;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Flavour;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Ingredient;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.IngredientChecker;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Mix;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Topping;
 
 public class Cookie extends Product {
 
@@ -36,14 +29,15 @@ public class Cookie extends Product {
 		if (name == null) {
 			throw new IllegalArgumentException(NAME_CAN_NOT_BE_NULL);
 		}
-		this.checker = new IngredientChecker(Arrays.asList(Cooking.class, Dough.class, Mix.class));
+		this.checker = new IngredientChecker(
+				Arrays.asList(IngredientType.COOKING, IngredientType.DOUGH, IngredientType.MIX));
 		if (!this.checker.verify(ingredients)) {
 			throw new IngredientNotPresentRuntimeException();
 		}
-		if (this.checker.isQuantityExcessive(Topping.class, ingredients, Cookie.MAX_TOPPINGS)) {
+		if (this.checker.isQuantityExcessive(IngredientType.TOPPING, ingredients, Cookie.MAX_TOPPINGS)) {
 			throw new TooMuchIngredientRuntimeException("Topping", Cookie.MAX_TOPPINGS);
 		}
-		if (this.checker.isQuantityExcessive(Flavour.class, ingredients, 1)) {
+		if (this.checker.isQuantityExcessive(IngredientType.FLAVOUR, ingredients, 1)) {
 			throw new TooMuchIngredientRuntimeException("Flavour", 1);
 		}
 		this.isCustom = isCustom;

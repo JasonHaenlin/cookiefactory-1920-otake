@@ -2,13 +2,14 @@ package fr.unice.polytech.si4.otake;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.discount.Discount;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.CodeStep;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
 /**
@@ -19,12 +20,14 @@ public class DiscountEventStepdefs implements En {
     Discount d;
     double finalReduction;
     CodeStep cstep;
+    HelperRecipe helper;
 
     public DiscountEventStepdefs() {
         Given("an order with {int} cookies and a Discount code {string} applied with similar cookies with a reduction of {double}",
                 (Integer q, String code, Double r) -> {
-                    this.cstep = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create(), q)
-                            .validateBasket().setAppointment(new SimpleDate("00-00-00 15:00"));
+                    helper = new HelperRecipe(new RecipeBook());
+                    this.cstep = OrderStepBuilder.newOrder().addProduct(helper.getSoooChocolate(), q).validateBasket()
+                            .setAppointment(new SimpleDate("00-00-00 15:00"));
                     this.d = new Discount(true, r, Discount.Trigger.code(code), Discount.Behaviour.products(q));
                 });
         When("a customer enter a code {string} the discount is applied", (String code) -> {

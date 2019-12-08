@@ -7,12 +7,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoProductRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 
 /**
  * OrderStepBuilderTest
@@ -25,7 +26,7 @@ public class OrderStepBuilderTest {
     @Before
     public void init() {
         s = new Shop("city", "name", null).withSchedule(10, 19);
-        p = Recipe.CHOCOCOLALALA.create();
+        p = new HelperRecipe(new ParentCompany().getRecipeBook()).getChocolalala();
     }
 
     @Test

@@ -5,12 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 
 /**
  * DiscountQueueTest
@@ -22,11 +23,13 @@ public class DiscountQueueTest {
     Discount d1;
     Discount d2;
     Discount d3;
+    HelperRecipe helper;
 
     @Before
     public void init() {
         this.dq = new DiscountQueue();
-        this.o = OrderStepBuilder.newOrder().addProduct(Recipe.CHOCOCOLALALA.create()).validateBasket()
+        this.helper = new HelperRecipe(new RecipeBook());
+        this.o = OrderStepBuilder.newOrder().addProduct(helper.getChocolalala()).validateBasket()
                 .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount().validatePayment()
                 .build(new Shop("", "name", null));
         this.o.setPriceWithTaxes(10);

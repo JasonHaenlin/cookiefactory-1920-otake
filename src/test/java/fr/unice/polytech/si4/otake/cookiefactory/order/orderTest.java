@@ -10,30 +10,33 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 
 public class orderTest {
 
     Order order;
     Shop shop;
     SimpleDate date;
+    HelperRecipe helper;
 
     @Before
     public void orderCreation() {
         shop = new Shop("Biot", "time", null);
         date = new SimpleDate("00-00-00 13:00");
+        helper = new HelperRecipe(new RecipeBook());
     }
 
     @Test
     public void addCookieProductTest() {
-        Cookie cookie = Recipe.CHOCOCOLALALA.create();
-        Cookie cookie1 = Recipe.SOOCHOCOLATE.create();
-        Cookie cookie2 = Recipe.SOOCHOCOLATE.create();
-        Product product = Recipe.SOOCHOCOLATE.create();
+        Cookie cookie = helper.getChocolalala();
+        Cookie cookie1 = helper.getSoooChocolate();
+        Cookie cookie2 = helper.getSoooChocolate();
+        Product product = helper.getSoooChocolate();
         Map<Product, Integer> products = new HashMap<>();
 
         products.put(cookie, 1);
@@ -55,7 +58,7 @@ public class orderTest {
 
     @Test
     public void addCookieTest() {
-        Cookie cookie = Recipe.SOOCHOCOLATE.create();
+        Cookie cookie = helper.getSoooChocolate();
         Map<Product, Integer> p = new HashMap<>();
         p.put(cookie, 1);
         order = new Order(p, null, null);

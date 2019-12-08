@@ -3,11 +3,12 @@ package fr.unice.polytech.si4.otake;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.ProductStep;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
 public class ManageCookieBasketStepdefs implements En {
@@ -17,13 +18,15 @@ public class ManageCookieBasketStepdefs implements En {
     Cookie c3;
     Order orderobj;
     ProductStep pstep;
+    HelperRecipe helper;
 
     public ManageCookieBasketStepdefs() {
 
         Given("a basket containing cookies", () -> {
-            c1 = Recipe.SOOCHOCOLATE.create();
-            c2 = Recipe.DARKTEMPTATION.create();
-            c3 = Recipe.CHOCOCOLALALA.create();
+            helper = new HelperRecipe(new RecipeBook());
+            c1 = helper.getSoooChocolate();
+            c2 = helper.getDarkTemptation();
+            c3 = helper.getChocolalala();
             pstep = OrderStepBuilder.newOrder();
             pstep.addProduct(c1).addProduct(c2).addProduct(c3);
 

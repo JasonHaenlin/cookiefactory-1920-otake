@@ -7,12 +7,12 @@ import java.util.Objects;
  */
 public class Ingredient {
 
-    double price;
-    final String name;
-    final IngredientType type;
+    private double price;
+    private final String name;
+    private final IngredientType type;
 
-    Ingredient(String name, double price, IngredientType type) {
-        this.name = name;
+    public Ingredient(String name, double price, IngredientType type) {
+        this.name = name.toLowerCase();
         this.price = price;
         this.type = type;
     }
