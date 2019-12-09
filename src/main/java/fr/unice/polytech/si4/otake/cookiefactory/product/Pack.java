@@ -4,17 +4,17 @@ import java.util.Objects;
 
 public class Pack extends Product {
 
-    private PackType size;
+    private PackType packType;
     private Product product;
 
-    Pack(String name, ProductType type, PackType size) {
+    Pack(String name, ProductType type, PackType packType) {
         super(name, type);
-        this.size = size;
+        this.packType = packType;
     }
 
-    Pack(String name, ProductType type, PackType size, Product product) {
+    Pack(String name, ProductType type, PackType packType, Product product) {
         super(name, type);
-        this.size = size;
+        this.packType = packType;
         this.product = product;
     }
 
@@ -28,7 +28,7 @@ public class Pack extends Product {
 
     @Override
     public int getSize() {
-        return this.size.getSize();
+        return this.packType.getSize();
     }
 
     @Override
@@ -48,6 +48,6 @@ public class Pack extends Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.name, this.productType, this.size);
+        return Objects.hash(this.name, this.productType, this.packType, this.product);
     }
 }
