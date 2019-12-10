@@ -244,7 +244,6 @@ public class Shop {
 		if (recipeBook.getCookie(cookieName) == null) {
 			return false;
 		}
-
 		return storage.removeFromStockIfEnough(recipeBook.getCookie(cookieName), Boolean.FALSE);
 	}
 

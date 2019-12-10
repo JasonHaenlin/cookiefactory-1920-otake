@@ -3,6 +3,10 @@ package fr.unice.polytech.si4.otake.cookiefactory.order;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NoShopHasEnoughIngredient;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NoShopOpenedForTheProduct;
+
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoProductRuntimeException;
@@ -27,6 +31,8 @@ public class OrderStepBuilder {
      * build the basket
      */
     public interface ProductStep {
+
+        ProductStep checkAvailabilityFromShops(ParentCompany company, int actualTime, Product product);
 
         ProductStep addProduct(Product product);
 
@@ -91,6 +97,17 @@ public class OrderStepBuilder {
 
         OrderSteps() {
             this.content = new HashMap<>();
+        }
+
+        @Override
+        public ProductStep checkAvailabilityFromShops(ParentCompany company, int actualTime, Product product) {
+            if(!company.couldAShopSatisfyThisProduct(product)){
+                throw new NoShopHasEnoughIngredient();
+            }
+            if(!company.isThereAnOpenShopThatCouldMakeThisProduct(actualTime,product)){
+                throw new NoShopOpenedForTheProduct();
+            }
+            return this;
         }
 
         @Override

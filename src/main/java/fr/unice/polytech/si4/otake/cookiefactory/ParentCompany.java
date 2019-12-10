@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import fr.unice.polytech.si4.otake.cookiefactory.discount.Discount;
 import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.ShopFinder;
 
@@ -152,5 +153,25 @@ public class ParentCompany implements CompanyOperation {
 	@Override
 	public RecipeBook getRecipes() {
 		return recipeBook;
+	}
+
+	public boolean couldAShopSatisfyThisProduct(Product product){
+		boolean test = false;
+		for (Shop s : shops){
+			if (s.isCookieAvailable(product.getName())){
+				test = true;
+			}
+		}
+		return test;
+	}
+
+	public boolean isThereAnOpenShopThatCouldMakeThisProduct(int actualTime, Product product){
+		boolean test = false;
+		for (Shop s : shops){
+			if (s.getSchedule().getClosingHour() > actualTime){
+				test = true;
+			}
+		}
+		return test;
 	}
 }
