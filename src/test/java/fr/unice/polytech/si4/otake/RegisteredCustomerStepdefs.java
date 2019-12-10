@@ -17,6 +17,7 @@ public class RegisteredCustomerStepdefs implements En {
 
     final String[] idOfRegisteredCustomer = { null };
     Order o;
+    double taxes = 0.3;
 
     public RegisteredCustomerStepdefs() {
         ParentCompany parentCompany = new ParentCompany();
@@ -35,8 +36,10 @@ public class RegisteredCustomerStepdefs implements En {
         When("the adherent order {int} cookies", (Integer nbCookies) -> {
             RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
             Shop s = parentCompany.getShops().get(0);
+            s.setTaxes(0.3);
             o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create(), nbCookies).validateBasket()
-                    .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().validatePayment().build(s);
+                    .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().withAccount(r).validatePayment()
+                    .build(s);
             s.addOrder(o, r);
         });
         Then("the adherent's cookiePoints increase", () -> {
@@ -45,16 +48,18 @@ public class RegisteredCustomerStepdefs implements En {
         });
         Then("the adherent pays full price", () -> {
             parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
-            assertEquals(o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice(), o.getPriceWithoutTaxes());
+            double fp = o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice();
+            assertEquals(fp + (fp * taxes), o.getPriceWithTaxes());
         });
         Then("the adherent will get discount on next purchase", () -> {
-            RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
-            assertTrue(r.getCookiePoints() >= RegisteredCustomer.POINT_BEFORE_DISCOUNT);
+            parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
         });
         Then("the adherent pays with {double} percent discount on their purchase", (Double discountPercent) -> {
             parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
-            double fullPrice = (o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice());
-            assertNotEquals(fullPrice, o.getPriceWithoutTaxes());
+            double fpnot = o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice();
+            double fullPrice = fpnot + (fpnot * taxes);
+            assertNotEquals(fullPrice, o.getPriceWithTaxes());
+            assertEquals(fullPrice - (fullPrice * (discountPercent / 100)), o.getPriceWithTaxes());
         });
         When("the registered customer choose to adhere to the fidelity program", () -> {
             parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]).setSubscribed(true);

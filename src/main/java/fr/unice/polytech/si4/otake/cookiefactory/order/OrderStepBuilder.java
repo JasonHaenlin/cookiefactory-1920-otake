@@ -3,17 +3,23 @@ package fr.unice.polytech.si4.otake.cookiefactory.order;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoProductRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NullParentCompanyRuntimeException;
 
 /**
  * OrderStepBuilder
  */
 public class OrderStepBuilder {
+
+    private static Logger logger = LogManager.getLogger(OrderStepBuilder.class);
 
     private OrderStepBuilder() {
     }
@@ -51,9 +57,15 @@ public class OrderStepBuilder {
      * add a discount code like EVENT or CE_<COMPANY>
      */
     public interface CodeStep {
-        PaymentStep withCode(String code);
+        AccountStep withCode(String code);
 
-        PaymentStep noCode();
+        AccountStep noCode();
+    }
+
+    public interface AccountStep {
+        PaymentStep withAccount(RegisteredCustomer rg);
+
+        PaymentStep withoutAccount();
     }
 
     /**
@@ -74,11 +86,13 @@ public class OrderStepBuilder {
     /**
      * orderSteps
      */
-    private static class OrderSteps implements ProductStep, AppointmentStep, CodeStep, PaymentStep, BuildStep {
+    private static class OrderSteps
+            implements ProductStep, AppointmentStep, CodeStep, PaymentStep, AccountStep, BuildStep {
 
         private final Map<Product, Integer> content;
         private SimpleDate appointmentDate;
         private String code;
+        private RegisteredCustomer rg;
 
         OrderSteps() {
             this.content = new HashMap<>();
@@ -127,6 +141,11 @@ public class OrderStepBuilder {
         }
 
         @Override
+        public Map<Product, Integer> getContent() {
+            return content;
+        }
+
+        @Override
         public AppointmentStep validateBasket() {
             return this;
         }
@@ -138,14 +157,26 @@ public class OrderStepBuilder {
         }
 
         @Override
-        public PaymentStep withCode(String code) {
+        public AccountStep withCode(String code) {
             this.code = code;
             return this;
         }
 
         @Override
-        public PaymentStep noCode() {
+        public AccountStep noCode() {
             this.code = "";
+            return this;
+        }
+
+        @Override
+        public PaymentStep withAccount(RegisteredCustomer rg) {
+            this.rg = rg;
+            return this;
+        }
+
+        @Override
+        public PaymentStep withoutAccount() {
+            this.rg = null;
             return this;
         }
 
@@ -159,15 +190,22 @@ public class OrderStepBuilder {
             if (!shop.checkAppointmentDate(this.appointmentDate)) {
                 throw new BadAppointmentRuntimeException();
             }
-            if (this.content.size() == 0) {
+            if (this.content.isEmpty()) {
                 throw new NoProductRuntimeException();
             }
-            return new Order(this.content, this.appointmentDate, this.code);
-        }
+            Order o = new Order(this.content, this.appointmentDate, this.code);
+            o.applyTaxes(shop.getTaxes());
 
-        @Override
-        public Map<Product, Integer> getContent() {
-            return content;
+            // if (!shop.isStorageEnough(o.toCookieList())) {
+            // return null;
+            // }
+
+            try {
+                shop.getDiscounts().applyDiscounts(o, rg, shop);
+            } catch (NullParentCompanyRuntimeException e) {
+                logger.error(e.toString());
+            }
+            return o;
         }
 
     }

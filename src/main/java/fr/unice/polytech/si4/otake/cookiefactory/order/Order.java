@@ -1,13 +1,16 @@
 package fr.unice.polytech.si4.otake.cookiefactory.order;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.product.Pack;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.ProductType;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
-//TODO NEED STRONG TEST for products, don't have the time for now :'(
 public class Order {
 
 	private int id;
@@ -19,6 +22,7 @@ public class Order {
 	private double priceWithoutTaxes;
 	private double priceWithTaxes;
 	private boolean retrived;
+	private double reduction;
 
 	private OrderObserver obs;
 
@@ -30,6 +34,7 @@ public class Order {
 		this.appointmentDate = appointmentDate;
 		this.code = code;
 		this.retrived = false;
+		this.reduction = 0;
 		buildPriceWithoutTaxes();
 	}
 
@@ -122,11 +127,13 @@ public class Order {
 	}
 
 	public void applyDiscount(double reduction) {
+		this.reduction = reduction;
 		this.priceWithTaxes = (this.priceWithTaxes - (this.priceWithTaxes * reduction));
 	}
 
 	public double applyTaxes(double taxes) {
 		this.priceWithTaxes = this.priceWithoutTaxes * taxes + this.priceWithoutTaxes;
+		applyDiscount(reduction);
 		return this.priceWithTaxes;
 	}
 
@@ -136,5 +143,24 @@ public class Order {
 
 	public void setObs(OrderObserver obs) {
 		this.obs = obs;
+	}
+
+	public final List<Cookie> toCookieList() {
+		List<Cookie> cookies = new ArrayList<>();
+		for (Map.Entry<Product, Integer> entry : content.entrySet()) {
+			Product product = entry.getKey();
+			int sameproduct = entry.getValue();
+			if (product.isA(ProductType.CUSTOM_COOKIE, ProductType.ON_MENU_COOKIE)) {
+				for (int i = 0; i < sameproduct; i++) {
+					cookies.add((Cookie) product);
+				}
+			} else if (product.isA(ProductType.PACK)) {
+				Pack pack = (Pack) product;
+				for (int j = 0; j < pack.getSize(); j++) {
+					cookies.add((Cookie) pack.getProductsInPack());
+				}
+			}
+		}
+		return cookies;
 	}
 }

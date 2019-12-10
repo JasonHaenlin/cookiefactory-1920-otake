@@ -1,6 +1,5 @@
 package fr.unice.polytech.si4.otake.cookiefactory.order;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -14,6 +13,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 
 /**
  * OrderStepBuilderTest
@@ -22,11 +22,14 @@ public class OrderStepBuilderTest {
 
     Shop s;
     Product p;
+    Storage storage;
 
     @Before
     public void init() {
-        s = new Shop("city", 5, "name", 10, 19, null);
+        s = new Shop("city", "name", null).withSchedule(10, 19);
+        storage = s.getStorage();
         p = Recipe.CHOCOCOLALALA.create();
+
     }
 
     @Test
@@ -39,6 +42,7 @@ public class OrderStepBuilderTest {
                     .validateBasket()
                     .setAppointment(new SimpleDate("00-00-00 13:00"))
                     .withCode("CODE")
+                    .withoutAccount()
                     .validatePayment()
                     .build(s);
         // @formatter:on
@@ -49,13 +53,14 @@ public class OrderStepBuilderTest {
     public void badOrdertest() {
         try {
             // @formatter:off
-            Order o = OrderStepBuilder
+            OrderStepBuilder
                         .newOrder()
                         .addProduct(p)
                         .addProduct(p, 10)
                         .validateBasket()
                         .setAppointment(new SimpleDate("00-00-00 09:00"))
                         .noCode()
+                        .withoutAccount()
                         .validatePayment()
                         .build(s);
             fail("No BadAppointmentRuntimeException thrown");
@@ -64,11 +69,12 @@ public class OrderStepBuilderTest {
         }
         try {
             // @formatter:off
-            Order o = OrderStepBuilder
+            OrderStepBuilder
                         .newOrder()
                         .validateBasket()
                         .setAppointment(new SimpleDate("00-00-00 15:00"))
                         .noCode()
+                        .withoutAccount()
                         .validatePayment()
                         .build(s);
             fail("No NoProductRuntimeException thrown");

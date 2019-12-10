@@ -1,12 +1,15 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import fr.unice.polytech.si4.otake.cookiefactory.discount.Discount;
+import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.ShopFinder;
 
@@ -15,6 +18,7 @@ public class ParentCompany {
 	private final Set<Shop> shops;
 	private final ShopFinder shopFinder;
 	private final RecipeBook recipeBook;
+	private final DiscountQueue discounts;
 
 	/**
 	 * parentCompany where we can manage the registeredCustomer and the shops
@@ -24,6 +28,21 @@ public class ParentCompany {
 		this.shops = new HashSet<>();
 		this.shopFinder = new ShopFinder();
 		this.recipeBook = new RecipeBook();
+		this.discounts = new DiscountQueue();
+		defaultDiscount();
+	}
+
+	private final void defaultDiscount() {
+		this.discounts.add(new Discount(true, 0.1, Discount.Trigger.code("EVENT"), Discount.Behaviour.products(100)));
+		this.discounts.add(new Discount(true, 0.05,
+				Discount.Trigger.codeStartWith("CE", Arrays.asList("POLYTECH", "OTAKE", "AREE AT PHIMAI")),
+				Discount.Behaviour.basic()));
+		this.discounts.add(new Discount(false, 0.01, Discount.Trigger.seniority(), Discount.Behaviour.enrolmentTime()));
+		this.discounts.add(
+				new Discount(false, 0.3, Discount.Trigger.hour(), Discount.Behaviour.elligibleCookies(recipeBook)));
+		this.discounts
+				.add(new Discount(false, 0.1, Discount.Trigger.fidelity(30), Discount.Behaviour.customerPoints(30)));
+
 	}
 
 	/**
@@ -33,7 +52,7 @@ public class ParentCompany {
 	 * @param name
 	 */
 	public void addShop(String city, String name) {
-		Shop shop = new Shop(city, name,recipeBook);
+		Shop shop = new Shop(city, name, this);
 		shops.add(shop);
 		shopFinder.addShop(shop);
 	}
@@ -114,5 +133,19 @@ public class ParentCompany {
 
 	public List<Shop> getShops() {
 		return new ArrayList<>(this.shops);
+	}
+
+	/**
+	 * @return the recipeBook
+	 */
+	public RecipeBook getRecipeBook() {
+		return recipeBook;
+	}
+
+	/**
+	 * @return the discounts
+	 */
+	public DiscountQueue getDiscounts() {
+		return discounts;
 	}
 }

@@ -3,7 +3,6 @@ package fr.unice.polytech.si4.otake;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
@@ -15,7 +14,6 @@ import io.cucumber.java8.En;
  * CookPreparingStepdefs
  */
 public class CookPreparingStepdefs implements En {
-    RecipeBook factory;
     Shop shop;
     Order o;
     Order o1;
@@ -23,11 +21,13 @@ public class CookPreparingStepdefs implements En {
 
     public CookPreparingStepdefs() {
         Given("orders in a shop", () -> {
-            shop = new Shop("city", "name", factory);
+            shop = new Shop("city", "name", null);
             o1 = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
-                    .setAppointment(new SimpleDate("00-00-00 14:00")).noCode().validatePayment().build(shop);
+                    .setAppointment(new SimpleDate("00-00-00 14:00")).noCode().withoutAccount().validatePayment()
+                    .build(shop);
             o2 = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
-                    .setAppointment(new SimpleDate("00-00-00 12:00")).noCode().validatePayment().build(shop);
+                    .setAppointment(new SimpleDate("00-00-00 12:00")).noCode().withoutAccount().validatePayment()
+                    .build(shop);
             shop.addOrder(o2);
             shop.addOrder(o1);
         });

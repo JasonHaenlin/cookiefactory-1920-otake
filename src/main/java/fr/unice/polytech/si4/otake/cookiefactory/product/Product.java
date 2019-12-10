@@ -1,5 +1,7 @@
 package fr.unice.polytech.si4.otake.cookiefactory.product;
 
+import java.util.Arrays;
+
 public abstract class Product {
     protected static final String NAME_CAN_NOT_BE_NULL = "Name can not be null";
     protected final String name;
@@ -14,15 +16,17 @@ public abstract class Product {
 
     protected abstract double computePrice();
 
-    public String getName(){
+    public abstract int getSize();
+
+    public String getName() {
         return this.name;
     }
 
-    public void incrementUnits(Integer value){
-        this.units+=value;
+    public void incrementUnits(Integer value) {
+        this.units += value;
     }
 
-    public int getUnits(){
+    public int getUnits() {
         return this.units;
     }
 
@@ -33,4 +37,14 @@ public abstract class Product {
     public ProductType getProductType() {
         return productType;
     }
+
+    public boolean isA(ProductType... types) {
+        for (ProductType type : Arrays.asList(types)) {
+            if (type == this.productType) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

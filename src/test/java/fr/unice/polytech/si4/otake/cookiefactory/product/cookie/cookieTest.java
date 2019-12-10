@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,9 +1,11 @@
 package fr.unice.polytech.si4.otake.cookiefactory.discount;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
@@ -26,11 +28,11 @@ public class Discount implements Comparable<Discount> {
     }
 
     public double applyIfEligible(Order order, RegisteredCustomer registeredCustomer, Shop shop) {
-        if (this.discTrig.check(order, registeredCustomer, shop)
-                && this.discBeh.apply(order, registeredCustomer, shop)) {
-            return this.reduction;
+        double red = 0;
+        if (this.discTrig.check(order, registeredCustomer, shop)) {
+            red = this.discBeh.apply(order, registeredCustomer, shop, reduction);
         }
-        return 0;
+        return red != 0. ? red : 0.;
 
     }
 
@@ -79,7 +81,20 @@ public class Discount implements Comparable<Discount> {
 
         public static DiscountTrigger code(String code) {
             return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> order.getCode().equals(code);
+        }
 
+        public static DiscountTrigger codeStartWith(String code, List<String> endTerms) {
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
+                String c = order.getCode();
+                if (c.startsWith(code)) {
+                    for (String s : endTerms) {
+                        if (c.endsWith(s)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            };
         }
 
         public static DiscountTrigger hour() {
@@ -117,27 +132,52 @@ public class Discount implements Comparable<Discount> {
         }
 
         public static DiscountBehaviour basic() {
-            return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> true;
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> reduction;
+        }
+
+        public static DiscountBehaviour enrolmentTime() {
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> {
+                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                int year = registeredCustomer.getRegistrationDate().get(Calendar.YEAR);
+                return (currentYear - year) * reduction;
+            };
         }
 
         public static DiscountBehaviour products(int min) {
-            return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> {
+                int count = 0;
                 for (Map.Entry<Product, Integer> c : order.getContent().entrySet()) {
-                    if (c.getValue() >= min) {
-                        return true;
+                    count += c.getValue();
+                    if (count >= min) {
+                        return reduction;
                     }
                 }
-                return false;
+
+                return 0;
             };
         }
 
         public static DiscountBehaviour customerPoints(int removePoints) {
-            return (Order order, RegisteredCustomer registeredCustomer, Shop shop) -> {
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> {
                 if (registeredCustomer == null) {
-                    return false;
+                    return 0.;
                 }
                 registeredCustomer.removePoints(removePoints);
-                return true;
+                return reduction;
+            };
+        }
+
+        public static DiscountBehaviour elligibleCookies(RecipeBook recipeBook) {
+            return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> {
+                double price = 0;
+                double total = 0;
+                for (Map.Entry<Product, Integer> c : order.getContent().entrySet()) {
+                    if (recipeBook.getCookies().contains(c.getKey())) {
+                        price += c.getKey().getPrice() * c.getValue();
+                    }
+                    total += c.getKey().getPrice() * c.getValue();
+                }
+                return (reduction * price) / total;
             };
         }
     }

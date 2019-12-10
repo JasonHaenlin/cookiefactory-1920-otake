@@ -2,6 +2,8 @@ package fr.unice.polytech.si4.otake.cookiefactory.product.cookie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import org.junit.Test;
 
 /**

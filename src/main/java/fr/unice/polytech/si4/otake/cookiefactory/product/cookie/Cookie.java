@@ -63,8 +63,8 @@ public class Cookie extends Product {
 		return m;
 	}
 
-	public double getPrice() {
-		return this.price;
+	public List<Ingredient> getIngredients() {
+		return ingredients;
 	}
 
 	public Boolean isCustom() {
@@ -79,11 +79,9 @@ public class Cookie extends Product {
 		if (this == obj) {
 			return true;
 		}
-
 		if (!(obj instanceof Cookie)) {
 			return false;
 		}
-
 		Cookie cookie = (Cookie) obj;
 		return this.hashCode() == cookie.hashCode();
 	}
@@ -91,6 +89,11 @@ public class Cookie extends Product {
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.ingredients);
+	}
+
+	@Override
+	public int getSize() {
+		return 1;
 	}
 
 }

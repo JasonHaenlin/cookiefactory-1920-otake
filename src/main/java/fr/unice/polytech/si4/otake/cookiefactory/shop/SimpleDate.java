@@ -13,6 +13,8 @@ public class SimpleDate implements Comparable<SimpleDate> {
     /**
      * create a simple date of format "00-00-00 13:00"
      *
+     * day-month-year hour:min
+     *
      * <pre>
      *  {@code new SimpleDate("00-00-00 13:00");}
      * </pre>

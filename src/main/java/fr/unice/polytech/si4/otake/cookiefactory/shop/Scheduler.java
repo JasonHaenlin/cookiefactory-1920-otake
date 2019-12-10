@@ -14,12 +14,6 @@ public class Scheduler {
 		this.closing = new SimpleDate("00-00-00 " + closing + ":00");
 	}
 
-	/*
-	 * public SimpleDate getOpening(){ return opening; }
-	 * 
-	 * public SimpleDate getClosing(){ return closing; }
-	 */
-
 	public int getOpeningHour() {
 		return opening.getHour();
 	}
