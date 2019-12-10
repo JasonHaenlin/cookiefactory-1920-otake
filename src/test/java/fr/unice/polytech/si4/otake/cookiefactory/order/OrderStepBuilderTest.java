@@ -13,6 +13,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 
 /**
  * OrderStepBuilderTest
@@ -21,15 +22,20 @@ public class OrderStepBuilderTest {
 
     Shop s;
     Product p;
+    Storage storage;
 
     @Before
     public void init() {
         s = new Shop("city", "name", null).withSchedule(10, 19);
+        storage = s.getInventory();
         p = Recipe.CHOCOCOLALALA.create();
+        
     }
 
     @Test
     public void goodOrderTest() {
+
+
         // @formatter:off
         Order o = OrderStepBuilder
                     .newOrder()

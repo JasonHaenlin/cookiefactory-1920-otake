@@ -14,6 +14,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderQueue;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NullParentCompanyRuntimeException;
 
 public class Shop {
@@ -27,6 +28,7 @@ public class Shop {
 	private final ParentCompany parentCompany;
 	private final Storage inventory;
 	private final List<String> Cinemas;
+	private final List<Cookie> waitingCookies;
 
 	private int orderCount;
 
@@ -43,6 +45,11 @@ public class Shop {
 		this.inventory = new Storage();
 		this.orderCount = 0;
 		this.Cinemas = new ArrayList<>();
+		this.waitingCookies = new ArrayList<>();
+	}
+
+	public Storage getInventory() {
+		return inventory;
 	}
 
 	public Shop withSchedule(int opening, int closing) {
@@ -213,10 +220,20 @@ public class Shop {
 
 	public boolean isCookieAvailable(String cookieName) {
 		RecipeBook recipeBook = parentCompany.getRecipeBook();
-		if (recipeBook.getCookie(cookieName) == null){
+		if (recipeBook.getCookie(cookieName) == null) {
 			return false;
 		}
 
 		return inventory.removeFromStockIfEnough(recipeBook.getCookie(cookieName), false);
 	}
+
+	public boolean isStorageEnough(List<Cookie> list) {
+		this.waitingCookies.addAll(list);
+		if (this.inventory.removeListFromStockIfEnough(this.waitingCookies, false).size() == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

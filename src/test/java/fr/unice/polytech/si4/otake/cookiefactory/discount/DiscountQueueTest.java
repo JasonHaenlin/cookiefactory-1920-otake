@@ -11,6 +11,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 
 /**
  * DiscountQueueTest
@@ -19,6 +20,8 @@ public class DiscountQueueTest {
 
     Order o;
     DiscountQueue dq;
+    Shop shop = new Shop("", "name", null);
+    Storage storage = shop.getInventory();
     Discount d1;
     Discount d2;
     Discount d3;
@@ -28,7 +31,7 @@ public class DiscountQueueTest {
         this.dq = new DiscountQueue();
         this.o = OrderStepBuilder.newOrder().addProduct(Recipe.CHOCOCOLALALA.create()).validateBasket()
                 .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount().validatePayment()
-                .build(new Shop("", "name", null));
+                .build(shop);
         this.o.setPriceWithTaxes(10);
     }
 

@@ -17,7 +17,7 @@ public class Storage {
 
     Map<Ingredient, Integer> stock;
 
-    Storage() {
+    public Storage() {
         HashMap<Ingredient, Integer> initStock = new HashMap<Ingredient, Integer>();
         initStock.put(Cooking.CHEWY, 0);
         initStock.put(Cooking.CRUNCHY, 0);
@@ -37,7 +37,7 @@ public class Storage {
         this.stock = initStock;
     }
 
-    Storage(HashMap<Ingredient, Integer> maps) {
+    public Storage(HashMap<Ingredient, Integer> maps) {
         this();
         for (Map.Entry<Ingredient, Integer> entry : maps.entrySet()) {
             Ingredient ingredient = entry.getKey();
@@ -65,7 +65,7 @@ public class Storage {
         }
     }
 
-    public List<Cookie> removeListFromStockIfEnough(List<Cookie> list) {
+    public List<Cookie> removeListFromStockIfEnough(List<Cookie> list , Boolean remove) {
         List<Cookie> returnlist = new ArrayList<>();
         HashMap<Ingredient, Integer> copyStock = new HashMap<Ingredient, Integer>(this.stock);
         for (Cookie cookie : list) {
@@ -73,9 +73,12 @@ public class Storage {
                 returnlist.add(cookie);
             }
         }
-        if (returnlist.size() != 0) {
+        if (returnlist.size() == 0 && !remove) {
+            this.stock = copyStock;
+        } else if (returnlist.size() != 0) {
             this.stock = copyStock;
         }
+        
         return returnlist;
     }
 

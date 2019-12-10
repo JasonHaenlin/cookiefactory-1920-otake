@@ -63,9 +63,9 @@ public class StorageTest {
         listCookie.add(cookie3);
 
 
-        assertEquals(1,this.stock.removeListFromStockIfEnough(listCookie).size());
+        assertEquals(1,this.stock.removeListFromStockIfEnough(listCookie,true).size());
         stock.addIngredient(Flavour.CINNAMON, 1);
-        assertEquals(0,this.stock.removeListFromStockIfEnough(listCookie).size());
+        assertEquals(0,this.stock.removeListFromStockIfEnough(listCookie,true).size());
 
 
     }

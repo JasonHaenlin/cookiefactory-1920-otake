@@ -2,9 +2,7 @@ package fr.unice.polytech.si4.otake.cookiefactory.product.cookie;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
@@ -12,8 +10,8 @@ import org.junit.Test;
 
 import fr.unice.polytech.si4.otake.cookiefactory.product.PackOptimizer;
 import fr.unice.polytech.si4.otake.cookiefactory.product.PackType;
-import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.PackType.TypeSize;
+import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 
 public class PackOptimizerTest {
 
@@ -46,15 +44,14 @@ public class PackOptimizerTest {
         products2 = packOptimizer.optimizeProducts(products2);
         assertEquals(4, products2.size());
 
-        products2.put(cookie1, products2.get(cookie1)+2);
+        products2.put(cookie1, products2.get(cookie1) + 2);
         products2 = packOptimizer.optimizeProducts(products2);
         assertEquals(4, products2.size());
 
-
         Cookie cookie2 = Recipe.DARKTEMPTATION.create();
         Map<Product, Integer> products3 = new HashMap<>();
-        products3.put(cookie1, (smallSize+1));
-        products3.put(cookie2, (smallSize+1));
+        products3.put(cookie1, (smallSize + 1));
+        products3.put(cookie2, (smallSize + 1));
         System.out.println(products3);
         products3 = packOptimizer.optimizeProducts(products3);
         System.out.println(products3);

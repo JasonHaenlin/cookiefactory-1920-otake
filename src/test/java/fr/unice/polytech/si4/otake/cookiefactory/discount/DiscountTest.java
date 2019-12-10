@@ -13,6 +13,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 
 /**
  * DiscountTest
@@ -22,6 +23,7 @@ public class DiscountTest {
 	Discount d1;
 	Order o;
 	Shop s = new Shop("city", "name", null);
+	Storage storage = s.getInventory();
 	Cookie c = Recipe.CHOCOCOLALALA.create();
 	Cookie c2 = Recipe.DARKTEMPTATION.create();
 	Product p = Recipe.CHOCOCOLALALA.create();
@@ -32,14 +34,14 @@ public class DiscountTest {
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.basic());
 		this.o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").WithoutAccount().validatePayment()
-				.build(new Shop("city", "name", null));
+				.build(s);
 		this.o.setPriceWithTaxes(10);
 		double red = this.d1.applyIfEligible(o, null, null);
 		this.o.applyDiscount(red);
 		assertEquals(9, o.getPriceWithTaxes());
 		this.o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("NOPE").WithoutAccount().validatePayment()
-				.build(new Shop("city", "name", null));
+				.build(s);
 		this.o.setPriceWithTaxes(10);
 		red = this.d1.applyIfEligible(o, null, null);
 		this.o.applyDiscount(red);
