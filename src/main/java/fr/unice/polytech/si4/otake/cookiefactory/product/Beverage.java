@@ -1,5 +1,7 @@
 package fr.unice.polytech.si4.otake.cookiefactory.product;
 
+import java.util.Objects;
+
 public class Beverage extends Product {
 
     Beverage(String name, ProductType type, int price){
@@ -11,19 +13,25 @@ public class Beverage extends Product {
         return this.price;
     }
 
-    public int retrieveSize(){
-        return 1;
-    }
-
     public int getSize() {
         return 1;
     }
 
     public int hashCode(){
-        return 0;
+        return Objects.hash(this.name, this.productType);
     }
 
     public boolean equals(Object obj){
-        return obj == this;
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Beverage)) {
+            return false;
+        }
+        Beverage beverage = (Beverage) obj;
+        return this.hashCode() == beverage.hashCode();
     }
 }
