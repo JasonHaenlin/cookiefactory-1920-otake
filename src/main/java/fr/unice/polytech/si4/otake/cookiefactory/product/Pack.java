@@ -7,13 +7,13 @@ public class Pack extends Product {
     private PackType packType;
     private Product product;
 
-    Pack(String name, ProductType type, PackType packType) {
-        super(name, type);
+    public Pack(String name, PackType packType) {
+        super(name, ProductType.PACK);
         this.packType = packType;
     }
 
-    Pack(String name, ProductType type, PackType packType, Product product) {
-        super(name, type);
+    public Pack(String name, PackType packType, Product product) {
+        super(name, ProductType.PACK);
         this.packType = packType;
         this.product = product;
     }

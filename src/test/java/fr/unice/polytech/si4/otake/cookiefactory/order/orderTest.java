@@ -10,6 +10,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.product.Pack;
+import fr.unice.polytech.si4.otake.cookiefactory.product.PackType;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
@@ -96,5 +98,25 @@ public class orderTest {
         assertEquals(o1, shop.getOrderToRetrieve(0), "order id 1 should be o1");
         assertTrue("the o1 should be done", shop.retrieved(0));
         assertNull(shop.getOrderToRetrieve(0), "now the order to retrieve should be null");
+    }
+
+    @Test
+    public void orderToListTest() {
+        Cookie cookie = Recipe.CHOCOCOLALALA.create();
+        Cookie cookie2 = Recipe.SOOCHOCOLATE.create();
+        Map<Product, Integer> products = new HashMap<>();
+
+        products.put(cookie, 3);
+        products.put(cookie2, 5);
+
+        Order o = new Order(products, date, "");
+        assertEquals(8, o.toCookieList().size());
+
+        Pack pack = new Pack("pack", new PackType(PackType.MEDIUM, 30, 50));
+
+        products.put(pack, 1);
+
+        o = new Order(products, date, "");
+        assertEquals(38, o.toCookieList().size());
     }
 }

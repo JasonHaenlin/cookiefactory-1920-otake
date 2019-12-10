@@ -1,8 +1,6 @@
 package fr.unice.polytech.si4.otake.cookiefactory.order;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,10 +9,7 @@ import org.apache.logging.log4j.Logger;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoProductRuntimeException;
-import fr.unice.polytech.si4.otake.cookiefactory.product.Pack;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
-import fr.unice.polytech.si4.otake.cookiefactory.product.ProductType;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NullParentCompanyRuntimeException;
@@ -70,7 +65,7 @@ public class OrderStepBuilder {
     public interface AccountStep {
         PaymentStep withAccount(RegisteredCustomer rg);
 
-        PaymentStep WithoutAccount();
+        PaymentStep withoutAccount();
     }
 
     /**
@@ -111,26 +106,6 @@ public class OrderStepBuilder {
         @Override
         public ProductStep addProduct(Product product, int quantity) {
             return add(product, quantity);
-        }
-
-        private List<Cookie> getListFromOrder(Order o) {
-            List<Cookie> cookies = new ArrayList<>();
-            for (Map.Entry<Product, Integer> entry : content.entrySet()) {
-                Product product = entry.getKey();
-                int sameproduct = entry.getValue();
-                for (int i = 0; i < sameproduct; i++) {
-                    if (product.getProductType() == ProductType.CUSTOM_COOKIE
-                            || product.getProductType() == ProductType.ON_MENU_COOKIE) {
-                        cookies.add((Cookie) product);
-                    } else if (product.getProductType() == ProductType.PACK) {
-                        Pack pack = (Pack) product;
-                        for (int j = 0; j < pack.getSize(); j++) {
-                            cookies.add((Cookie) pack.getProductsInPack());
-                        }
-                    }
-                }
-            }
-            return cookies;
         }
 
         private ProductStep add(Product product, int quantity) {
@@ -200,7 +175,7 @@ public class OrderStepBuilder {
         }
 
         @Override
-        public PaymentStep WithoutAccount() {
+        public PaymentStep withoutAccount() {
             this.rg = null;
             return this;
         }
@@ -215,15 +190,14 @@ public class OrderStepBuilder {
             if (!shop.checkAppointmentDate(this.appointmentDate)) {
                 throw new BadAppointmentRuntimeException();
             }
-            if (this.content.size() == 0) {
+            if (this.content.isEmpty()) {
                 throw new NoProductRuntimeException();
             }
             Order o = new Order(this.content, this.appointmentDate, this.code);
             o.applyTaxes(shop.getTaxes());
 
-            // List<Cookie> list = this.getListFromOrder(o);
-            // if (!shop.isStorageEnough(list)) {
-            //     return null;
+            // if (!shop.isStorageEnough(o.toCookieList())) {
+            // return null;
             // }
 
             try {

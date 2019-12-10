@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public class Beverage extends Product {
 
-    Beverage(String name, ProductType type, int price){
-        super(name, type);
+    Beverage(String name, int price) {
+        super(name, ProductType.BEVERAGE);
         this.price = price;
     }
 
-    public double computePrice(){
+    public double computePrice() {
         return this.price;
     }
 
@@ -17,11 +17,11 @@ public class Beverage extends Product {
         return 1;
     }
 
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(this.name, this.productType);
     }
 
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         if (obj == null) {
             return false;
         }

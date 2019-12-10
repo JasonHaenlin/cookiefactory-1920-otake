@@ -26,15 +26,13 @@ public class Shop {
 	private final OrderQueue orders;
 	private final Scheduler schedule;
 	private final ParentCompany parentCompany;
-	private final Storage inventory;
-	private final List<String> Cinemas;
-	private final List<Cookie> waitingCookies;
+	private final Storage storage;
+	private final List<String> cinemas;
 
 	private int orderCount;
 
 	private double taxes;
 
-	// TODO update to real inventory when ready OR use mock for all test ¯\_(ツ)_/¯
 	public Shop(String city, String name, ParentCompany parentCompany) {
 		this.city = city;
 		this.taxes = DEFAULT_TAXES;
@@ -42,14 +40,9 @@ public class Shop {
 		this.parentCompany = parentCompany;
 		this.schedule = new Scheduler(8, 20);
 		this.orders = new OrderQueue();
-		this.inventory = new Storage();
+		this.storage = new Storage();
 		this.orderCount = 0;
-		this.Cinemas = new ArrayList<>();
-		this.waitingCookies = new ArrayList<>();
-	}
-
-	public Storage getInventory() {
-		return inventory;
+		this.cinemas = new ArrayList<>();
 	}
 
 	public Shop withSchedule(int opening, int closing) {
@@ -157,19 +150,19 @@ public class Shop {
 	}
 
 	public void addCinema(String cinema) {
-		this.Cinemas.add(cinema);
+		this.cinemas.add(cinema);
 	}
 
 	public void delCinema(String cinema) {
-		for (int i = 0; i < this.Cinemas.size(); i++) {
-			if (this.Cinemas.get(i).equals(cinema)) {
-				this.Cinemas.remove(i);
+		for (int i = 0; i < this.cinemas.size(); i++) {
+			if (this.cinemas.get(i).equals(cinema)) {
+				this.cinemas.remove(i);
 			}
 		}
 	}
 
 	private boolean checkCinema(String cinemaName) {
-		for (String string : Cinemas) {
+		for (String string : cinemas) {
 			if (string.equals(cinemaName)) {
 				return true;
 			}
@@ -181,10 +174,7 @@ public class Shop {
 	public Boolean checkTicket(String ticket) {
 		String[] arrOfStr = ticket.split(":", 2);
 		CookieFactoryAPI cookiefactoryapi = CookieFactoryAPI.getInstanceCookieFactoryAPI();
-		if (checkCinema(arrOfStr[0]) && cookiefactoryapi.globalyCheck(arrOfStr[1])) {
-			return true;
-		}
-		return false;
+		return checkCinema(arrOfStr[0]) && cookiefactoryapi.globalyCheck(arrOfStr[1]);
 	}
 
 	@Override
@@ -215,7 +205,7 @@ public class Shop {
 	}
 
 	public Storage getStorage() {
-		return inventory;
+		return storage;
 	}
 
 	public boolean isCookieAvailable(String cookieName) {
@@ -224,16 +214,11 @@ public class Shop {
 			return false;
 		}
 
-		return inventory.removeFromStockIfEnough(recipeBook.getCookie(cookieName), false);
+		return storage.removeFromStockIfEnough(recipeBook.getCookie(cookieName), Boolean.FALSE);
 	}
 
 	public boolean isStorageEnough(List<Cookie> list) {
-		this.waitingCookies.addAll(list);
-		if (this.inventory.removeListFromStockIfEnough(this.waitingCookies, false).size() == 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return this.storage.removeListFromStockIfEnough(list, Boolean.FALSE).isEmpty();
 	}
 
 }

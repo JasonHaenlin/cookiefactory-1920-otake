@@ -46,30 +46,26 @@ public class Storage {
     }
 
     public void addIngredient(Ingredient ingredient, int quantity) {
-        if (this.stock.containsKey(ingredient)) {
-            int old = this.stock.get(ingredient);
-            this.stock.put(ingredient, old + quantity);
-        } else {
-            this.stock.put(ingredient, quantity);
+        Integer value = this.stock.get(ingredient);
+        if (value == null) {
+            value = 0;
         }
+        this.stock.put(ingredient, value + quantity);
     }
 
     public void deleteIngredient(Ingredient ingredient, int quantity) {
-        if (this.stock.containsKey(ingredient)) {
-            int old = this.stock.get(ingredient);
-            if (old < quantity) {
-                this.stock.put(ingredient, 0);
-            } else {
-                this.stock.put(ingredient, old - quantity);
-            }
+        Integer value = this.stock.get(ingredient);
+        if (value == null) {
+            return;
         }
+        this.stock.put(ingredient, value < quantity ? 0 : value - quantity);
     }
 
-    public List<Cookie> removeListFromStockIfEnough(List<Cookie> list , Boolean remove) {
+    public List<Cookie> removeListFromStockIfEnough(List<Cookie> list, Boolean remove) {
         List<Cookie> returnlist = new ArrayList<>();
         HashMap<Ingredient, Integer> copyStock = new HashMap<Ingredient, Integer>(this.stock);
         for (Cookie cookie : list) {
-            if (!removeFromStockIfEnough(cookie, true)) {
+            if (!removeFromStockIfEnough(cookie, Boolean.TRUE)) {
                 returnlist.add(cookie);
             }
         }
@@ -78,7 +74,7 @@ public class Storage {
         } else if (returnlist.size() != 0) {
             this.stock = copyStock;
         }
-        
+
         return returnlist;
     }
 

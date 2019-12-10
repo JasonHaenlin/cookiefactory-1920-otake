@@ -22,26 +22,22 @@ public class CookieFactoryAPI {
         this.ticketsUsed.add(ticket);
     }
 
-    public boolean checkIfTicketIsNotUsed(String ticketId){
+    public boolean isTicketNotUsed(String ticketId) {
         for (String string : ticketsUsed) {
-            if (ticketId.equals(string)) {
+            if (string.equals(ticketId)) {
                 return false;
             }
-            
+
         }
         addUsedTicket(ticketId);
         return true;
     }
 
-    public boolean globalyCheck(String ticketId){
-        CinemaAPI cinemaapi = CinemaAPI.getInstanceCinemaAPI();
-        if (checkIfTicketIsNotUsed(ticketId)) {
-            if (cinemaapi.checkTicket(ticketId)) {
-                return true;
-            }else{
-                return false;
-            }            
-        }else{
+    public boolean globalyCheck(String ticketId) {
+        CinemaAPI cinemaapi = CinemaAPI.getInstance();
+        if (isTicketNotUsed(ticketId)) {
+            return cinemaapi.checkTicket(ticketId);
+        } else {
             return false;
         }
     }

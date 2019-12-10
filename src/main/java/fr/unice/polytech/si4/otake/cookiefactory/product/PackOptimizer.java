@@ -30,15 +30,15 @@ public class PackOptimizer {
         for (PackType packType : this.packs) {
             for (Product p : products.keySet()) {
                 if (!productsLeft.isEmpty() && productsLeft.get(p) >= packType.getSize()) {
-                    Pack newPack = new Pack("Pack", ProductType.PACK, packType, p);
+                    Pack newPack = new Pack("Pack", packType, p);
                     productsLeft.put(p, (productsLeft.get(p) - packType.getSize()));
                     if (productsLeft.get(p) == 0)
                         productsLeft.remove(p);
-                    if (optimizedProducts.containsKey(newPack)) {
-                        optimizedProducts.put(newPack, optimizedProducts.get(newPack) + 1);
-                    } else {
-                        optimizedProducts.putIfAbsent(newPack, 1);
+                    Integer value = optimizedProducts.get(newPack);
+                    if (value == null) {
+                        value = 0;
                     }
+                    optimizedProducts.put(newPack, value + 1);
                 }
             }
             /*

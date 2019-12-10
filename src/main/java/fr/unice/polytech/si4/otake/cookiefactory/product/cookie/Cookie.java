@@ -63,10 +63,6 @@ public class Cookie extends Product {
 		return m;
 	}
 
-	public double getPrice() {
-		return this.price;
-	}
-
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}

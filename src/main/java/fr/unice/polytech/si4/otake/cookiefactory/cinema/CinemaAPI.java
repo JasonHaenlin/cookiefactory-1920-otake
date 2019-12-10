@@ -7,12 +7,12 @@ public class CinemaAPI {
     private List<Cinema> listCinema;
 
     private CinemaAPI() {
-        listCinema = new ArrayList<Cinema>();
+        listCinema = new ArrayList<>();
     }
 
-    private static CinemaAPI INSTANCE = new CinemaAPI();
+    private static final CinemaAPI INSTANCE = new CinemaAPI();
 
-    public static CinemaAPI getInstanceCinemaAPI() {
+    public static CinemaAPI getInstance() {
         return INSTANCE;
     }
 

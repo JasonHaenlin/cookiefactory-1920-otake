@@ -52,7 +52,7 @@ public class RegisteredCustomerStepdefs implements En {
             assertEquals(fp + (fp * taxes), o.getPriceWithTaxes());
         });
         Then("the adherent will get discount on next purchase", () -> {
-            RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
+            parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
         });
         Then("the adherent pays with {double} percent discount on their purchase", (Double discountPercent) -> {
             parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);

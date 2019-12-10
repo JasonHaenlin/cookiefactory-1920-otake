@@ -32,7 +32,7 @@ public class ParentCompany {
 		defaultDiscount();
 	}
 
-	private void defaultDiscount() {
+	private final void defaultDiscount() {
 		this.discounts.add(new Discount(true, 0.1, Discount.Trigger.code("EVENT"), Discount.Behaviour.products(100)));
 		this.discounts.add(new Discount(true, 0.05,
 				Discount.Trigger.codeStartWith("CE", Arrays.asList("POLYTECH", "OTAKE", "AREE AT PHIMAI")),

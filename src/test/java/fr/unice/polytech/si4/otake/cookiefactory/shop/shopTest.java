@@ -24,15 +24,15 @@ public class shopTest {
 		Cookie cookie = Recipe.CHOCOCOLALALA.create();
 
 		Order order1 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
-				.setAppointment(new SimpleDate("00-00-00 15:00")).noCode().WithoutAccount().validatePayment()
+				.setAppointment(new SimpleDate("00-00-00 15:00")).noCode().withoutAccount().validatePayment()
 				.build(testShop);
 
 		Order order2 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
-				.setAppointment(new SimpleDate("00-00-00 15:00")).noCode().WithoutAccount().validatePayment()
+				.setAppointment(new SimpleDate("00-00-00 15:00")).noCode().withoutAccount().validatePayment()
 				.build(testShop);
 
 		Order order3 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
-				.setAppointment(new SimpleDate("00-00-00 17:00")).noCode().WithoutAccount().validatePayment()
+				.setAppointment(new SimpleDate("00-00-00 17:00")).noCode().withoutAccount().validatePayment()
 				.build(testShop);
 
 		testShop.addOrder(order1);

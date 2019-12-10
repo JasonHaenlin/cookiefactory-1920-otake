@@ -40,7 +40,7 @@ public class ShopAffluenceStepdefs implements En {
     private void addOrdersAtHour(int nbOrder, int hour) {
         for (int i = 0; i < nbOrder; i++) {
             Order order = OrderStepBuilder.newOrder().addProduct(Recipe.DARKTEMPTATION.create()).validateBasket()
-                    .setAppointment(new SimpleDate("24-12-2019 " + hour + ":00")).noCode().WithoutAccount()
+                    .setAppointment(new SimpleDate("24-12-2019 " + hour + ":00")).noCode().withoutAccount()
                     .validatePayment().build(myShop);
 
             myShop.addOrder(order);

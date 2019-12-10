@@ -40,7 +40,7 @@ public class DiscountOrderStepdefs implements En {
         });
         When("a customer create an order with cookies at {int} o'clock", (Integer day) -> {
             o = OrderStepBuilder.newOrder().addProduct(p, 5).validateBasket()
-                    .setAppointment(new SimpleDate("00-00-00 " + day + ":00")).noCode().WithoutAccount()
+                    .setAppointment(new SimpleDate("00-00-00 " + day + ":00")).noCode().withoutAccount()
                     .validatePayment().build(s);
             s.addOrder(o);
 

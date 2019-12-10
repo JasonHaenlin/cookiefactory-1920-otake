@@ -23,7 +23,7 @@ public class DiscountTest {
 	Discount d1;
 	Order o;
 	Shop s = new Shop("city", "name", null);
-	Storage storage = s.getInventory();
+	Storage storage = s.getStorage();
 	Cookie c = Recipe.CHOCOCOLALALA.create();
 	Cookie c2 = Recipe.DARKTEMPTATION.create();
 	Product p = Recipe.CHOCOCOLALALA.create();
@@ -33,14 +33,14 @@ public class DiscountTest {
 	public void disountCodeTest() {
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.basic());
 		this.o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
-				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").WithoutAccount().validatePayment()
+				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").withoutAccount().validatePayment()
 				.build(s);
 		this.o.setPriceWithTaxes(10);
 		double red = this.d1.applyIfEligible(o, null, null);
 		this.o.applyDiscount(red);
 		assertEquals(9, o.getPriceWithTaxes());
 		this.o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
-				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("NOPE").WithoutAccount().validatePayment()
+				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("NOPE").withoutAccount().validatePayment()
 				.build(s);
 		this.o.setPriceWithTaxes(10);
 		red = this.d1.applyIfEligible(o, null, null);
@@ -52,7 +52,7 @@ public class DiscountTest {
 	public void discountHourTest() {
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.hour(), Discount.Behaviour.basic());
 		this.o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
-				.setAppointment(new SimpleDate("00-00-00 19:00")).noCode().WithoutAccount().validatePayment().build(s);
+				.setAppointment(new SimpleDate("00-00-00 19:00")).noCode().withoutAccount().validatePayment().build(s);
 		this.o.setPriceWithTaxes(10);
 		double red = this.d1.applyIfEligible(o, null, s);
 		this.o.applyDiscount(red);
@@ -63,7 +63,7 @@ public class DiscountTest {
 	public void discountSeniorityTest() {
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.seniority(), Discount.Behaviour.products(10));
 		this.o = OrderStepBuilder.newOrder().addProduct(c, 5).addProduct(c2, 5).validateBasket()
-				.setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount().validatePayment().build(s);
+				.setAppointment(new SimpleDate("00-00-00 13:00")).noCode().withoutAccount().validatePayment().build(s);
 
 		this.o.setPriceWithTaxes(10);
 
@@ -77,7 +77,7 @@ public class DiscountTest {
 	public void discrountProductsTest() {
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.products(100));
 		this.o = OrderStepBuilder.newOrder().addProduct(c, 5).addProduct(c2, 5).validateBasket()
-				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").WithoutAccount().validatePayment()
+				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").withoutAccount().validatePayment()
 				.build(s);
 		this.o.setPriceWithTaxes(10);
 		double red = this.d1.applyIfEligible(o, null, null);
@@ -85,7 +85,7 @@ public class DiscountTest {
 		assertEquals(10, o.getPriceWithTaxes());
 
 		this.o = OrderStepBuilder.newOrder().addProduct(c, 55).addProduct(c2, 55).validateBasket()
-				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").WithoutAccount().validatePayment()
+				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").withoutAccount().validatePayment()
 				.build(s);
 		this.o.setPriceWithTaxes(10);
 		red = this.d1.applyIfEligible(o, null, null);
@@ -99,7 +99,7 @@ public class DiscountTest {
 		rc.addRecipe(c);
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.elligibleCookies(rc));
 		this.o = OrderStepBuilder.newOrder().addProduct(p, 5).validateBasket()
-				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").WithoutAccount().validatePayment()
+				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").withoutAccount().validatePayment()
 				.build(s);
 		double price = (c.getPrice() * 5);
 		this.o.setPriceWithTaxes(price);
@@ -108,7 +108,7 @@ public class DiscountTest {
 		assertEquals(price - (price * 0.1), o.getPriceWithTaxes());
 
 		this.o = OrderStepBuilder.newOrder().addProduct(p, 5).addProduct(p2, 5).validateBasket()
-				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").WithoutAccount().validatePayment()
+				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").withoutAccount().validatePayment()
 				.build(s);
 		price = (c.getPrice() * 5) + (c2.getPrice() * 5);
 		this.o.setPriceWithTaxes(price);

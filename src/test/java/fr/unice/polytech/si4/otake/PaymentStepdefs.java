@@ -34,12 +34,8 @@ public class PaymentStepdefs implements En {
 
         When("The customer begin the validation process", () -> {
             appointment = basket.validateBasket();
-            // TODO choose available shop
-            // TODO choose appointment - done
             reduction = appointment.setAppointment(new SimpleDate("00-00-00 13:00"));
-            // TODO build pack if possible
-            // TODO apply reduction - done
-            payment = reduction.noCode().WithoutAccount();
+            payment = reduction.noCode().withoutAccount();
         });
 
         Then("The customer pay the due price", () -> {

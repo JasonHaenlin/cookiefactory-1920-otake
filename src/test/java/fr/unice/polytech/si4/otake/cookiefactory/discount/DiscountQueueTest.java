@@ -21,7 +21,7 @@ public class DiscountQueueTest {
     Order o;
     DiscountQueue dq;
     Shop shop = new Shop("", "name", null);
-    Storage storage = shop.getInventory();
+    Storage storage = shop.getStorage();
     Discount d1;
     Discount d2;
     Discount d3;
@@ -30,7 +30,7 @@ public class DiscountQueueTest {
     public void init() {
         this.dq = new DiscountQueue();
         this.o = OrderStepBuilder.newOrder().addProduct(Recipe.CHOCOCOLALALA.create()).validateBasket()
-                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount().validatePayment()
+                .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().withoutAccount().validatePayment()
                 .build(shop);
         this.o.setPriceWithTaxes(10);
     }

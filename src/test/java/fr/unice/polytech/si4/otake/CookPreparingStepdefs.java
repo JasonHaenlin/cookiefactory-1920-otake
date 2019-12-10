@@ -23,10 +23,10 @@ public class CookPreparingStepdefs implements En {
         Given("orders in a shop", () -> {
             shop = new Shop("city", "name", null);
             o1 = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
-                    .setAppointment(new SimpleDate("00-00-00 14:00")).noCode().WithoutAccount().validatePayment()
+                    .setAppointment(new SimpleDate("00-00-00 14:00")).noCode().withoutAccount().validatePayment()
                     .build(shop);
             o2 = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create()).validateBasket()
-                    .setAppointment(new SimpleDate("00-00-00 12:00")).noCode().WithoutAccount().validatePayment()
+                    .setAppointment(new SimpleDate("00-00-00 12:00")).noCode().withoutAccount().validatePayment()
                     .build(shop);
             shop.addOrder(o2);
             shop.addOrder(o1);

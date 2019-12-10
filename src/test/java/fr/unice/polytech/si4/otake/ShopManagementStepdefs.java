@@ -23,7 +23,7 @@ public class ShopManagementStepdefs implements En {
 
         When("a customer makes an order of {int} of his favourite cookie", (Integer nbOfFavCookie) -> {
             order = OrderStepBuilder.newOrder().addProduct(Recipe.DARKTEMPTATION.create(), nbOfFavCookie)
-                    .validateBasket().setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount()
+                    .validateBasket().setAppointment(new SimpleDate("00-00-00 13:00")).noCode().withoutAccount()
                     .validatePayment().build(myShop);
         });
 
@@ -38,7 +38,7 @@ public class ShopManagementStepdefs implements En {
 
         And("a customer order {int} cookies", (Integer nbCookies) -> {
             order = OrderStepBuilder.newOrder().addProduct(Recipe.DARKTEMPTATION.create(), nbCookies).validateBasket()
-                    .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().WithoutAccount().validatePayment()
+                    .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().withoutAccount().validatePayment()
                     .build(myShop);
         });
 

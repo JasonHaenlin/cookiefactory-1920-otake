@@ -10,11 +10,15 @@ public class PackType implements Comparable<PackType> {
         SMALL, MEDIUM, BIG
     }
 
+    public static final TypeSize SMALL = TypeSize.SMALL;
+    public static final TypeSize MEDIUM = TypeSize.MEDIUM;
+    public static final TypeSize BIG = TypeSize.BIG;
+
     private int size;
     private double price;
     private final TypeSize type;
 
-    public PackType(TypeSize type, int size, double price) {
+    public PackType(PackType.TypeSize type, int size, double price) {
         this.type = type;
         this.size = size;
         this.price = price;
@@ -77,6 +81,6 @@ public class PackType implements Comparable<PackType> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.type,this.size,this.price);
+        return Objects.hash(this.type, this.size, this.price);
     }
 }
