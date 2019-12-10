@@ -10,9 +10,9 @@ import org.junit.Test;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 
 public class cookiefactoryTest {
 
@@ -24,14 +24,16 @@ public class cookiefactoryTest {
     Order o2;
     Order o3;
     Map<Cookie, Double> stat;
+    ParentCompany pc = new ParentCompany();
 
     @Before
     public void factoryCreation() {
-        Shop s = new Shop("city", "name", null);
-        c1 = Recipe.SOOCHOCOLATE.create();
-        c2 = Recipe.DARKTEMPTATION.create();
-        c3 = Recipe.CHOCOCOLALALA.create();
-        factory = new RecipeBook();
+        Shop s = new Shop("city", "name", pc);
+        factory = pc.getRecipeBook();
+        HelperRecipe helper = new HelperRecipe(factory);
+        c1 = helper.getSoooChocolate();
+        c2 = helper.getDarkTemptation();
+        c3 = helper.getChocolalala();
         o1 = OrderStepBuilder.newOrder().addProduct(c1, 2).addProduct(c2, 2).validateBasket()
                 .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().withoutAccount().validatePayment().build(s);
         o2 = OrderStepBuilder.newOrder().addProduct(c1, 2).addProduct(c2, 2).validateBasket()

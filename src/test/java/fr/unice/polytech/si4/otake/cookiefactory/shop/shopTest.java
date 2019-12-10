@@ -5,23 +5,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 
 public class shopTest {
 
 	Shop testShop;
+	HelperRecipe helper = new HelperRecipe(new RecipeBook());
 
 	@Before
 	public void shopCreation() {
-		testShop = new Shop("Antibes", "Antibes-Cookie", null);
+		testShop = new Shop("Antibes", "Antibes-Cookie", new ParentCompany());
 	}
 
 	@Test
 	public void getAffluenceTest() {
-		Cookie cookie = Recipe.CHOCOCOLALALA.create();
+		Cookie cookie = helper.getChocolalala();
 
 		Order order1 = OrderStepBuilder.newOrder().addProduct(cookie).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 15:00")).noCode().withoutAccount().validatePayment()

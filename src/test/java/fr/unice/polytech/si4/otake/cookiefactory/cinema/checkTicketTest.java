@@ -2,17 +2,16 @@ package fr.unice.polytech.si4.otake.cookiefactory.cinema;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 
 public class checkTicketTest {
-    Shop shop;
 
-    @Before
-    public void systemCreation() {
-        shop = new Shop("city", "name", null);
+    @Test
+    public void checkTicketMethodeTest() {
+        Shop shop = new Shop("city", "name", new ParentCompany());
         CinemaAPI cinemaapi = CinemaAPI.getInstance();
         Cinema cinema1 = new Cinema("pathepourchat");
         Cinema cinema2 = new Cinema("pathelaiscafe");
@@ -26,11 +25,6 @@ public class checkTicketTest {
 
         shop.addCinema("pathepourchat");
         shop.addCinema("pathemaiscafe");
-    }
-
-    @Test
-    public void checkTicketMethodeTest() {
-
         assertEquals(true, shop.checkTicket("pathepourchat:EB65S8"));
         assertEquals(false, shop.checkTicket("pathepourchat:EB65S8"));
         assertEquals(true, shop.checkTicket("pathepourchat:EB65B9"));

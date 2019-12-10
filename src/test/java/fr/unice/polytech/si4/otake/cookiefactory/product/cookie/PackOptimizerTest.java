@@ -8,10 +8,12 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.product.PackOptimizer;
 import fr.unice.polytech.si4.otake.cookiefactory.product.PackType;
 import fr.unice.polytech.si4.otake.cookiefactory.product.PackType.TypeSize;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 
 public class PackOptimizerTest {
 
@@ -22,6 +24,7 @@ public class PackOptimizerTest {
     final double smallPrice = 5.0;
     final double mediumPrice = 10.0;
     final double bigPrice = 15.0;
+    HelperRecipe helper = new HelperRecipe(new RecipeBook());
 
     @Before
     public void packOptimizerCreation() {
@@ -34,7 +37,7 @@ public class PackOptimizerTest {
     @Test
     public void optimizeProductsTest() {
         Map<Product, Integer> products1 = new HashMap<>();
-        Cookie cookie1 = Recipe.SOOCHOCOLATE.create();
+        Cookie cookie1 = helper.getSoooChocolate();
         products1.put(cookie1, (bigSize + smallSize + 1));
         products1 = packOptimizer.optimizeProducts(products1);
         assertEquals(3, products1.size());
@@ -48,7 +51,7 @@ public class PackOptimizerTest {
         products2 = packOptimizer.optimizeProducts(products2);
         assertEquals(4, products2.size());
 
-        Cookie cookie2 = Recipe.DARKTEMPTATION.create();
+        Cookie cookie2 = helper.getDarkTemptation();
         Map<Product, Integer> products3 = new HashMap<>();
         products3.put(cookie1, (smallSize + 1));
         products3.put(cookie2, (smallSize + 1));

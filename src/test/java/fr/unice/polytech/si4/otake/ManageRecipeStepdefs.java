@@ -8,11 +8,7 @@ import java.util.Arrays;
 
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Cooking;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Dough;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Mix;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.ingredient.Topping;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
 public class ManageRecipeStepdefs implements En {
@@ -22,15 +18,17 @@ public class ManageRecipeStepdefs implements En {
     Cookie cookieobj3;
     Cookie customCookie;
     RecipeBook factory;
+    HelperRecipe helper;
 
     public ManageRecipeStepdefs() {
 
         Given("a Cookie Factory with some recipes", () -> {
-            cookieobj = Recipe.SOOCHOCOLATE.create();
-            cookieobj2 = Recipe.DARKTEMPTATION.create();
-            cookieobj3 = Recipe.CHOCOCOLALALA.create();
+            helper = new HelperRecipe(new RecipeBook());
+            cookieobj = helper.getSoooChocolate();
+            cookieobj2 = helper.getDarkTemptation();
+            cookieobj3 = helper.getChocolalala();
             customCookie = new Cookie("custom",
-                    Arrays.asList(Cooking.CHEWY, Dough.CHOCOLATE, Mix.TOPPED, Topping.REESEBUTTERCUP), true);
+                    Arrays.asList(helper.chewy, helper.choco, helper.topped, helper.reeseButter), true);
             factory = new RecipeBook();
             factory.addRecipe(cookieobj);
             assertFalse(factory.addRecipe(cookieobj));

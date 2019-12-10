@@ -1,13 +1,12 @@
 package fr.unice.polytech.si4.otake;
 
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import io.cucumber.java8.En;
 
 public class ShopAvailabiltiesStepdefs implements En {
 
     ParentCompany company;
-    Recipe chosen;
+    // Recipe chosen;
 
     public ShopAvailabiltiesStepdefs() {
 

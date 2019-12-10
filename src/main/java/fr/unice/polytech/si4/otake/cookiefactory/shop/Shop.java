@@ -40,7 +40,7 @@ public class Shop {
 		this.parentCompany = parentCompany;
 		this.schedule = new Scheduler(8, 20);
 		this.orders = new OrderQueue();
-		this.storage = new Storage();
+		this.storage = new Storage(parentCompany.getRecipeBook());
 		this.orderCount = 0;
 		this.cinemas = new ArrayList<>();
 	}

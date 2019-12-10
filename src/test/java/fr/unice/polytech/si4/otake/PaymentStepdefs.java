@@ -1,5 +1,7 @@
 package fr.unice.polytech.si4.otake;
 
+import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.PaymentStep;
@@ -7,9 +9,9 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.CodeStep
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.ProductStep;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.AppointmentStep;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,14 +23,15 @@ public class PaymentStepdefs implements En {
     ProductStep basket;
     AppointmentStep appointment;
     OrderStepBuilder validator;
-    Shop shop = new Shop("city", "name", null);
+    HelperRecipe helper;
+    Shop shop = new Shop("city", "name", new ParentCompany());
 
     public PaymentStepdefs() {
-
         Given("A complete order", () -> {
+            helper = new HelperRecipe(new RecipeBook());
             basket = OrderStepBuilder.newOrder();
-            Product p1 = Recipe.SOOCHOCOLATE.create();
-            Product p2 = Recipe.CHOCOCOLALALA.create();
+            Product p1 = helper.getSoooChocolate();
+            Product p2 = helper.getChocolalala();
             basket.addProduct(p1, 15).addProduct(p2, 5);
         });
 

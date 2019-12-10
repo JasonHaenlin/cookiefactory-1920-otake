@@ -5,12 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
+import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
-import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Recipe;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
 public class RegisteredCustomerStepdefs implements En {
@@ -18,6 +19,7 @@ public class RegisteredCustomerStepdefs implements En {
     final String[] idOfRegisteredCustomer = { null };
     Order o;
     double taxes = 0.3;
+    HelperRecipe helper = new HelperRecipe(new RecipeBook());
 
     public RegisteredCustomerStepdefs() {
         ParentCompany parentCompany = new ParentCompany();
@@ -37,7 +39,7 @@ public class RegisteredCustomerStepdefs implements En {
             RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
             Shop s = parentCompany.getShops().get(0);
             s.setTaxes(0.3);
-            o = OrderStepBuilder.newOrder().addProduct(Recipe.SOOCHOCOLATE.create(), nbCookies).validateBasket()
+            o = OrderStepBuilder.newOrder().addProduct(helper.getSoooChocolate(), nbCookies).validateBasket()
                     .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().withAccount(r).validatePayment()
                     .build(s);
             s.addOrder(o, r);
@@ -48,7 +50,7 @@ public class RegisteredCustomerStepdefs implements En {
         });
         Then("the adherent pays full price", () -> {
             parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
-            double fp = o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice();
+            double fp = o.getQuantity() * helper.getSoooChocolate().getPrice();
             assertEquals(fp + (fp * taxes), o.getPriceWithTaxes());
         });
         Then("the adherent will get discount on next purchase", () -> {
@@ -56,7 +58,7 @@ public class RegisteredCustomerStepdefs implements En {
         });
         Then("the adherent pays with {double} percent discount on their purchase", (Double discountPercent) -> {
             parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
-            double fpnot = o.getQuantity() * Recipe.SOOCHOCOLATE.create().getPrice();
+            double fpnot = o.getQuantity() * helper.getSoooChocolate().getPrice();
             double fullPrice = fpnot + (fpnot * taxes);
             assertNotEquals(fullPrice, o.getPriceWithTaxes());
             assertEquals(fullPrice - (fullPrice * (discountPercent / 100)), o.getPriceWithTaxes());
