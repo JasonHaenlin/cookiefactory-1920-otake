@@ -12,6 +12,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 
 public class cookiefactoryTest {
@@ -25,12 +26,23 @@ public class cookiefactoryTest {
     Order o3;
     Map<Cookie, Double> stat;
     ParentCompany pc = new ParentCompany();
+    Storage storage;
 
     @Before
     public void factoryCreation() {
         Shop s = new Shop("city", "name", pc);
         factory = pc.getRecipeBook();
         HelperRecipe helper = new HelperRecipe(factory);
+        storage = s.getStorage();
+        storage.addStock(helper.chewy, 200);
+        storage.addStock(helper.crunchy, 200);
+        storage.addStock(helper.choco, 200);
+        storage.addStock(helper.mixed, 200);
+        storage.addStock(helper.topped, 200);
+        storage.addStock(helper.milkChoco, 200);
+        storage.addStock(helper.whiteChoco, 200);
+        storage.addStock(helper.cinnamon, 200);
+        storage.addStock(helper.vanilla, 200);
         c1 = helper.getSoooChocolate();
         c2 = helper.getDarkTemptation();
         c3 = helper.getChocolalala();

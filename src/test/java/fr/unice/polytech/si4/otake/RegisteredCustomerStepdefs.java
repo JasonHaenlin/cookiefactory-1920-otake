@@ -11,6 +11,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
@@ -38,6 +39,16 @@ public class RegisteredCustomerStepdefs implements En {
         When("the adherent order {int} cookies", (Integer nbCookies) -> {
             RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
             Shop s = parentCompany.getShops().get(0);
+            Storage storage = s.getStorage();
+            storage.addStock(helper.chewy, 1000);
+            storage.addStock(helper.crunchy, 1000);
+            storage.addStock(helper.choco, 1000);
+            storage.addStock(helper.mixed, 1000);
+            storage.addStock(helper.topped, 1000);
+            storage.addStock(helper.milkChoco, 1000);
+            storage.addStock(helper.whiteChoco, 1000);
+            storage.addStock(helper.cinnamon, 1000);
+            storage.addStock(helper.vanilla, 1000);
             s.setTaxes(0.3);
             o = OrderStepBuilder.newOrder().addProduct(helper.getSoooChocolate(), nbCookies).validateBasket()
                     .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().withAccount(r).validatePayment()

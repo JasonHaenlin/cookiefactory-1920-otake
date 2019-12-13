@@ -9,6 +9,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
@@ -17,11 +18,22 @@ public class ShopManagementStepdefs implements En {
 	Shop myShop;
 	Order order;
 	HelperRecipe helper = new HelperRecipe(new RecipeBook());
+	Storage storage;
 
 	public ShopManagementStepdefs() {
 
 		Given("the shop {string} of {string} has taxes of {double}", (String name, String city, Double taxes) -> {
 			myShop = new Shop("Nice", "Nice granny cookie", new ParentCompany()).withCustomTaxes(taxes);
+			storage = myShop.getStorage();
+			storage.addStock(helper.chewy, 1000);
+            storage.addStock(helper.crunchy, 1000);
+            storage.addStock(helper.choco, 1000);
+            storage.addStock(helper.mixed, 1000);
+            storage.addStock(helper.topped, 1000);
+            storage.addStock(helper.milkChoco, 1000);
+            storage.addStock(helper.whiteChoco, 1000);
+            storage.addStock(helper.cinnamon, 1000);
+            storage.addStock(helper.vanilla, 1000);
 		});
 
 		When("a customer makes an order of {int} of his favourite cookie", (Integer nbOfFavCookie) -> {

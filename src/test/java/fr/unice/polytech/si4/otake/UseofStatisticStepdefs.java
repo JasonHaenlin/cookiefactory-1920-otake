@@ -11,6 +11,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
@@ -26,12 +27,23 @@ public class UseofStatisticStepdefs implements En {
     Order o3;
     Map<Cookie, Double> stat;
     Shop s;
+    Storage storage;
 
     public UseofStatisticStepdefs() {
         Given("a Cookie Factory with some recipes and waiting orders", () -> {
             s = new Shop("city", "name", new ParentCompany());
             factory = new RecipeBook();
             HelperRecipe helper = new HelperRecipe(factory);
+            storage = s.getStorage();
+            storage.addStock(helper.chewy, 1000);
+            storage.addStock(helper.crunchy, 1000);
+            storage.addStock(helper.choco, 1000);
+            storage.addStock(helper.mixed, 1000);
+            storage.addStock(helper.topped, 1000);
+            storage.addStock(helper.milkChoco, 1000);
+            storage.addStock(helper.whiteChoco, 1000);
+            storage.addStock(helper.cinnamon, 1000);
+            storage.addStock(helper.vanilla, 1000);
             c1 = helper.getSoooChocolate();
             c2 = helper.getDarkTemptation();
             c3 = helper.getChocolalala();

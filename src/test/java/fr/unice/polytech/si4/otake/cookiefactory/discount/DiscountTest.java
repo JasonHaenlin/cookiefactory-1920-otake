@@ -14,6 +14,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 
 /**
@@ -30,11 +31,24 @@ public class DiscountTest {
 	Cookie c2;
 	Product p;
 	Product p2;
+	Storage storage;
 
 	@Before
 	public void init() {
 		this.pc = new ParentCompany();
 		this.helper = new HelperRecipe(pc.getRecipeBook());
+		storage = s.getStorage();
+
+		storage.addStock(helper.chewy, 1000);
+		storage.addStock(helper.crunchy, 1000);
+		storage.addStock(helper.choco, 1000);
+		storage.addStock(helper.mixed, 1000);
+		storage.addStock(helper.topped, 1000);
+		storage.addStock(helper.milkChoco, 1000);
+		storage.addStock(helper.whiteChoco, 1000);
+		storage.addStock(helper.cinnamon, 1000);
+		storage.addStock(helper.vanilla, 1000);
+
 		c = helper.getChocolalala();
 		c2 = helper.getDarkTemptation();
 		p = helper.getChocolalala();
@@ -46,14 +60,14 @@ public class DiscountTest {
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.basic());
 		this.o = OrderStepBuilder.newOrder().addProduct(helper.getChocolalala()).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").withoutAccount().validatePayment()
-				.build(new Shop("city", "name", new ParentCompany()));
+				.build(s);
 		this.o.setPriceWithTaxes(10);
 		double red = this.d1.applyIfEligible(o, null, null);
 		this.o.applyDiscount(red);
 		assertEquals(9, o.getPriceWithTaxes());
 		this.o = OrderStepBuilder.newOrder().addProduct(helper.getChocolalala()).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("NOPE").withoutAccount().validatePayment()
-				.build(new Shop("city", "name", new ParentCompany()));
+				.build(s);
 		this.o.setPriceWithTaxes(10);
 		red = this.d1.applyIfEligible(o, null, null);
 		this.o.applyDiscount(red);

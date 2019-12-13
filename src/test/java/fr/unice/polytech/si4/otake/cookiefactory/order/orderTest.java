@@ -10,14 +10,15 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.unice.polytech.si4.otake.cookiefactory.product.Pack;
-import fr.unice.polytech.si4.otake.cookiefactory.product.PackType;
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
+import fr.unice.polytech.si4.otake.cookiefactory.product.Pack;
+import fr.unice.polytech.si4.otake.cookiefactory.product.PackType;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 
 public class orderTest {
@@ -26,12 +27,24 @@ public class orderTest {
     Shop shop;
     SimpleDate date;
     HelperRecipe helper;
+    Storage storage;
 
     @Before
     public void orderCreation() {
         shop = new Shop("Biot", "time", new ParentCompany());
         date = new SimpleDate("00-00-00 13:00");
         helper = new HelperRecipe(new RecipeBook());
+        storage = shop.getStorage();
+        
+        storage.addStock(helper.chewy, 200);
+        storage.addStock(helper.crunchy, 200);
+        storage.addStock(helper.choco, 200);
+        storage.addStock(helper.mixed, 200);
+        storage.addStock(helper.topped, 200);
+        storage.addStock(helper.milkChoco, 200);
+        storage.addStock(helper.whiteChoco, 200);
+        storage.addStock(helper.cinnamon, 200);
+        storage.addStock(helper.vanilla, 200);
     }
 
     @Test

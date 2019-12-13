@@ -64,7 +64,6 @@ public class OrderStepBuilder {
 
     public interface AccountStep {
         PaymentStep withAccount(RegisteredCustomer rg);
-
         PaymentStep withoutAccount();
     }
 
@@ -196,9 +195,9 @@ public class OrderStepBuilder {
             Order o = new Order(this.content, this.appointmentDate, this.code);
             o.applyTaxes(shop.getTaxes());
 
-            // if (!shop.isStorageEnough(o.toCookieList())) {
-            // return null;
-            // }
+            if (!shop.isStorageEnough(o.toCookieList())) {
+            return null;
+            }
 
             try {
                 shop.getDiscounts().applyDiscounts(o, rg, shop);

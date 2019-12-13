@@ -33,9 +33,18 @@ public class DiscountQueueTest {
     public void init() {
         this.dq = new DiscountQueue();
         this.helper = new HelperRecipe(new RecipeBook());
+        storage.addStock(helper.chewy, 200);
+        storage.addStock(helper.crunchy, 200);
+        storage.addStock(helper.choco, 200);
+        storage.addStock(helper.mixed, 200);
+        storage.addStock(helper.topped, 200);
+        storage.addStock(helper.milkChoco, 200);
+        storage.addStock(helper.whiteChoco, 200);
+        storage.addStock(helper.cinnamon, 200);
+        storage.addStock(helper.vanilla, 200);
         this.o = OrderStepBuilder.newOrder().addProduct(helper.getChocolalala()).validateBasket()
                 .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().withoutAccount().validatePayment()
-                .build(new Shop("", "name", new ParentCompany()));
+                .build(shop);
         this.o.setPriceWithTaxes(10);
     }
 

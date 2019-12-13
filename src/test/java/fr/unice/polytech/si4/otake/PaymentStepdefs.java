@@ -1,20 +1,23 @@
 package fr.unice.polytech.si4.otake;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
-import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.PaymentStep;
-import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.CodeStep;
-import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.ProductStep;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.AppointmentStep;
+import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.CodeStep;
+import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.PaymentStep;
+import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.ProductStep;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentStepdefs implements En {
     Order order;
@@ -25,6 +28,7 @@ public class PaymentStepdefs implements En {
     OrderStepBuilder validator;
     HelperRecipe helper;
     Shop shop = new Shop("city", "name", new ParentCompany());
+    Storage storage = shop.getStorage();
 
     public PaymentStepdefs() {
         Given("A complete order", () -> {
@@ -32,6 +36,15 @@ public class PaymentStepdefs implements En {
             basket = OrderStepBuilder.newOrder();
             Product p1 = helper.getSoooChocolate();
             Product p2 = helper.getChocolalala();
+            storage.addStock(helper.chewy, 1000);
+            storage.addStock(helper.crunchy, 1000);
+            storage.addStock(helper.choco, 1000);
+            storage.addStock(helper.mixed, 1000);
+            storage.addStock(helper.topped, 1000);
+            storage.addStock(helper.milkChoco, 1000);
+            storage.addStock(helper.whiteChoco, 1000);
+            storage.addStock(helper.cinnamon, 1000);
+            storage.addStock(helper.vanilla, 1000);
             basket.addProduct(p1, 15).addProduct(p2, 5);
         });
 
