@@ -28,7 +28,7 @@ public class checkTicketTest {
         assertEquals(true, shop.checkTicket("pathepourchat:EB65S8"));
         assertEquals(false, shop.checkTicket("pathepourchat:EB65S8"));
         assertEquals(true, shop.checkTicket("pathepourchat:EB65B9"));
-        assertEquals(false, shop.checkTicket("pathepourchat:EB65B11"));
+        assertEquals(false, shop.checkTicket("pathepourchatEB65B11"));
 
     }
 

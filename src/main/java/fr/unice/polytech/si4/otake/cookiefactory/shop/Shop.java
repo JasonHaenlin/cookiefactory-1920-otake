@@ -172,9 +172,18 @@ public class Shop {
 
 	// the ticket need to be "name:ticketid" like : "pathepourchat:EBSU18E"
 	public Boolean checkTicket(String ticket) {
-		String[] arrOfStr = ticket.split(":", 2);
-		CookieFactoryAPI cookiefactoryapi = CookieFactoryAPI.getInstanceCookieFactoryAPI();
-		return checkCinema(arrOfStr[0]) && cookiefactoryapi.globalyCheck(arrOfStr[1]);
+		try {
+			if (ticket.length()==0) {
+				return false;
+			}
+			String[] arrOfStr = ticket.split(":", 2);
+			CookieFactoryAPI cookiefactoryapi = CookieFactoryAPI.getInstanceCookieFactoryAPI();
+			return checkCinema(arrOfStr[0]) && cookiefactoryapi.globalyCheck(arrOfStr[1]);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return false;
+		}
+
+
 	}
 
 	@Override
