@@ -8,4 +8,3 @@ Scenario: Billy manage recipe in Cookie Factory
     Then The recipe is not in the recipe list of the cookie factory anymore
     When Billy add one recipe
     Then The recipe is added in the recipe list of the cookie factory
-

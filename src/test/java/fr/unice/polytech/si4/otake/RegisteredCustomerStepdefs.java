@@ -23,7 +23,7 @@ public class RegisteredCustomerStepdefs implements En {
     HelperRecipe helper = new HelperRecipe(new RecipeBook());
 
     public RegisteredCustomerStepdefs() {
-        ParentCompany parentCompany = new ParentCompany();
+        ParentCompany parentCompany = new ParentCompany().withDefaultDiscount();
         parentCompany.addShop("Nice", "Cookie Chief");
 
         Given("a not registered customer opening the application", () -> {

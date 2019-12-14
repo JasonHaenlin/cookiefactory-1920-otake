@@ -11,7 +11,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
-public class ManageCookieBasketStepdefs implements En {
+public class OrderBuildCookieBasketStepdefs implements En {
 
     Cookie c1;
     Cookie c2;
@@ -20,7 +20,7 @@ public class ManageCookieBasketStepdefs implements En {
     ProductStep pstep;
     HelperRecipe helper;
 
-    public ManageCookieBasketStepdefs() {
+    public OrderBuildCookieBasketStepdefs() {
 
         Given("a basket containing cookies", () -> {
             helper = new HelperRecipe(new RecipeBook());

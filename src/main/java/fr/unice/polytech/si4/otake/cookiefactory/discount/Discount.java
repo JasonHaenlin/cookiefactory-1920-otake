@@ -9,6 +9,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 
 /**
@@ -171,8 +172,9 @@ public class Discount implements Comparable<Discount> {
             return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> {
                 double price = 0;
                 double total = 0;
+                List<Cookie> cookies = recipeBook.getCookies();
                 for (Map.Entry<Product, Integer> c : order.getContent().entrySet()) {
-                    if (recipeBook.getCookies().contains(c.getKey())) {
+                    if (cookies.contains(c.getKey())) {
                         price += c.getKey().getPrice() * c.getValue();
                     }
                     total += c.getKey().getPrice() * c.getValue();

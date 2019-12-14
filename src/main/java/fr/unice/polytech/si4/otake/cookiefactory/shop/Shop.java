@@ -171,9 +171,17 @@ public class Shop {
 	}
 
 	// the ticket need to be "name:ticketid" like : "pathepourchat:EBSU18E"
+
+	/**
+	 * Check a cinema ticket
+	 *
+	 * @param ticket with the name of the cinema like "name:ticketid", example:
+	 *               "pathepourchat:EBSU18E"
+	 * @return true if the ticket is a good ticket, false otherwise
+	 */
 	public Boolean checkTicket(String ticket) {
 		try {
-			if (ticket.length()==0) {
+			if (ticket.length() == 0) {
 				return false;
 			}
 			String[] arrOfStr = ticket.split(":", 2);
@@ -182,7 +190,6 @@ public class Shop {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return false;
 		}
-
 
 	}
 

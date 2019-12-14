@@ -11,7 +11,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
-public class ManageRecipeStepdefs implements En {
+public class RecipeBookManageStepdefs implements En {
 
     Cookie cookieobj;
     Cookie cookieobj2;
@@ -20,7 +20,7 @@ public class ManageRecipeStepdefs implements En {
     RecipeBook factory;
     HelperRecipe helper;
 
-    public ManageRecipeStepdefs() {
+    public RecipeBookManageStepdefs() {
 
         Given("a Cookie Factory with some recipes", () -> {
             helper = new HelperRecipe(new RecipeBook());

@@ -29,10 +29,9 @@ public class ParentCompany {
 		this.shopFinder = new ShopFinder();
 		this.recipeBook = new RecipeBook();
 		this.discounts = new DiscountQueue();
-		defaultDiscount();
 	}
 
-	private final void defaultDiscount() {
+	public ParentCompany withDefaultDiscount() {
 		this.discounts.add(new Discount(true, 0.1, Discount.Trigger.code("EVENT"), Discount.Behaviour.products(100)));
 		this.discounts.add(new Discount(true, 0.05,
 				Discount.Trigger.codeStartWith("CE", Arrays.asList("POLYTECH", "OTAKE", "AREE AT PHIMAI")),
@@ -42,7 +41,7 @@ public class ParentCompany {
 				new Discount(false, 0.3, Discount.Trigger.hour(), Discount.Behaviour.elligibleCookies(recipeBook)));
 		this.discounts
 				.add(new Discount(false, 0.1, Discount.Trigger.fidelity(30), Discount.Behaviour.customerPoints(30)));
-
+		return this;
 	}
 
 	/**

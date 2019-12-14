@@ -9,7 +9,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.cinema.CinemaAPI;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import io.cucumber.java8.En;
 
-public class CheckTicketCinemaStepdefs implements En {
+public class ShopTicketCinemaStepdefs implements En {
 
     Shop shop;
     Shop shop2;
@@ -17,7 +17,7 @@ public class CheckTicketCinemaStepdefs implements En {
     CinemaAPI cinemaapi = CinemaAPI.getInstance();
     Cinema cinema1;
 
-    public CheckTicketCinemaStepdefs() {
+    public ShopTicketCinemaStepdefs() {
 
         Given("a customer who went to the cinema today and want 2 cookies of the day at the shop", () -> {
             cinema1 = new Cinema("pathelaiscafe");

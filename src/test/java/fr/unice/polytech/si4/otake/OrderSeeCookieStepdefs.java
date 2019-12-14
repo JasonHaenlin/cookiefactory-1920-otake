@@ -11,7 +11,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
-public class GetCookiesStepdefs implements En {
+public class OrderSeeCookieStepdefs implements En {
 
     Cookie cookie;
     Cookie cookie2;
@@ -21,7 +21,7 @@ public class GetCookiesStepdefs implements En {
     List<Cookie> cookiesget;
     Cookie cookieget;
 
-    public GetCookiesStepdefs() {
+    public OrderSeeCookieStepdefs() {
 
         Given("a Cookie Factory with some cookies", () -> {
             this.recipeBook = new RecipeBook();

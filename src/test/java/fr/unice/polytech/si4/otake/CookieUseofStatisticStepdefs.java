@@ -1,6 +1,7 @@
 package fr.unice.polytech.si4.otake;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
 
@@ -15,26 +16,23 @@ import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
-public class UseofStatisticStepdefs implements En {
+public class CookieUseofStatisticStepdefs implements En {
 
-    Cookie c1;
-    Cookie c2;
-    Cookie c3;
+    Cookie c1, c2, c3;
+    Order o1, o2, o3;
     Cookie result;
     RecipeBook factory;
-    Order o1;
-    Order o2;
-    Order o3;
     Map<Cookie, Double> stat;
+    Double perc;
     Shop s;
-    Storage storage;
 
-    public UseofStatisticStepdefs() {
-        Given("a Cookie Factory with some recipes and waiting orders", () -> {
+    public CookieUseofStatisticStepdefs() {
+
+        Before(() -> {
             s = new Shop("city", "name", new ParentCompany());
             factory = new RecipeBook();
             HelperRecipe helper = new HelperRecipe(factory);
-            storage = s.getStorage();
+            Storage storage = s.getStorage();
             storage.addStock(helper.chewy, 1000);
             storage.addStock(helper.crunchy, 1000);
             storage.addStock(helper.choco, 1000);
@@ -70,23 +68,26 @@ public class UseofStatisticStepdefs implements En {
             o3.retrieved();
         });
 
-        When("Billy get the Statistic", () -> {
+        Given("I get the statistics from the factory", () -> {
             this.stat = this.factory.getStatistic();
         });
-        Then("The lowest percentage but nevertheless higher than 0 corresponds to the least ordered cookie", () -> {
-            Double perc = 100.;
+
+        When("I see the lowest percentage", () -> {
+            perc = 100.;
             for (Map.Entry<Cookie, Double> entry : stat.entrySet()) {
                 if (entry.getValue() < perc) {
                     perc = entry.getValue();
                 }
             }
+        });
+
+        Then("It should be the least ordered", () -> {
             for (Map.Entry<Cookie, Double> entry : stat.entrySet()) {
                 if (entry.getValue() == perc) {
                     result = entry.getKey();
                 }
             }
-
-            assertTrue(result.equals(c3));
+            assertEquals(c3, result);
         });
     }
 
