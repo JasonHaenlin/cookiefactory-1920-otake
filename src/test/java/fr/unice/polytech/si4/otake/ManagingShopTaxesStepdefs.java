@@ -13,14 +13,14 @@ import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
-public class ShopManagementStepdefs implements En {
+public class ManagingShopTaxesStepdefs implements En {
 
 	Shop myShop;
 	Order order;
 	HelperRecipe helper = new HelperRecipe(new RecipeBook());
 	Storage storage;
 
-	public ShopManagementStepdefs() {
+	public ManagingShopTaxesStepdefs() {
 
 		Given("the shop {string} of {string} has taxes of {double}", (String name, String city, Double taxes) -> {
 			myShop = new Shop("Nice", "Nice granny cookie", new ParentCompany()).withCustomTaxes(taxes);

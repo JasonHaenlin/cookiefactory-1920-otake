@@ -14,14 +14,14 @@ import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
 import io.cucumber.java8.En;
 
-public class ShopAffluenceStepdefs implements En {
+public class GettingStatisticOnAShopStepdefs implements En {
 
     Shop myShop;
     Map<Integer, Integer> statistics;
     HelperRecipe helper = new HelperRecipe(new RecipeBook());
     Storage storage;
 
-    public ShopAffluenceStepdefs() {
+    public GettingStatisticOnAShopStepdefs() {
         Given("A shop named {string} in {string}", (String name, String city) -> {
             myShop = new Shop(city, name, new ParentCompany());
             helper.addToStorage(myShop.getStorage(), 1000);

@@ -9,15 +9,15 @@ import fr.unice.polytech.si4.otake.cookiefactory.cinema.CinemaAPI;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import io.cucumber.java8.En;
 
-public class ShopTicketCinemaStepdefs implements En {
+public class CheckCinemaTicketStepdefs implements En {
 
     Shop shop;
     Shop shop2;
-    // ; new Shop("city", "name", new ParentCompany());
     CinemaAPI cinemaapi = CinemaAPI.getInstance();
     Cinema cinema1;
+    boolean result;
 
-    public ShopTicketCinemaStepdefs() {
+    public CheckCinemaTicketStepdefs() {
 
         Given("a customer who went to the cinema today and want 2 cookies of the day at the shop", () -> {
             cinema1 = new Cinema("pathelaiscafe");
@@ -40,15 +40,14 @@ public class ShopTicketCinemaStepdefs implements En {
 
         Then("no cookies is given to the customer", () -> {
             assertFalse(shop.checkTicket(""));
-
         });
 
         When("a customer try to get free cookies with an old tickets", () -> {
-
+            result = shop.checkTicket("pathemaiscafe:ZG42F2");
         });
 
-        Then("no cookies is also given to the customer", () -> {
-            assertFalse(shop.checkTicket("pathemaiscafe:ZG42F2"));
+        Then("the ticket is refused", () -> {
+            assertFalse(result);
         });
 
     }
