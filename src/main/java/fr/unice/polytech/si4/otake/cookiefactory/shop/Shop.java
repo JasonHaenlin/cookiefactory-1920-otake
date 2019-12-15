@@ -134,7 +134,14 @@ public class Shop {
 		if (o == null) {
 			return false;
 		}
-		return o.retrieved();
+		if (verifyRetrieveDate(o)) {
+			return o.retrieved();
+		}
+		return false;
+	}
+
+	public boolean verifyRetrieveDate(Order o) {
+		return o.getAppointmentDate().compareTo(new SimpleDate()) >= 0;
 	}
 
 	public Order getCurrentOrder() {
@@ -169,8 +176,6 @@ public class Shop {
 		}
 		return false;
 	}
-
-	// the ticket need to be "name:ticketid" like : "pathepourchat:EBSU18E"
 
 	/**
 	 * Check a cinema ticket

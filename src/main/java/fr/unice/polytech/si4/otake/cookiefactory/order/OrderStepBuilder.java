@@ -3,9 +3,6 @@ package fr.unice.polytech.si4.otake.cookiefactory.order;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoProductRuntimeException;
@@ -13,14 +10,11 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NotEnoughIngred
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
-import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NullParentCompanyRuntimeException;
 
 /**
  * OrderStepBuilder
  */
 public class OrderStepBuilder {
-
-    private static Logger logger = LogManager.getLogger(OrderStepBuilder.class);
 
     private OrderStepBuilder() {
     }

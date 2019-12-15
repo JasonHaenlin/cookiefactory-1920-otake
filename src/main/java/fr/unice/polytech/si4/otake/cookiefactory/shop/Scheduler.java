@@ -22,16 +22,16 @@ public class Scheduler {
 		return closing.getHour();
 	}
 
-	void setSchedule(int opening, int closing) {
+	public void setSchedule(int opening, int closing) {
 		setClosingHour(closing);
 		setOpeningHour(opening);
 	}
 
-	void setOpeningHour(int opening) {
+	public void setOpeningHour(int opening) {
 		this.opening.setHour(opening);
 	}
 
-	void setClosingHour(int closing) {
+	public void setClosingHour(int closing) {
 		this.closing.setHour(closing);
 	}
 

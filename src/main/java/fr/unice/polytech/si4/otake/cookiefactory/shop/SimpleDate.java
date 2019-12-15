@@ -1,5 +1,6 @@
 package fr.unice.polytech.si4.otake.cookiefactory.shop;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class SimpleDate implements Comparable<SimpleDate> {
@@ -9,6 +10,18 @@ public class SimpleDate implements Comparable<SimpleDate> {
     private int year;
     private int hour;
     private int minute;
+
+    /**
+     * build a simple date on the current time
+     */
+    public SimpleDate() {
+        LocalDateTime date = LocalDateTime.now();
+        this.day = date.getDayOfMonth();
+        this.month = date.getMonthValue();
+        this.year = date.getYear();
+        this.hour = date.getHour();
+        this.minute = date.getMinute();
+    }
 
     /**
      * create a simple date of format "00-00-00 13:00"

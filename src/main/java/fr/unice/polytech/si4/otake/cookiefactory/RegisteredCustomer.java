@@ -1,19 +1,19 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
-import java.util.Calendar;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
 public class RegisteredCustomer {
 
 	private boolean isSubscribed;
 	private String id;
-	private final Calendar registrationDate;
+	private final SimpleDate registrationDate;
 	private int unitsOfPoints;
 
 	public RegisteredCustomer(String id, boolean isSubscribed) {
 		this.id = id;
 		this.isSubscribed = isSubscribed;
 		this.unitsOfPoints = 0;
-		this.registrationDate = Calendar.getInstance();
+		this.registrationDate = new SimpleDate();
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class RegisteredCustomer {
 	/**
 	 * @return the registrationDate
 	 */
-	public Calendar getRegistrationDate() {
+	public SimpleDate getRegistrationDate() {
 		return registrationDate;
 	}
 

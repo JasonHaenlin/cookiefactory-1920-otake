@@ -1,6 +1,5 @@
 package fr.unice.polytech.si4.otake.cookiefactory.discount;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -11,6 +10,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
 
 /**
  * Discount
@@ -111,8 +111,8 @@ public class Discount implements Comparable<Discount> {
                 if (registeredCustomer == null) {
                     return false;
                 }
-                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-                int year = registeredCustomer.getRegistrationDate().get(Calendar.YEAR);
+                int currentYear = new SimpleDate().getYear();
+                int year = registeredCustomer.getRegistrationDate().getYear();
                 return currentYear - year >= 1;
             };
         }
@@ -138,8 +138,8 @@ public class Discount implements Comparable<Discount> {
 
         public static DiscountBehaviour enrolmentTime() {
             return (Order order, RegisteredCustomer registeredCustomer, Shop shop, double reduction) -> {
-                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-                int year = registeredCustomer.getRegistrationDate().get(Calendar.YEAR);
+                int currentYear = new SimpleDate().getYear();
+                int year = registeredCustomer.getRegistrationDate().getYear();
                 return (currentYear - year) * reduction;
             };
         }

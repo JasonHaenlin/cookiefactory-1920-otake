@@ -3,6 +3,8 @@ package fr.unice.polytech.si4.otake.cookiefactory.order;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,11 +33,11 @@ public class orderTest {
 
     @Before
     public void orderCreation() {
-        shop = new Shop("Biot", "time", new ParentCompany());
+        shop = spy(new Shop("Biot", "time", new ParentCompany()));
         date = new SimpleDate("00-00-00 13:00");
         helper = new HelperRecipe(new RecipeBook());
         storage = shop.getStorage();
-        
+
         storage.addStock(helper.chewy, 200);
         storage.addStock(helper.crunchy, 200);
         storage.addStock(helper.choco, 200);
@@ -113,6 +115,7 @@ public class orderTest {
         assertNull(shop.getOrderToRetrieve(0), "order id 1 should be null");
         shop.getNextOrder();
         assertEquals(o1, shop.getOrderToRetrieve(0), "order id 1 should be o1");
+        when(shop.verifyRetrieveDate(o1)).thenReturn(true);
         assertTrue("the o1 should be done", shop.retrieved(0));
         assertNull(shop.getOrderToRetrieve(0), "now the order to retrieve should be null");
     }
