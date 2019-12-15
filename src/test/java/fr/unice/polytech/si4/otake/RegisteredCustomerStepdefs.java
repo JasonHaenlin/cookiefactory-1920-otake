@@ -39,16 +39,8 @@ public class RegisteredCustomerStepdefs implements En {
         When("the adherent order {int} cookies", (Integer nbCookies) -> {
             RegisteredCustomer r = parentCompany.getRegisteredCustomer(idOfRegisteredCustomer[0]);
             Shop s = parentCompany.getShops().get(0);
-            Storage storage = s.getStorage();
-            storage.addStock(helper.chewy, 1000);
-            storage.addStock(helper.crunchy, 1000);
-            storage.addStock(helper.choco, 1000);
-            storage.addStock(helper.mixed, 1000);
-            storage.addStock(helper.topped, 1000);
-            storage.addStock(helper.milkChoco, 1000);
-            storage.addStock(helper.whiteChoco, 1000);
-            storage.addStock(helper.cinnamon, 1000);
-            storage.addStock(helper.vanilla, 1000);
+            helper.addToStorage(s.getStorage(), 1000);
+
             s.setTaxes(0.3);
             o = OrderStepBuilder.newOrder().addProduct(helper.getSoooChocolate(), nbCookies).validateBasket()
                     .setAppointment(new SimpleDate("00-00-00 15:00")).noCode().withAccount(r).validatePayment()

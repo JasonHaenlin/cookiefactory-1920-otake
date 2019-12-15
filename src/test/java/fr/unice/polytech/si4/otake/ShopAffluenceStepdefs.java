@@ -24,16 +24,8 @@ public class ShopAffluenceStepdefs implements En {
     public ShopAffluenceStepdefs() {
         Given("A shop named {string} in {string}", (String name, String city) -> {
             myShop = new Shop(city, name, new ParentCompany());
-            storage = myShop.getStorage();
-            storage.addStock(helper.chewy, 1000);
-            storage.addStock(helper.crunchy, 1000);
-            storage.addStock(helper.choco, 1000);
-            storage.addStock(helper.mixed, 1000);
-            storage.addStock(helper.topped, 1000);
-            storage.addStock(helper.milkChoco, 1000);
-            storage.addStock(helper.whiteChoco, 1000);
-            storage.addStock(helper.cinnamon, 1000);
-            storage.addStock(helper.vanilla, 1000);
+            helper.addToStorage(myShop.getStorage(), 1000);
+
         });
 
         And("{int} order retrieved at {int}h and {int} orders retrieved at {int}h",

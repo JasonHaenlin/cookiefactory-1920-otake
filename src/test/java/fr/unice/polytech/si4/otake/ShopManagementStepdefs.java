@@ -24,16 +24,7 @@ public class ShopManagementStepdefs implements En {
 
 		Given("the shop {string} of {string} has taxes of {double}", (String name, String city, Double taxes) -> {
 			myShop = new Shop("Nice", "Nice granny cookie", new ParentCompany()).withCustomTaxes(taxes);
-			storage = myShop.getStorage();
-			storage.addStock(helper.chewy, 1000);
-            storage.addStock(helper.crunchy, 1000);
-            storage.addStock(helper.choco, 1000);
-            storage.addStock(helper.mixed, 1000);
-            storage.addStock(helper.topped, 1000);
-            storage.addStock(helper.milkChoco, 1000);
-            storage.addStock(helper.whiteChoco, 1000);
-            storage.addStock(helper.cinnamon, 1000);
-            storage.addStock(helper.vanilla, 1000);
+			helper.addToStorage(myShop.getStorage(), 1000);
 		});
 
 		When("a customer makes an order of {int} of his favourite cookie", (Integer nbOfFavCookie) -> {

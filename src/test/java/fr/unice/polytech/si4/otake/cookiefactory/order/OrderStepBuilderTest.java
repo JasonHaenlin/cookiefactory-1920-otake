@@ -7,11 +7,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.internal.runners.statements.Fail;
 
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoProductRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NotEnoughIngredientsRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
@@ -103,14 +105,15 @@ public class OrderStepBuilderTest {
     @Test
     public void badProductQuantityOrdertest() {
 
-        // try {
-            // @formatter:off
-            storage.addStock(helper.crunchy, 11);
-            storage.addStock(helper.choco, 11);
-            storage.addStock(helper.mixed, 11);
-            storage.addStock(helper.whiteChoco, 33);
-            storage.addStock(helper.vanilla, 9);
-            Order o = OrderStepBuilder
+        // @formatter:off
+        storage.addStock(helper.crunchy, 11);
+        storage.addStock(helper.choco, 11);
+        storage.addStock(helper.mixed, 11);
+        storage.addStock(helper.whiteChoco, 33);
+        storage.addStock(helper.vanilla, 10);
+        Order o = null;
+        try {
+            o = OrderStepBuilder
                     .newOrder()
                     .addProduct(p)
                     .addProduct(p, 10)
@@ -120,21 +123,21 @@ public class OrderStepBuilderTest {
                     .withoutAccount()
                     .validatePayment()
                     .build(s);
+            fail();
+        } catch (NotEnoughIngredientsRuntimeException e) {
             assertNull(o);
-            storage.addStock(helper.vanilla, 2);
-            Order o2 = OrderStepBuilder
-            .newOrder()
-            .addProduct(p)
-            .addProduct(p, 10)
-            .validateBasket()
-            .setAppointment(new SimpleDate("00-00-00 13:00"))
-            .withCode("CODE")
-            .withoutAccount()
-            .validatePayment()
-            .build(s);
-            assertNotNull(o2);
-        // } catch (NoProductRuntimeException e) {
-        //     assertTrue(true);
-        // }
+        }
+        storage.addStock(helper.vanilla, 2);
+        Order o2 = OrderStepBuilder
+                .newOrder()
+                .addProduct(p)
+                .addProduct(p, 10)
+                .validateBasket()
+                .setAppointment(new SimpleDate("00-00-00 13:00"))
+                .withCode("CODE")
+                .withoutAccount()
+                .validatePayment()
+                .build(s);
+        assertNotNull(o2);
     }
 }

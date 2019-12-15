@@ -73,9 +73,9 @@ public class ParentCompany {
 	public List<Shop> getShopByTerms(String location, String name) {
 		if (location == null && name == null) {
 			return new ArrayList<>();
-		} else if (name == null) {
+		} else if (name == null || "".equals(name)) {
 			return shopFinder.getShopsByKey(location);
-		} else if (location == null) {
+		} else if (location == null || "".equals(location)) {
 			return shopFinder.getShopsByKey(name);
 		} else {
 			List<Shop> matchingLocationShops = shopFinder.getShopsByKey(location);

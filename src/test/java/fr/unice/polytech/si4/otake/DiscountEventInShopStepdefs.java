@@ -39,15 +39,7 @@ public class DiscountEventInShopStepdefs implements En {
             shop = new Shop("", "", pc);
             storage = shop.getStorage();
             helper = new HelperRecipe(new RecipeBook());
-            storage.addStock(helper.chewy, 1000);
-            storage.addStock(helper.crunchy, 1000);
-            storage.addStock(helper.choco, 1000);
-            storage.addStock(helper.mixed, 1000);
-            storage.addStock(helper.topped, 1000);
-            storage.addStock(helper.milkChoco, 1000);
-            storage.addStock(helper.whiteChoco, 1000);
-            storage.addStock(helper.cinnamon, 1000);
-            storage.addStock(helper.vanilla, 1000);
+            helper.addToStorage(shop.getStorage(), 1000);
         });
 
         Given("I order {int} cookies", (Integer q) -> {

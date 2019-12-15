@@ -12,4 +12,5 @@ public class HelperBasic {
     public final static double decreaseWithRatio(double value, double ratio) {
         return (value) * (1 - ratio);
     }
+
 }

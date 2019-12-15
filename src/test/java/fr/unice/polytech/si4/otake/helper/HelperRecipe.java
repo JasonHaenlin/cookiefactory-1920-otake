@@ -5,6 +5,7 @@ import java.util.Arrays;
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Ingredient;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.Storage;
 
 /**
  * Recipe
@@ -64,5 +65,17 @@ public class HelperRecipe {
     public Cookie getChocolalala() {
         return new Cookie("Chocolalala",
                 Arrays.asList(crunchy, choco, mixed, whiteChoco, whiteChoco, whiteChoco, vanilla), false);
+    }
+
+    public void addToStorage(Storage storage, int value) {
+        storage.addStock(chewy, value);
+        storage.addStock(crunchy, value);
+        storage.addStock(choco, value);
+        storage.addStock(mixed, value);
+        storage.addStock(topped, value);
+        storage.addStock(milkChoco, value);
+        storage.addStock(whiteChoco, value);
+        storage.addStock(cinnamon, value);
+        storage.addStock(vanilla, value);
     }
 }

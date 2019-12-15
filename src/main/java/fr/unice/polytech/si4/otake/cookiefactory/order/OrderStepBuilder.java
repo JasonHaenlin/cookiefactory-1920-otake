@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NoProductRuntimeException;
+import fr.unice.polytech.si4.otake.cookiefactory.order.exception.NotEnoughIngredientsRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
@@ -197,14 +198,9 @@ public class OrderStepBuilder {
             o.applyTaxes(shop.getTaxes());
 
             if (!shop.isStorageEnough(o.toCookieList())) {
-                return null;
+                throw new NotEnoughIngredientsRuntimeException();
             }
-
-            try {
-                shop.getDiscounts().applyDiscounts(o, rg, shop);
-            } catch (NullParentCompanyRuntimeException e) {
-                logger.error(e.toString());
-            }
+            shop.getDiscounts().applyDiscounts(o, rg, shop);
             return o;
         }
 

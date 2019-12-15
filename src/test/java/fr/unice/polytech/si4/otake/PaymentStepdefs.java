@@ -28,7 +28,6 @@ public class PaymentStepdefs implements En {
     OrderStepBuilder validator;
     HelperRecipe helper;
     Shop shop = new Shop("city", "name", new ParentCompany());
-    Storage storage = shop.getStorage();
 
     public PaymentStepdefs() {
         Given("A complete order", () -> {
@@ -36,15 +35,7 @@ public class PaymentStepdefs implements En {
             basket = OrderStepBuilder.newOrder();
             Product p1 = helper.getSoooChocolate();
             Product p2 = helper.getChocolalala();
-            storage.addStock(helper.chewy, 1000);
-            storage.addStock(helper.crunchy, 1000);
-            storage.addStock(helper.choco, 1000);
-            storage.addStock(helper.mixed, 1000);
-            storage.addStock(helper.topped, 1000);
-            storage.addStock(helper.milkChoco, 1000);
-            storage.addStock(helper.whiteChoco, 1000);
-            storage.addStock(helper.cinnamon, 1000);
-            storage.addStock(helper.vanilla, 1000);
+            helper.addToStorage(shop.getStorage(), 1000);
             basket.addProduct(p1, 15).addProduct(p2, 5);
         });
 

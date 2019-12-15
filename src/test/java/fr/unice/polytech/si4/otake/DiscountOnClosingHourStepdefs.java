@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
-import org.junit.Before;
-
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
@@ -46,16 +44,7 @@ public class DiscountOnClosingHourStepdefs implements En {
             fullprice = HelperBasic.increaseWithRatio(p.getPrice() * 5, taxes);
             s = new Shop("city", "name", parentC).withSchedule(8, 18);
 
-            storage = s.getStorage();
-            storage.addStock(helper.chewy, 1000);
-            storage.addStock(helper.crunchy, 1000);
-            storage.addStock(helper.choco, 1000);
-            storage.addStock(helper.mixed, 1000);
-            storage.addStock(helper.topped, 1000);
-            storage.addStock(helper.milkChoco, 1000);
-            storage.addStock(helper.whiteChoco, 1000);
-            storage.addStock(helper.cinnamon, 1000);
-            storage.addStock(helper.vanilla, 1000);
+            helper.addToStorage(s.getStorage(), 1000);
         });
 
         Given("I order some cookies", () -> {

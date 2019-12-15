@@ -32,16 +32,7 @@ public class CookieUseofStatisticStepdefs implements En {
             s = new Shop("city", "name", new ParentCompany());
             factory = new RecipeBook();
             HelperRecipe helper = new HelperRecipe(factory);
-            Storage storage = s.getStorage();
-            storage.addStock(helper.chewy, 1000);
-            storage.addStock(helper.crunchy, 1000);
-            storage.addStock(helper.choco, 1000);
-            storage.addStock(helper.mixed, 1000);
-            storage.addStock(helper.topped, 1000);
-            storage.addStock(helper.milkChoco, 1000);
-            storage.addStock(helper.whiteChoco, 1000);
-            storage.addStock(helper.cinnamon, 1000);
-            storage.addStock(helper.vanilla, 1000);
+            helper.addToStorage(s.getStorage(), 1000);
             c1 = helper.getSoooChocolate();
             c2 = helper.getDarkTemptation();
             c3 = helper.getChocolalala();
