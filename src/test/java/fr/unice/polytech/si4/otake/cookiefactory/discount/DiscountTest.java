@@ -56,7 +56,7 @@ public class DiscountTest {
 	}
 
 	@Test
-	public void disountCodeTest() {
+	public void discountCodeTest() {
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.basic());
 		this.o = OrderStepBuilder.newOrder().addProduct(helper.getChocolalala()).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").withoutAccount().validatePayment()
@@ -100,13 +100,13 @@ public class DiscountTest {
 	}
 
 	@Test
-	public void discrountProductsTest() {
+	public void discountProductsTest() {
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.products(100));
 		this.o = OrderStepBuilder.newOrder().addProduct(c, 5).addProduct(c2, 5).validateBasket()
 				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").withoutAccount().validatePayment()
 				.build(s);
 		this.o.setPriceWithTaxes(10);
-		double red = this.d1.applyIfEligible(o, null, null);
+		double red = this.d1.applyIfEligible(o, null, new Shop("city", "name", new ParentCompany()));
 		this.o.applyDiscount(red);
 		assertEquals(10, o.getPriceWithTaxes());
 
@@ -114,7 +114,7 @@ public class DiscountTest {
 				.setAppointment(new SimpleDate("00-00-00 13:00")).withCode("CODE").withoutAccount().validatePayment()
 				.build(s);
 		this.o.setPriceWithTaxes(10);
-		red = this.d1.applyIfEligible(o, null, null);
+		red = this.d1.applyIfEligible(o, null, new Shop("city", "name", new ParentCompany()));
 		this.o.applyDiscount(red);
 		assertEquals(9, o.getPriceWithTaxes());
 	}
@@ -129,7 +129,7 @@ public class DiscountTest {
 				.build(s);
 		double price = (c.getPrice() * 5);
 		this.o.setPriceWithTaxes(price);
-		double red = this.d1.applyIfEligible(o, null, null);
+		double red = this.d1.applyIfEligible(o, null, new Shop("city", "name", new ParentCompany()));
 		this.o.applyDiscount(red);
 		assertEquals(price - (price * 0.1), o.getPriceWithTaxes());
 
@@ -138,7 +138,7 @@ public class DiscountTest {
 				.build(s);
 		price = (c.getPrice() * 5) + (c2.getPrice() * 5);
 		this.o.setPriceWithTaxes(price);
-		red = this.d1.applyIfEligible(o, null, null);
+		red = this.d1.applyIfEligible(o, null, new Shop("city", "name", new ParentCompany()));
 		this.o.applyDiscount(red);
 		assertEquals(price - (price * (0.1 * c.getPrice() * 5) / price), o.getPriceWithTaxes());
 	}

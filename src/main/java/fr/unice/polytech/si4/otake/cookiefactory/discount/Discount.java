@@ -175,9 +175,9 @@ public class Discount implements Comparable<Discount> {
                 List<Cookie> cookies = recipeBook.getCookies();
                 for (Map.Entry<Product, Integer> c : order.getContent().entrySet()) {
                     if (cookies.contains(c.getKey())) {
-                        price += c.getKey().getPrice() * c.getValue();
+                        price += c.getKey().applyTaxes(shop.getTaxes()) * c.getValue();
                     }
-                    total += c.getKey().getPrice() * c.getValue();
+                    total += c.getKey().applyTaxes(shop.getTaxes()) * c.getValue();
                 }
                 return (reduction * price) / total;
             };

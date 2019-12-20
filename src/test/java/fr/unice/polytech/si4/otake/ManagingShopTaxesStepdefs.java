@@ -35,7 +35,7 @@ public class ManagingShopTaxesStepdefs implements En {
 
 		Then("the price is calculated according to the shop taxes policy", () -> {
 			assertEquals(myShop.getTaxes() * order.getPriceWithoutTaxes() + order.getPriceWithoutTaxes(),
-					order.applyTaxes(myShop.getTaxes()));
+					order.applyTaxes(myShop.getTaxes()), 0.001);
 		});
 
 		When("the store manager wants to change the store taxes to {double}", (Double newTaxes) -> {

@@ -145,7 +145,6 @@ public class Order {
 		for (Map.Entry<Product, Integer> entry : content.entrySet()) {
 			this.priceWithTaxes += (entry.getKey().applyTaxes(taxes)) * entry.getValue();
 		}
-		applyDiscount(reduction);
 		return this.priceWithTaxes;
 	}
 

@@ -82,12 +82,12 @@ public class cookieTest {
     public void cookiePriceTest() {
         Cookie cuteLittleCookie = new Cookie("coocute",
                 Arrays.asList(helper.chewy, helper.peanutButter, helper.mixed, helper.whiteChoco), false);
-        assertEquals(2.3, cuteLittleCookie.getPrice());
+        assertEquals(2.3, cuteLittleCookie.applyTaxes(0));
         Cookie customCuteLittleCookie = new Cookie("coocute",
                 Arrays.asList(helper.chewy, helper.peanutButter, helper.mixed, helper.whiteChoco), true);
-        assertEquals(2.76, customCuteLittleCookie.getPrice());
+        assertEquals(2.76, customCuteLittleCookie.applyTaxes(0));
         cuteLittleCookie = new Cookie("coocute",
                 Arrays.asList(helper.chewy, helper.peanutButter, helper.mixed, helper.whiteChoco, helper.chili), false);
-        assertEquals(3.3, cuteLittleCookie.getPrice());
+        assertEquals(3.3, cuteLittleCookie.applyTaxes(0));
     }
 }

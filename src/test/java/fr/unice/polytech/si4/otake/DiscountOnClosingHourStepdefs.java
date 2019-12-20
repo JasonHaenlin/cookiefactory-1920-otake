@@ -41,7 +41,7 @@ public class DiscountOnClosingHourStepdefs implements En {
             basicCookie = helper.getSoooChocolate();
             parentC.getRecipes().addRecipe((Cookie) basicCookie);
             cookieCustom = new Cookie("customCookie", Arrays.asList(helper.chewy, helper.choco, helper.mixed), true);
-            basicCookiesPrice = HelperBasic.increaseWithRatio(basicCookie.getPrice() * 5, taxes);
+            basicCookiesPrice = basicCookie.applyTaxes(taxes) * 5;
             shop = new Shop("city", "name", parentC).withSchedule(8, 18);
 
             helper.addToStorage(shop.getStorage(), 1000);
@@ -58,8 +58,8 @@ public class DiscountOnClosingHourStepdefs implements En {
             shop.addOrder(order);
         });
         Then("I get a {double} discount on my order only on the basics cookies", (Double disc) -> {
-            assertEquals(HelperBasic.decreaseWithRatio(basicCookiesPrice, disc)
-                    + cookieCustom.applyTaxes(taxes), order.getPriceWithTaxes());
+            assertEquals(HelperBasic.decreaseWithRatio(basicCookiesPrice, disc) + cookieCustom.applyTaxes(taxes),
+                    order.getPriceWithTaxes(), 0.001);
         });
 
     }

@@ -55,9 +55,7 @@ public class PackOptimizerTest {
         Map<Product, Integer> products3 = new HashMap<>();
         products3.put(cookie1, (smallSize + 1));
         products3.put(cookie2, (smallSize + 1));
-        System.out.println(products3);
         products3 = packOptimizer.optimizeProducts(products3);
-        System.out.println(products3);
         assertEquals(4, products3.size());
 
     }
