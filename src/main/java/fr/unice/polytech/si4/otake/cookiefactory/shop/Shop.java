@@ -169,6 +169,25 @@ public class Shop {
 	}
 
 	/**
+	 * Return the list of free cookies for a client if it's possible.
+	 *
+	 * @param ticket with the name of the cinema like "name:ticketid", example:
+	 *               "pathepourchat:EBSU18E"
+	 * @return 2 cookies of the day if the ticket is a good ticket, 0 cookies
+	 *         otherwise
+	 */
+	public List<Cookie> getFreeCookiesOfTheDay(String ticket) {
+		List<Cookie> theresult = new ArrayList<>();
+		if (checkTicket(ticket)) {
+			theresult.add(this.operation.getRecipeOfTheDay());
+			theresult.add(this.operation.getRecipeOfTheDay());
+			return theresult;
+		} else {
+			return theresult;
+		}
+	}
+
+	/**
 	 * Check a cinema ticket
 	 *
 	 * @param ticket with the name of the cinema like "name:ticketid", example:

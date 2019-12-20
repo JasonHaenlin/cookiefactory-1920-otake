@@ -1,7 +1,6 @@
 package fr.unice.polytech.si4.otake;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.cinema.Cinema;
@@ -31,7 +30,8 @@ public class CheckCinemaTicketStepdefs implements En {
         });
 
         Then("the customer get {int} free cookies", (Integer deux) -> {
-            assertTrue(shop.checkTicket("pathemaiscafe:ZG42F2"));
+            // assertTrue(shop.checkTicket("pathemaiscafe:ZG42F2"));
+            assertEquals(2, shop.getFreeCookiesOfTheDay("pathemaiscafe:ZG42F2").size());
         });
 
         When("the customer enter in the shop named {string} with no partnership", (String name) -> {
@@ -39,7 +39,7 @@ public class CheckCinemaTicketStepdefs implements En {
         });
 
         Then("no cookies is given to the customer", () -> {
-            assertFalse(shop.checkTicket(""));
+            assertEquals(0, shop2.getFreeCookiesOfTheDay("pathemaiscafe:ZG42F2").size());
         });
 
         When("a customer try to get free cookies with an old tickets", () -> {
@@ -47,7 +47,7 @@ public class CheckCinemaTicketStepdefs implements En {
         });
 
         Then("the ticket is refused", () -> {
-            assertFalse(result);
+            assertEquals(0, shop.getFreeCookiesOfTheDay("pathemaiscafe:ZG42F2").size());
         });
 
     }

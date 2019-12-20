@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import fr.unice.polytech.si4.otake.cookiefactory.discount.Discount;
 import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.ShopFinder;
 
@@ -19,6 +20,7 @@ public class ParentCompany implements CompanyOperation {
 	private final ShopFinder shopFinder;
 	private final RecipeBook recipeBook;
 	private final DiscountQueue discounts;
+	private Cookie recipieOfTheDay;
 
 	/**
 	 * parentCompany where we can manage the registeredCustomer and the shops
@@ -42,6 +44,14 @@ public class ParentCompany implements CompanyOperation {
 		this.discounts
 				.add(new Discount(false, 0.1, Discount.Trigger.fidelity(30), Discount.Behaviour.customerPoints(30)));
 		return this;
+	}
+
+	public void changeRecipeOfTheDay(Cookie rotd) {
+		this.recipieOfTheDay = rotd;
+	}
+
+	public Cookie getRecipeOfTheDay() {
+		return this.recipieOfTheDay;
 	}
 
 	/**
