@@ -57,6 +57,15 @@ public class Cookie extends Product {
 		return m;
 	}
 
+	@Override
+	public final double applyTaxes(double tax){
+		if(this.isA(ProductType.CUSTOM_COOKIE)){
+			return this.price * (1+tax+0.2);
+		} else {
+			return this.price * (1+tax);
+		}
+	}
+
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}

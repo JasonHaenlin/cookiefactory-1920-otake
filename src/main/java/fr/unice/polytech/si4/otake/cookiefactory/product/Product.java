@@ -16,6 +16,8 @@ public abstract class Product {
 
     protected abstract double computePrice();
 
+    public abstract double applyTaxes(double tax);
+
     public abstract int getSize();
 
     public String getName() {

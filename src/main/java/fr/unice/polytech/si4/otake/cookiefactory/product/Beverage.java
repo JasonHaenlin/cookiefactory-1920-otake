@@ -13,6 +13,11 @@ public class Beverage extends Product {
         return this.price;
     }
 
+    @Override
+    public double applyTaxes(double tax){
+        return this.price * (1+tax);
+    }
+
     public int getSize() {
         return 1;
     }

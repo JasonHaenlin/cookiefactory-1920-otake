@@ -19,7 +19,11 @@ public class Pack extends Product {
     }
 
     public double computePrice() {
-        return 0;
+        return this.packType.getPrice();
+    }
+
+    public double applyTaxes(double tax){
+        return computePrice();
     }
 
     public Product getProductsInPack() {

@@ -21,11 +21,11 @@ import io.cucumber.java8.En;
  * DiscountOrderStepdefs
  */
 public class DiscountOnClosingHourStepdefs implements En {
-    Order o;
-    Product p;
-    Product pc;
-    double fullprice;
-    Shop s;
+    Order order;
+    Product basicCookie;
+    Product cookieCustom;
+    double basicCookiesPrice;
+    Shop shop;
     double taxes;
     ParentCompany parentC;
     HelperRecipe helper;
@@ -38,28 +38,28 @@ public class DiscountOnClosingHourStepdefs implements En {
             parentC = new ParentCompany().withDefaultDiscount();
             helper = new HelperRecipe(parentC.getRecipes());
 
-            p = helper.getSoooChocolate();
-            parentC.getRecipes().addRecipe((Cookie) p);
-            pc = new Cookie("customCookie", Arrays.asList(helper.chewy, helper.choco, helper.mixed), true);
-            fullprice = HelperBasic.increaseWithRatio(p.getPrice() * 5, taxes);
-            s = new Shop("city", "name", parentC).withSchedule(8, 18);
+            basicCookie = helper.getSoooChocolate();
+            parentC.getRecipes().addRecipe((Cookie) basicCookie);
+            cookieCustom = new Cookie("customCookie", Arrays.asList(helper.chewy, helper.choco, helper.mixed), true);
+            basicCookiesPrice = HelperBasic.increaseWithRatio(basicCookie.getPrice() * 5, taxes);
+            shop = new Shop("city", "name", parentC).withSchedule(8, 18);
 
-            helper.addToStorage(s.getStorage(), 1000);
+            helper.addToStorage(shop.getStorage(), 1000);
         });
 
         Given("I order some cookies", () -> {
-            apstep = OrderStepBuilder.newOrder().addProduct(p, 5).addProduct(pc).validateBasket();
+            apstep = OrderStepBuilder.newOrder().addProduct(basicCookie, 5).addProduct(cookieCustom).validateBasket();
 
         });
         When("I pass an order at {int} o'clock to a shop closing at {int} o'clock", (Integer hour, Integer closing) -> {
-            s.withSchedule(10, closing);
-            this.o = apstep.setAppointment(new SimpleDate("00-00-00 " + hour + ":00")).noCode().withoutAccount()
-                    .validatePayment().build(s);
-            s.addOrder(o);
+            shop.withSchedule(10, closing);
+            this.order = apstep.setAppointment(new SimpleDate("00-00-00 " + hour + ":00")).noCode().withoutAccount()
+                    .validatePayment().build(shop);
+            shop.addOrder(order);
         });
         Then("I get a {double} discount on my order only on the basics cookies", (Double disc) -> {
-            assertEquals(HelperBasic.decreaseWithRatio(fullprice, disc)
-                    + HelperBasic.increaseWithRatio(pc.getPrice(), taxes), o.getPriceWithTaxes());
+            assertEquals(HelperBasic.decreaseWithRatio(basicCookiesPrice, disc)
+                    + cookieCustom.applyTaxes(taxes), order.getPriceWithTaxes());
         });
 
     }
