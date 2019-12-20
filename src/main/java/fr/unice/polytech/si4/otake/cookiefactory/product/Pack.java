@@ -5,17 +5,23 @@ import java.util.Objects;
 public class Pack extends Product {
 
     private PackType packType;
-    private Product product;
+    private Product cookie;
+    private Product beverage;
 
     public Pack(String name, PackType packType) {
         super(name, ProductType.PACK);
         this.packType = packType;
     }
 
-    public Pack(String name, PackType packType, Product product) {
+    public Pack(String name, PackType packType, Product cookie) {
         super(name, ProductType.PACK);
         this.packType = packType;
-        this.product = product;
+        this.cookie = cookie;
+    }
+
+    Pack withBeverage(Beverage beverage) {
+        this.beverage = beverage;
+        return this;
     }
 
     public double computePrice() {
@@ -27,7 +33,7 @@ public class Pack extends Product {
     }
 
     public Product getProductsInPack() {
-        return this.product;
+        return this.cookie;
     }
 
     @Override
@@ -52,6 +58,6 @@ public class Pack extends Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.name, this.productType, this.packType, this.product);
+        return Objects.hash(this.name, this.productType, this.packType, this.cookie);
     }
 }
