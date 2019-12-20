@@ -19,21 +19,43 @@ public class Pack extends Product {
         this.cookie = cookie;
     }
 
+    /**
+     *
+     * @param beverage
+     * @return
+     */
     Pack withBeverage(Beverage beverage) {
         this.beverage = beverage;
         return this;
     }
 
+    /**
+     * compute the price, if a beverage is in the pack, we count half of the price
+     *
+     * @return the price
+     */
     public double computePrice() {
+        if (this.beverage != null) {
+            return this.packType.getPrice() + (this.beverage.getPrice() / 2.);
+        }
         return this.packType.getPrice();
     }
 
-    public double applyTaxes(double tax){
+    public double applyTaxes(double tax) {
         return computePrice();
+    }
+
+    public PackType getPackType() {
+        return packType;
     }
 
     public Product getProductsInPack() {
         return this.cookie;
+    }
+
+    @Override
+    public double getPrice() {
+        return computePrice();
     }
 
     @Override

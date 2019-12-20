@@ -14,6 +14,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderQueue;
+import fr.unice.polytech.si4.otake.cookiefactory.product.ExtraProducts;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NullParentCompanyRuntimeException;
 
@@ -226,6 +227,10 @@ public class Shop {
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.city, this.name);
+	}
+
+	public ExtraProducts getExtraProducts() {
+		return operation.getExtra();
 	}
 
 	public DiscountQueue getDiscounts() {

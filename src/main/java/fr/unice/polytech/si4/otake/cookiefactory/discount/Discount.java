@@ -7,7 +7,9 @@ import java.util.Objects;
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.Order;
+import fr.unice.polytech.si4.otake.cookiefactory.product.Pack;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
+import fr.unice.polytech.si4.otake.cookiefactory.product.ProductType;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.SimpleDate;
@@ -174,10 +176,15 @@ public class Discount implements Comparable<Discount> {
                 double total = 0;
                 List<Cookie> cookies = recipeBook.getCookies();
                 for (Map.Entry<Product, Integer> c : order.getContent().entrySet()) {
-                    if (cookies.contains(c.getKey())) {
-                        price += c.getKey().applyTaxes(shop.getTaxes()) * c.getValue();
+                    Product p = c.getKey();
+                    if (cookies.contains(p)) {
+                        price += p.applyTaxes(shop.getTaxes()) * c.getValue();
                     }
-                    total += c.getKey().applyTaxes(shop.getTaxes()) * c.getValue();
+                    if (p.isA(ProductType.PACK)) {
+                        Pack pack = (Pack) p;
+                        price += pack.getPackType().getPrice() * pack.getSize();
+                    }
+                    total += p.applyTaxes(shop.getTaxes()) * c.getValue();
                 }
                 return (reduction * price) / total;
             };

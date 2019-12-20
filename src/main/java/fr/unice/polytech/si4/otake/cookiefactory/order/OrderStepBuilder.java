@@ -91,7 +91,7 @@ public class OrderStepBuilder {
     private static class OrderSteps
             implements ProductStep, AppointmentStep, CodeStep, PaymentStep, AccountStep, BuildStep {
 
-        private final Map<Product, Integer> content;
+        private Map<Product, Integer> content;
         private SimpleDate appointmentDate;
         private String code;
         private RegisteredCustomer rg;
@@ -206,9 +206,9 @@ public class OrderStepBuilder {
             if (this.content.isEmpty()) {
                 throw new NoProductRuntimeException();
             }
+            content = shop.getExtraProducts().getProductOptimization(content);
             Order o = new Order(this.content, this.appointmentDate, this.code, this.rg);
             o.applyTaxes(shop.getTaxes());
-
             if (!shop.isStorageEnough(o.toCookieList())) {
                 throw new NotEnoughIngredientsRuntimeException();
             }

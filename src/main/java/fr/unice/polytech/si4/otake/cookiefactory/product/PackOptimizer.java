@@ -13,6 +13,10 @@ public class PackOptimizer {
         this.packs = new ArrayList<>();
     }
 
+    public List<PackType> getPacks() {
+        return packs;
+    }
+
     public void addPackType(PackType pack) {
         this.packs.add(pack);
         Collections.sort(this.packs);

@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Beverage extends Product {
 
-    Beverage(String name, int price) {
+    public Beverage(String name, double price) {
         super(name, ProductType.BEVERAGE);
         this.price = price;
     }
@@ -14,8 +14,8 @@ public class Beverage extends Product {
     }
 
     @Override
-    public double applyTaxes(double tax){
-        return this.price * (1+tax);
+    public double applyTaxes(double tax) {
+        return this.price * (1 + tax);
     }
 
     public int getSize() {

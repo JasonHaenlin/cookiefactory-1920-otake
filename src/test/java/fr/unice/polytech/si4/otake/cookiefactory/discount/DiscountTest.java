@@ -120,7 +120,7 @@ public class DiscountTest {
 	}
 
 	@Test
-	public void discrountElligibleProductsTest() {
+	public void discountElligibleProductsTest() {
 		RecipeBook rc = new RecipeBook();
 		rc.addRecipe(c);
 		this.d1 = new Discount(false, 0.1, Discount.Trigger.code("CODE"), Discount.Behaviour.elligibleCookies(rc));

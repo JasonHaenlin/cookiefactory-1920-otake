@@ -1,12 +1,20 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import fr.unice.polytech.si4.otake.cookiefactory.discount.Discount;
 import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
+import fr.unice.polytech.si4.otake.cookiefactory.product.Beverage;
+import fr.unice.polytech.si4.otake.cookiefactory.product.ExtraProducts;
+import fr.unice.polytech.si4.otake.cookiefactory.product.PackType;
+import fr.unice.polytech.si4.otake.cookiefactory.product.PackType.TypeSize;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
-import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.ShopFinder;
 
@@ -15,6 +23,7 @@ public class ParentCompany implements CompanyOperation {
 	private final Set<Shop> shops;
 	private final ShopFinder shopFinder;
 	private final RecipeBook recipeBook;
+	private final ExtraProducts extra;
 	private final DiscountQueue discounts;
 	private Cookie recipieOfTheDay;
 
@@ -27,6 +36,7 @@ public class ParentCompany implements CompanyOperation {
 		this.shopFinder = new ShopFinder();
 		this.recipeBook = new RecipeBook();
 		this.discounts = new DiscountQueue();
+		this.extra = new ExtraProducts();
 	}
 
 	public ParentCompany withDefaultDiscount() {
@@ -39,6 +49,21 @@ public class ParentCompany implements CompanyOperation {
 				new Discount(false, 0.3, Discount.Trigger.hour(), Discount.Behaviour.elligibleCookies(recipeBook)));
 		this.discounts
 				.add(new Discount(false, 0.1, Discount.Trigger.fidelity(30), Discount.Behaviour.customerPoints(30)));
+		return this;
+	}
+
+	public ParentCompany withDefaultBeverage() {
+		this.extra.addBeverage(new Beverage("Coca Cola", 1.50));
+		this.extra.addBeverage(new Beverage("Eau", 1.00));
+		this.extra.addBeverage(new Beverage("Bubble tea", 3.50));
+		this.extra.addBeverage(new Beverage("Strange drink", 6.50));
+		return this;
+	}
+
+	public ParentCompany withDefaultPack() {
+		this.extra.addPack(new PackType(TypeSize.SMALL, 10, 5.00));
+		this.extra.addPack(new PackType(TypeSize.MEDIUM, 15, 10.00));
+		this.extra.addPack(new PackType(TypeSize.BIG, 30, 25.00));
 		return this;
 	}
 
@@ -152,13 +177,14 @@ public class ParentCompany implements CompanyOperation {
 
 	/**
 	 * Say if among shops there's at least one which can make the product
+	 *
 	 * @param cookie
 	 * @return
 	 */
-	public boolean couldAShopSatisfyThisCookie(Cookie cookie){
+	public boolean couldAShopSatisfyThisCookie(Cookie cookie) {
 		boolean test = false;
-		for (Shop s : shops){
-			if (s.isCookieAvailable(cookie.getName())){
+		for (Shop s : shops) {
+			if (s.isCookieAvailable(cookie.getName())) {
 				test = true;
 			}
 		}
@@ -166,19 +192,25 @@ public class ParentCompany implements CompanyOperation {
 	}
 
 	/**
-	 *	Motivation: a shop shouldn't take order when closed, they're not ready to prepare order
-	 *	This method tells
+	 * Motivation: a shop shouldn't take order when closed, they're not ready to
+	 * prepare order This method tells
+	 *
 	 * @param actualTime of the order
 	 * @param product
 	 * @return
 	 */
-	public boolean isThereAnOpenShopThatCouldMakeThisCookie(int actualTime, Cookie cookie){
+	public boolean isThereAnOpenShopThatCouldMakeThisCookie(int actualTime, Cookie cookie) {
 		boolean test = false;
-		for (Shop s : shops){
-			if (s.getSchedule().getClosingHour() > actualTime){
+		for (Shop s : shops) {
+			if (s.getSchedule().getClosingHour() > actualTime) {
 				test = true;
 			}
 		}
 		return test && couldAShopSatisfyThisCookie(cookie);
+	}
+
+	@Override
+	public ExtraProducts getExtra() {
+		return extra;
 	}
 }

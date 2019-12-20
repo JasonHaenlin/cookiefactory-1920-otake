@@ -23,7 +23,6 @@ public class Order {
 	private double priceWithoutTaxes;
 	private double priceWithTaxes;
 	private boolean retrived;
-	private double reduction;
 
 	private final RegisteredCustomer rg;
 
@@ -42,7 +41,6 @@ public class Order {
 		this.appointmentDate = appointmentDate;
 		this.code = code;
 		this.retrived = false;
-		this.reduction = 0;
 		this.rg = rg;
 		buildPriceWithoutTaxes();
 	}
@@ -136,7 +134,6 @@ public class Order {
 	}
 
 	public void applyDiscount(double reduction) {
-		this.reduction = reduction;
 		this.priceWithTaxes = (this.priceWithTaxes - (this.priceWithTaxes * reduction));
 	}
 
