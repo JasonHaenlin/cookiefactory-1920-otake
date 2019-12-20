@@ -44,7 +44,7 @@ public class MakingABasicOrderStepdefs implements En {
         });
 
         Given("I want to make an order without any account", () -> {
-            recipes = parent.getRecipeBook();
+            recipes = parent.getRecipes();
             helper = new HelperRecipe(recipes);
             parent.addShop("Nice", "NiceCookie");
             parent.addShop("valbonne", "ValbonneCookie");

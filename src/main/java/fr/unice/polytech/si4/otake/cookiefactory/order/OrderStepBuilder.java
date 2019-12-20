@@ -188,7 +188,7 @@ public class OrderStepBuilder {
             if (this.content.isEmpty()) {
                 throw new NoProductRuntimeException();
             }
-            Order o = new Order(this.content, this.appointmentDate, this.code);
+            Order o = new Order(this.content, this.appointmentDate, this.code, this.rg);
             o.applyTaxes(shop.getTaxes());
 
             if (!shop.isStorageEnough(o.toCookieList())) {

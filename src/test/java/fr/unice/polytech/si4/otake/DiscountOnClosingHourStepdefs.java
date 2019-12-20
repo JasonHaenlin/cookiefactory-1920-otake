@@ -36,10 +36,10 @@ public class DiscountOnClosingHourStepdefs implements En {
         Before(() -> {
             taxes = 0.3;
             parentC = new ParentCompany().withDefaultDiscount();
-            helper = new HelperRecipe(parentC.getRecipeBook());
+            helper = new HelperRecipe(parentC.getRecipes());
 
             p = helper.getSoooChocolate();
-            parentC.getRecipeBook().addRecipe((Cookie) p);
+            parentC.getRecipes().addRecipe((Cookie) p);
             pc = new Cookie("customCookie", Arrays.asList(helper.chewy, helper.choco, helper.mixed), true);
             fullprice = HelperBasic.increaseWithRatio(p.getPrice() * 5, taxes);
             s = new Shop("city", "name", parentC).withSchedule(8, 18);

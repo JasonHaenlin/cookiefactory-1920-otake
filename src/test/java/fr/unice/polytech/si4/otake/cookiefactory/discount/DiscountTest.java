@@ -36,7 +36,7 @@ public class DiscountTest {
 	@Before
 	public void init() {
 		this.pc = new ParentCompany();
-		this.helper = new HelperRecipe(pc.getRecipeBook());
+		this.helper = new HelperRecipe(pc.getRecipes());
 		storage = s.getStorage();
 
 		storage.addStock(helper.chewy, 1000);

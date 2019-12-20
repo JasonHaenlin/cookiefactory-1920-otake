@@ -31,7 +31,7 @@ public class cookiefactoryTest {
     @Before
     public void factoryCreation() {
         Shop s = new Shop("city", "name", pc);
-        factory = pc.getRecipeBook();
+        factory = pc.getRecipes();
         HelperRecipe helper = new HelperRecipe(factory);
         storage = s.getStorage();
         storage.addStock(helper.chewy, 200);

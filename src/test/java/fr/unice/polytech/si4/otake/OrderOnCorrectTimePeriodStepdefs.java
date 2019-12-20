@@ -35,7 +35,7 @@ public class OrderOnCorrectTimePeriodStepdefs implements En {
     public OrderOnCorrectTimePeriodStepdefs() {
         Before(() -> {
             parent = new ParentCompany();
-            helper = new HelperRecipe(parent.getRecipeBook());
+            helper = new HelperRecipe(parent.getRecipes());
             shop = new Shop("city", "name", parent);
             helper.addToStorage(shop.getStorage(), 100);
             parent.addShop(shop);

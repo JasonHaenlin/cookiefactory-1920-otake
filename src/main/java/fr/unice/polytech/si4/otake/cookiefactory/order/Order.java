@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.order.exception.BadAppointmentRuntimeException;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Pack;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
@@ -24,17 +25,25 @@ public class Order {
 	private boolean retrived;
 	private double reduction;
 
+	private final RegisteredCustomer rg;
+
 	private OrderObserver obs;
 
 	/**
 	 * create a new order when cookies can be add
 	 */
 	Order(Map<Product, Integer> content, SimpleDate appointmentDate, String code) {
+		this(content, appointmentDate, code, null);
+
+	}
+
+	Order(Map<Product, Integer> content, SimpleDate appointmentDate, String code, RegisteredCustomer rg) {
 		this.content = content;
 		this.appointmentDate = appointmentDate;
 		this.code = code;
 		this.retrived = false;
 		this.reduction = 0;
+		this.rg = rg;
 		buildPriceWithoutTaxes();
 	}
 
@@ -162,5 +171,12 @@ public class Order {
 			}
 		}
 		return cookies;
+	}
+
+	/**
+	 * @return the rg
+	 */
+	public RegisteredCustomer getRegisteredCustomer() {
+		return rg;
 	}
 }

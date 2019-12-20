@@ -13,7 +13,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.ShopFinder;
 
-public class ParentCompany {
+public class ParentCompany implements CompanyOperation {
 	private final Set<RegisteredCustomer> registeredCustomers;
 	private final Set<Shop> shops;
 	private final ShopFinder shopFinder;
@@ -134,17 +134,13 @@ public class ParentCompany {
 		return new ArrayList<>(this.shops);
 	}
 
-	/**
-	 * @return the recipeBook
-	 */
-	public RecipeBook getRecipeBook() {
-		return recipeBook;
-	}
-
-	/**
-	 * @return the discounts
-	 */
+	@Override
 	public DiscountQueue getDiscounts() {
 		return discounts;
+	}
+
+	@Override
+	public RecipeBook getRecipes() {
+		return recipeBook;
 	}
 }

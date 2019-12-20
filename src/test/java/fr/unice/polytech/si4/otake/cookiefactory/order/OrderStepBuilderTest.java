@@ -37,7 +37,7 @@ public class OrderStepBuilderTest {
         RecipeBook rc = new RecipeBook();
         helper = new HelperRecipe(rc);
 
-        p = new HelperRecipe(new ParentCompany().getRecipeBook()).getChocolalala();
+        p = new HelperRecipe(new ParentCompany().getRecipes()).getChocolalala();
 
     }
 

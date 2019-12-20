@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
 
+import fr.unice.polytech.si4.otake.cookiefactory.CompanyOperation;
 import fr.unice.polytech.si4.otake.cookiefactory.CookieFactoryAPI;
-import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.RegisteredCustomer;
 import fr.unice.polytech.si4.otake.cookiefactory.discount.DiscountQueue;
@@ -25,7 +25,7 @@ public class Shop {
 	private final String name;
 	private final OrderQueue orders;
 	private final Scheduler schedule;
-	private final ParentCompany parentCompany;
+	private final CompanyOperation operation;
 	private final Storage storage;
 	private final List<String> cinemas;
 
@@ -33,14 +33,14 @@ public class Shop {
 
 	private double taxes;
 
-	public Shop(String city, String name, ParentCompany parentCompany) {
+	public Shop(String city, String name, CompanyOperation operation) {
 		this.city = city;
 		this.taxes = DEFAULT_TAXES;
 		this.name = name;
-		this.parentCompany = parentCompany;
+		this.operation = operation;
 		this.schedule = new Scheduler(8, 20);
 		this.orders = new OrderQueue();
-		this.storage = new Storage(parentCompany.getRecipeBook());
+		this.storage = new Storage(operation.getRecipes());
 		this.orderCount = 0;
 		this.cinemas = new ArrayList<>();
 	}
@@ -59,20 +59,11 @@ public class Shop {
 		if (checkAppointmentDate(order.getAppointmentDate())) {
 			order.setId(this.orderCount);
 			this.orderCount++;
+			RegisteredCustomer rg = order.getRegisteredCustomer();
+			if (rg != null) {
+				rg.addPoints(order.getQuantity());
+			}
 			return orders.add(order);
-		}
-		return false;
-	}
-
-	/**
-	 *
-	 * @param order
-	 * @param registerCustomer
-	 */
-	public boolean addOrder(Order order, RegisteredCustomer registerCustomer) {
-		if (addOrder(order)) {
-			registerCustomer.addPoints(order.getQuantity());
-			return true;
 		}
 		return false;
 	}
@@ -219,10 +210,10 @@ public class Shop {
 	}
 
 	public DiscountQueue getDiscounts() {
-		if (parentCompany == null) {
+		if (operation == null) {
 			throw new NullParentCompanyRuntimeException();
 		}
-		return this.parentCompany.getDiscounts();
+		return operation.getDiscounts();
 	}
 
 	public Storage getStorage() {
@@ -230,7 +221,7 @@ public class Shop {
 	}
 
 	public boolean isCookieAvailable(String cookieName) {
-		RecipeBook recipeBook = parentCompany.getRecipeBook();
+		RecipeBook recipeBook = operation.getRecipes();
 		if (recipeBook.getCookie(cookieName) == null) {
 			return false;
 		}
