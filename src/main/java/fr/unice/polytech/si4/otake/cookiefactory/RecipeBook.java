@@ -11,9 +11,10 @@ import java.util.stream.Collectors;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Ingredient;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.IngredientType;
+import fr.unice.polytech.si4.otake.cookiefactory.shop.IngredientObservable;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.StorageObserver;
 
-public class RecipeBook {
+public class RecipeBook implements IngredientObservable {
 
 	private final Map<Cookie, Double> cookies;
 	private final Set<Ingredient> ingredients;
@@ -174,12 +175,19 @@ public class RecipeBook {
 		this.obs.forEach(o -> o.removeIngredient(i));
 	}
 
+	@Override
 	public void addObserver(StorageObserver obs) {
 		this.obs.add(obs);
 	}
 
+	@Override
 	public void removeObserver(StorageObserver obs) {
 		this.obs.remove(obs);
+	}
+
+	@Override
+	public void askForUpdates(StorageObserver obs) {
+		this.ingredients.forEach(i -> obs.addIngredient(i));
 	}
 
 }

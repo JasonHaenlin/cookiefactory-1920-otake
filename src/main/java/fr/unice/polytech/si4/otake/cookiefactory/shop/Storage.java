@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Ingredient;
 
@@ -13,13 +12,10 @@ public class Storage implements StorageObserver {
 
     private Map<Ingredient, Integer> stock;
 
-    Storage(RecipeBook recipeBook) {
-        List<Ingredient> li = recipeBook.getIngredients();
-        this.stock = new HashMap<>(li.size());
-        for (Ingredient i : li) {
-            this.stock.put(i, 0);
-        }
-        recipeBook.addObserver(this);
+    Storage(IngredientObservable ingredientObl) {
+        this.stock = new HashMap<>();
+        ingredientObl.askForUpdates(this);
+        ingredientObl.addObserver(this);
     }
 
     public void addStock(Ingredient ingredient, int quantity) {
