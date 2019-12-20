@@ -239,6 +239,11 @@ public class Shop {
 		return storage;
 	}
 
+	/**
+	 * Say if a cookie is available to make regarding recipes and shop storage
+	 * @param cookieName (recipe)
+	 * @return the possibility of making ze cookie
+	 */
 	public boolean isCookieAvailable(String cookieName) {
 		RecipeBook recipeBook = operation.getRecipes();
 		if (recipeBook.getCookie(cookieName) == null) {

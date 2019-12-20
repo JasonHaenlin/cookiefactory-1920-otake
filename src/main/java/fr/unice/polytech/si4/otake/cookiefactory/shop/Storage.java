@@ -34,6 +34,13 @@ public class Storage implements StorageObserver {
         this.stock.put(ingredient, value < quantity ? 0 : value - quantity);
     }
 
+    /**
+     * look out for cookies ingredients quantities for cooking
+     * @param list of cookies to cook
+     * @param remove (true: remove the ingredient to build the cookie from storage
+     *               false: look out if there is enough ingredient for the cookie)
+     * @return list of cookies that are impossible to make
+     */
     public List<Cookie> removeListFromStockIfEnough(List<Cookie> list, Boolean remove) {
         List<Cookie> returnlist = new ArrayList<>();
         HashMap<Ingredient, Integer> copyStock = new HashMap<Ingredient, Integer>(this.stock);
@@ -51,6 +58,12 @@ public class Storage implements StorageObserver {
         return returnlist;
     }
 
+    /**
+     * look out for cookie ingredient quantity for cooking
+     * @param cookie to cook
+     * @param updateStock (true: remove the ingredient to build the cookie from storage
+     *               false: look out if there is enough ingredient for the cookie)
+     */
     public boolean removeFromStockIfEnough(Cookie cookie, Boolean updateStock) {
         List<Ingredient> list = cookie.getIngredients();
         for (Ingredient iterable_element : list) {

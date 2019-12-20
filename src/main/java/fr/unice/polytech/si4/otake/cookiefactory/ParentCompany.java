@@ -1,11 +1,6 @@
 package fr.unice.polytech.si4.otake.cookiefactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import fr.unice.polytech.si4.otake.cookiefactory.discount.Discount;
@@ -155,23 +150,35 @@ public class ParentCompany implements CompanyOperation {
 		return recipeBook;
 	}
 
-	public boolean couldAShopSatisfyThisProduct(Product product){
+	/**
+	 * Say if among shops there's at least one which can make the product
+	 * @param cookie
+	 * @return
+	 */
+	public boolean couldAShopSatisfyThisCookie(Cookie cookie){
 		boolean test = false;
 		for (Shop s : shops){
-			if (s.isCookieAvailable(product.getName())){
+			if (s.isCookieAvailable(cookie.getName())){
 				test = true;
 			}
 		}
 		return test;
 	}
 
-	public boolean isThereAnOpenShopThatCouldMakeThisProduct(int actualTime, Product product){
+	/**
+	 *	Motivation: a shop shouldn't take order when closed, they're not ready to prepare order
+	 *	This method tells
+	 * @param actualTime of the order
+	 * @param product
+	 * @return
+	 */
+	public boolean isThereAnOpenShopThatCouldMakeThisCookie(int actualTime, Cookie cookie){
 		boolean test = false;
 		for (Shop s : shops){
 			if (s.getSchedule().getClosingHour() > actualTime){
 				test = true;
 			}
 		}
-		return test;
+		return test && couldAShopSatisfyThisCookie(cookie);
 	}
 }

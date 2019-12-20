@@ -13,8 +13,3 @@ Feature: a shop can't accept an order which it can't satisfy
     And hour is 23 and the only shop satisfying the product is closed
     Then the customer can't add "Dark Temptation" at 23 for hour reason
 
-#  Scenario: a customer is warned when his order could not be retrieved in the same shop
-#    When the customer choose many products
-#    And the products can't be retrieved in the same shop
-#    Then the customer get a warning
-#    Then the customer delete one order

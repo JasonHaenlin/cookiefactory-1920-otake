@@ -4,6 +4,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder;
 import fr.unice.polytech.si4.otake.cookiefactory.order.OrderStepBuilder.ProductStep;
 import fr.unice.polytech.si4.otake.cookiefactory.product.Product;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.Shop;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NoShopHasEnoughIngredient;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NoShopOpenedForTheProduct;
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ShopAvailabiltiesStepdefs implements En {
 
     ParentCompany company;
-    Product product;
+    Cookie cookie;
     ProductStep basket;
     HelperRecipe hr;
 
@@ -51,30 +52,30 @@ public class ShopAvailabiltiesStepdefs implements En {
         });
 
         When("the customer chose a cookie {string}", (String e)->{
-            product = company.getRecipes().getCookie(e);
+            cookie = company.getRecipes().getCookie(e);
         });
 
         And("the product is not available in any shop", ()-> {
             assertFalse(
-                    company.couldAShopSatisfyThisProduct(product)
+                    company.couldAShopSatisfyThisCookie(cookie)
             );
         });
 
         And("hour is {int} and the only shop satisfying the product is closed",(Integer h)->{
-            assertFalse(company.isThereAnOpenShopThatCouldMakeThisProduct(h,product));
+            assertFalse(company.isThereAnOpenShopThatCouldMakeThisCookie(h,cookie));
         });
 
         Then("the customer can't add {string} for sold-out reason",(String e) ->{
             basket = OrderStepBuilder.newOrder();
             assertThrows(NoShopHasEnoughIngredient.class, () -> {
-                basket.checkAvailabilityFromShops(company,12,product);
+                basket.checkAvailabilityFromShops(company,12,cookie);
             });
         });
 
         Then("the customer can't add {string} at {int} for hour reason",(String e, Integer i) ->{
             basket = OrderStepBuilder.newOrder();
             assertThrows(NoShopOpenedForTheProduct.class, () -> {
-                basket.checkAvailabilityFromShops(company,i,product);
+                basket.checkAvailabilityFromShops(company,i,cookie);
             });
         });
     }

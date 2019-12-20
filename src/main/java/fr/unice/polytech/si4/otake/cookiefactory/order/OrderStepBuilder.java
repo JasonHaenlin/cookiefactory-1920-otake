@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NoShopHasEnoughIngredient;
 import fr.unice.polytech.si4.otake.cookiefactory.shop.exception.NoShopOpenedForTheProduct;
 
@@ -32,7 +33,7 @@ public class OrderStepBuilder {
      */
     public interface ProductStep {
 
-        ProductStep checkAvailabilityFromShops(ParentCompany company, int actualTime, Product product);
+        ProductStep checkAvailabilityFromShops(ParentCompany company, int actualTime, Cookie cookie);
 
         ProductStep addProduct(Product product);
 
@@ -100,11 +101,11 @@ public class OrderStepBuilder {
         }
 
         @Override
-        public ProductStep checkAvailabilityFromShops(ParentCompany company, int actualTime, Product product) {
-            if(!company.couldAShopSatisfyThisProduct(product)){
+        public ProductStep checkAvailabilityFromShops(ParentCompany company, int actualTime, Cookie cookie) {
+            if(!company.couldAShopSatisfyThisCookie(cookie)){
                 throw new NoShopHasEnoughIngredient();
             }
-            if(!company.isThereAnOpenShopThatCouldMakeThisProduct(actualTime,product)){
+            if(!company.isThereAnOpenShopThatCouldMakeThisCookie(actualTime,cookie)){
                 throw new NoShopOpenedForTheProduct();
             }
             return this;
