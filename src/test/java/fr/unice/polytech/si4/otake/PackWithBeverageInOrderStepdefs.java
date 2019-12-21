@@ -63,15 +63,16 @@ public class PackWithBeverageInOrderStepdefs implements En {
                 (Integer amount1, Integer amount2) -> {
                     this.amount1 = amount1;
                     this.amount2 = amount2;
+                    Beverage bev = new Beverage("Bubble tea", 2);
                     parent.getExtra().addPack(new PackType(TypeSize.SMALL, amount1, 15));
                     this.buildStep = OrderStepBuilder.newOrder().addProduct(helper.getChocolalala(), amount1)
-                            .addProduct(helper.getDarkTemptation(), amount2).validateBasket()
+                            .addProduct(helper.getDarkTemptation(), amount2).addProduct(bev).validateBasket()
                             .setAppointment(new SimpleDate("00-00-00 13:00")).noCode().withoutAccount()
                             .validatePayment();
                 });
 
         Then("I should have paid for my pack and for 5 other cookies", () -> {
-            assertEquals(15 + helper.getDarkTemptation().getPrice() * amount2, o.getPriceWithTaxes());
+            assertEquals(16 + helper.getDarkTemptation().getPrice() * amount2, o.getPriceWithTaxes());
         });
 
     }

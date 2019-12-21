@@ -59,7 +59,7 @@ public class ExtraProducts {
     }
 
     public List<Integer> getPackPossibleSize() {
-        List<Integer> size = new ArrayList<>();
+        List<Integer> size = new ArrayList<>(this.packOptimizer.getPacks().size());
         for (PackType type : this.packOptimizer.getPacks()) {
             size.add(type.getSize());
         }

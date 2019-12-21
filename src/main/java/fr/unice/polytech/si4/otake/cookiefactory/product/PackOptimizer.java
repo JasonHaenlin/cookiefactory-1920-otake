@@ -39,9 +39,9 @@ public class PackOptimizer {
         Map<Product, Integer> productsLeft = new HashMap<>(products);
         Map<Product, Integer> beverages = new HashMap<>();
 
-        for (Product p : products.keySet()) {
-            if (p.isA(ProductType.BEVERAGE)) {
-                beverages.put(p, products.get(p));
+        for (Map.Entry<Product, Integer> p : products.entrySet()) {
+            if (p.getKey().isA(ProductType.BEVERAGE)) {
+                beverages.put(p.getKey(), p.getValue());
             }
         }
 
@@ -87,7 +87,10 @@ public class PackOptimizer {
 
     }
 
-    private PackType retrieveBestPackType(Product p, int amount) {
+    private PackType retrieveBestPackType(Product p, Integer amount) {
+        if (p == null || amount == null) {
+            return null;
+        }
         if (!p.isA(ProductType.ON_MENU_COOKIE)) {
             return null;
         }
