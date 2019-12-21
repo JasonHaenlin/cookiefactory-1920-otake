@@ -101,6 +101,10 @@ public class RecipeBook implements IngredientObservable {
 		return this.cookies.remove(recipe) != null;
 	}
 
+	/**
+	 * Obtain the ratio of cookie sold by the company by cookie
+	 * @return Map<cookie, (nb bought by clients/nb of cookies sold by the shop)>
+	 */
 	public Map<Cookie, Double> getStatistic() {
 		int soldSum = 0;
 		for (Map.Entry<Cookie, Double> entry : cookies.entrySet()) {
