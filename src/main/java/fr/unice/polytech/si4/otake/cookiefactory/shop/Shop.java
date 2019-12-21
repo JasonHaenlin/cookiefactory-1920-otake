@@ -201,7 +201,7 @@ public class Shop {
 				return false;
 			}
 			String[] arrOfStr = ticket.split(":", 2);
-			CookieFactoryAPI cookiefactoryapi = CookieFactoryAPI.getInstanceCookieFactoryAPI();
+			CookieFactoryAPI cookiefactoryapi = CookieFactoryAPI.getInstance();
 			return checkCinema(arrOfStr[0]) && cookiefactoryapi.globalyCheck(arrOfStr[1]);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return false;
@@ -246,6 +246,7 @@ public class Shop {
 
 	/**
 	 * Say if a cookie is available to make regarding recipes and shop storage
+	 * 
 	 * @param cookieName (recipe)
 	 * @return the possibility of making ze cookie
 	 */

@@ -14,7 +14,7 @@ public class CookieFactoryAPI {
 
     private static CookieFactoryAPI INSTANCE = new CookieFactoryAPI();
 
-    public static CookieFactoryAPI getInstanceCookieFactoryAPI() {
+    public static CookieFactoryAPI getInstance() {
         return INSTANCE;
     }
 
