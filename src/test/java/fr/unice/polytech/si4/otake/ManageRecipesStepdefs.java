@@ -52,6 +52,22 @@ public class ManageRecipesStepdefs implements En {
             assertNotNull(company.getRecipes().getIngredient(name));
         });
 
+        Given("an existing ingredient called {string}",(String s)->{
+            company = new ParentCompany();
+            company.getRecipes().withDefaultIngredient();
+            assertNotNull(company.getRecipes().getIngredient(s));
+        });
+
+        When("the company want to change the ingredient {string} price to {double}",(String s, Double d)->{
+            ingredient = company.getRecipes().getIngredient(s);
+            ingredient.setPrice(d);
+            assertNotNull(ingredient);
+        });
+
+        Then("the ingredient {string} price be {double}",(String s, Double d)->{
+            assertEquals(company.getRecipes().getIngredient(s).getPrice(), d, 0.0);
+        });
+
         Given("I want to update the recipe book", () -> {
             recipes.addRecipe(cookieobj);
             recipes.addRecipe(cookieobj2);

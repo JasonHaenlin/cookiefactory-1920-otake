@@ -17,3 +17,10 @@ Scenario: The company can add new Ingredients
     And the ingredient "banana" doesn't already exist in company's recipe book
     When the company add the ingredient to his ingredients
     Then a new ingredient "banana" is added
+
+Scenario: The company can change margin on Ingredients
+    Given an existing ingredient called "chocolate"
+    When the company want to change the ingredient "chocolate" price to 4.99
+    Then the ingredient "chocolate" price be 4.99
+
+#Scenario: The company can change margin on Custom cookies
