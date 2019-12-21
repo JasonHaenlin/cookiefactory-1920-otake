@@ -1,5 +1,10 @@
 package fr.unice.polytech.si4.otake;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.Arrays;
 
 import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
@@ -8,10 +13,7 @@ import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Ingredient;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.IngredientType;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
-import io.cucumber.java.sl.In;
 import io.cucumber.java8.En;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ManageRecipesStepdefs implements En {
 
@@ -34,37 +36,36 @@ public class ManageRecipesStepdefs implements En {
             cookieobj3 = helper.getChocolalala();
         });
 
-
-        Given("an Ingredient called {string} of type {string}",(String name, String type)->{
+        Given("an Ingredient called {string} of type {string}", (String name, String type) -> {
             company = new ParentCompany();
             ingredient = new Ingredient(name, 1.0, toIngredient(type));
         });
 
-        And("the ingredient {string} doesn't already exist in company's recipe book",(String s)->{
+        And("the ingredient {string} doesn't already exist in company's recipe book", (String s) -> {
             assertNull(company.getRecipes().getIngredient(s));
         });
 
-        When("the company add the ingredient to his ingredients",()->{
+        When("the company add the ingredient to his ingredients", () -> {
             company.getRecipes().addIngredient(ingredient);
         });
 
-        Then("a new ingredient {string} is added",(String name)->{
+        Then("a new ingredient {string} is added", (String name) -> {
             assertNotNull(company.getRecipes().getIngredient(name));
         });
 
-        Given("an existing ingredient called {string}",(String s)->{
+        Given("an existing ingredient called {string}", (String s) -> {
             company = new ParentCompany();
             company.getRecipes().withDefaultIngredient();
             assertNotNull(company.getRecipes().getIngredient(s));
         });
 
-        When("the company want to change the ingredient {string} price to {double}",(String s, Double d)->{
+        When("the company want to change the ingredient {string} price to {double}", (String s, Double d) -> {
             ingredient = company.getRecipes().getIngredient(s);
             ingredient.setPrice(d);
             assertNotNull(ingredient);
         });
 
-        Then("the ingredient {string} price be {double}",(String s, Double d)->{
+        Then("the ingredient {string} price be {double}", (String s, Double d) -> {
             assertEquals(company.getRecipes().getIngredient(s).getPrice(), d, 0.0);
         });
 
@@ -116,18 +117,18 @@ public class ManageRecipesStepdefs implements En {
         });
     }
 
-    IngredientType toIngredient(String s){
-        switch (s){
-            case "cooking":
-                return IngredientType.COOKING;
-            case "dough":
-                return IngredientType.DOUGH;
-            case "flavour":
-                return IngredientType.FLAVOUR;
-            case "mix":
-                return IngredientType.MIX;
-            case "topping":
-                return IngredientType.TOPPING;
+    IngredientType toIngredient(String s) {
+        switch (s) {
+        case "cooking":
+            return IngredientType.COOKING;
+        case "dough":
+            return IngredientType.DOUGH;
+        case "flavour":
+            return IngredientType.FLAVOUR;
+        case "mix":
+            return IngredientType.MIX;
+        case "topping":
+            return IngredientType.TOPPING;
         }
         return IngredientType.FLAVOUR;
     }

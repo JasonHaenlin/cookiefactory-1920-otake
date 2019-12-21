@@ -24,7 +24,7 @@ public class Pack extends Product {
      * @param beverage
      * @return
      */
-    Pack withBeverage(Beverage beverage) {
+    Pack withBeverage(Product beverage) {
         this.beverage = beverage;
         return this;
     }

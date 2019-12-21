@@ -23,37 +23,79 @@ public class PackOptimizer {
         Collections.reverse(this.packs);
     }
 
+    /**
+     * try to optimize the products to make pack if the amount of basic cookie is
+     * enough. Can contain beverages too if present.
+     *
+     * @param products
+     * @return
+     */
     public Map<Product, Integer> optimizeProducts(Map<Product, Integer> products) {
+        if (products.isEmpty()) {
+            return products;
+        }
+
         Map<Product, Integer> optimizedProducts = new HashMap<>();
         Map<Product, Integer> productsLeft = new HashMap<>(products);
-        /*
-         * List<Product> beverages = new ArrayList<>(); for (Product p :
-         * products.keySet()) { if (p.getProductType() == ProductType.BEVERAGE) {
-         * beverages.add(p); } }
-         */
-        for (PackType packType : this.packs) {
-            for (Product p : products.keySet()) {
-                if (!productsLeft.isEmpty() && productsLeft.get(p) >= packType.getSize()) {
-                    Pack newPack = new Pack("Pack", packType, p);
-                    productsLeft.put(p, (productsLeft.get(p) - packType.getSize()));
-                    if (productsLeft.get(p) == 0)
-                        productsLeft.remove(p);
+        Map<Product, Integer> beverages = new HashMap<>();
+
+        for (Product p : products.keySet()) {
+            if (p.isA(ProductType.BEVERAGE)) {
+                beverages.put(p, products.get(p));
+            }
+        }
+
+        for (Product p : products.keySet()) {
+            if (!p.isA(ProductType.BEVERAGE)) {
+                PackType type = retrieveBestPackType(p, productsLeft.get(p));
+                while (type != null) {
+                    Pack newPack = new Pack(p.getName(), type, p)
+                            .withBeverage(extractBestBeverage(beverages, productsLeft));
+                    productsLeft.put(p, (productsLeft.get(p) - type.getSize()));
+                    productsLeft.remove(p, 0);
                     Integer value = optimizedProducts.get(newPack);
-                    if (value == null) {
-                        value = 0;
-                    }
-                    optimizedProducts.put(newPack, value + 1);
+                    optimizedProducts.put(newPack, 1 + (value == null ? 0 : value));
+                    type = retrieveBestPackType(p, productsLeft.get(p));
                 }
             }
-            /*
-             * if(!beverages.isEmpty()){ Product beverage = beverages.get(0);
-             * productsInPack.add(beverage); productsLeft.put(beverage,
-             * productsLeft.get(beverage)-1); if(productsLeft.get(beverage) == 0){
-             * productsLeft.remove(beverage); } beverages.remove(beverage); }
-             */
+
         }
         optimizedProducts.putAll(productsLeft);
         return optimizedProducts;
 
+    }
+
+    private Product extractBestBeverage(Map<Product, Integer> beverages, Map<Product, Integer> productsLeft) {
+        if (beverages.isEmpty()) {
+            return null;
+        }
+
+        Product beverage = null;
+        for (Product b : beverages.keySet()) {
+            if (beverage == null) {
+                beverage = b;
+            }
+            if (beverage.getPrice() < b.getPrice()) {
+                beverage = b;
+            }
+        }
+        beverages.put(beverage, beverages.get(beverage) - 1);
+        beverages.remove(beverage, 0);
+        productsLeft.put(beverage, productsLeft.get(beverage) - 1);
+        productsLeft.remove(beverage, 0);
+        return beverage;
+
+    }
+
+    private PackType retrieveBestPackType(Product p, int amount) {
+        if (!p.isA(ProductType.ON_MENU_COOKIE)) {
+            return null;
+        }
+        for (PackType packType : packs) {
+            if (amount >= packType.getSize()) {
+                return packType;
+            }
+        }
+        return null;
     }
 }

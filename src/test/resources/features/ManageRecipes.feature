@@ -23,4 +23,11 @@ Scenario: The company can change margin on Ingredients
     When the company want to change the ingredient "chocolate" price to 4.99
     Then the ingredient "chocolate" price be 4.99
 
+#Scenario: As an existing ingredient, I want to change the margin on it.
+#    Given I want to update a ingredient named "chocolate"
+#    When I retrieve the ingredient by his name
+#    Then I can update the price to 4.99 €
+#    When I make a new cookie with "chocolate" in it
+#    Then The price should be higher
+
 #Scenario: The company can change margin on Custom cookies
