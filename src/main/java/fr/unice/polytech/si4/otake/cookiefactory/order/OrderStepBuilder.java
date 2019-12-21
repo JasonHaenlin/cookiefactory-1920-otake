@@ -105,7 +105,7 @@ public class OrderStepBuilder {
             if(!company.couldAShopSatisfyThisCookie(cookie)){
                 throw new NoShopHasEnoughIngredient();
             }
-            if(!company.isThereAnOpenShopThatCouldMakeThisCookie(actualTime,cookie)){
+            if(!company.isThereAShopAbleToMakeCookie(actualTime,cookie)){
                 throw new NoShopOpenedForTheProduct();
             }
             return this;

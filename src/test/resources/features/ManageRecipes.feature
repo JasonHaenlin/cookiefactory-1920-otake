@@ -11,3 +11,9 @@ Scenario: As an existing recipe book, I want to manage the recipes.
     When I add a custom cookie
     Then the recipe book is updated
     But I can not retrieve it with the other cookies
+
+Scenario: The company can add new Ingredients
+    Given an Ingredient called "banana" of type "flavour"
+    And the ingredient "banana" doesn't already exist in company's recipe book
+    When the company add the ingredient to his ingredients
+    Then a new ingredient "banana" is added

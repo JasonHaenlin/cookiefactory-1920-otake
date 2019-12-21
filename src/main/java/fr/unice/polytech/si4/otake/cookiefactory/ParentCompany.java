@@ -199,7 +199,7 @@ public class ParentCompany implements CompanyOperation {
 	 * @param product
 	 * @return
 	 */
-	public boolean isThereAnOpenShopThatCouldMakeThisCookie(int actualTime, Cookie cookie) {
+	public boolean isThereAShopAbleToMakeCookie(int actualTime, Cookie cookie) {
 		boolean test = false;
 		for (Shop s : shops) {
 			if (s.getSchedule().getClosingHour() > actualTime) {

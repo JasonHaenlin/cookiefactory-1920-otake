@@ -1,15 +1,17 @@
 package fr.unice.polytech.si4.otake;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import java.util.Arrays;
 
+import fr.unice.polytech.si4.otake.cookiefactory.ParentCompany;
 import fr.unice.polytech.si4.otake.cookiefactory.RecipeBook;
 import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Cookie;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.Ingredient;
+import fr.unice.polytech.si4.otake.cookiefactory.product.cookie.IngredientType;
 import fr.unice.polytech.si4.otake.helper.HelperRecipe;
+import io.cucumber.java.sl.In;
 import io.cucumber.java8.En;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ManageRecipesStepdefs implements En {
 
@@ -19,6 +21,8 @@ public class ManageRecipesStepdefs implements En {
     Cookie customCookie;
     RecipeBook recipes;
     HelperRecipe helper;
+    ParentCompany company;
+    Ingredient ingredient;
 
     public ManageRecipesStepdefs() {
 
@@ -28,6 +32,24 @@ public class ManageRecipesStepdefs implements En {
             cookieobj = helper.getSoooChocolate();
             cookieobj2 = helper.getDarkTemptation();
             cookieobj3 = helper.getChocolalala();
+        });
+
+
+        Given("an Ingredient called {string} of type {string}",(String name, String type)->{
+            company = new ParentCompany();
+            ingredient = new Ingredient(name, 1.0, toIngredient(type));
+        });
+
+        And("the ingredient {string} doesn't already exist in company's recipe book",(String s)->{
+            assertNull(company.getRecipes().getIngredient(s));
+        });
+
+        When("the company add the ingredient to his ingredients",()->{
+            company.getRecipes().addIngredient(ingredient);
+        });
+
+        Then("a new ingredient {string} is added",(String name)->{
+            assertNotNull(company.getRecipes().getIngredient(name));
         });
 
         Given("I want to update the recipe book", () -> {
@@ -76,6 +98,22 @@ public class ManageRecipesStepdefs implements En {
         But("I can not retrieve it with the other cookies", () -> {
             assertEquals(3, recipes.getCookies().size());
         });
+    }
+
+    IngredientType toIngredient(String s){
+        switch (s){
+            case "cooking":
+                return IngredientType.COOKING;
+            case "dough":
+                return IngredientType.DOUGH;
+            case "flavour":
+                return IngredientType.FLAVOUR;
+            case "mix":
+                return IngredientType.MIX;
+            case "topping":
+                return IngredientType.TOPPING;
+        }
+        return IngredientType.FLAVOUR;
     }
 
 }

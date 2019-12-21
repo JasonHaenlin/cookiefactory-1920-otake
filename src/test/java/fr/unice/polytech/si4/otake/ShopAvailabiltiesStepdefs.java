@@ -59,7 +59,7 @@ public class ShopAvailabiltiesStepdefs implements En {
         });
 
         And("hour is {int} and the only shop satisfying the product is closed", (Integer h) -> {
-            assertFalse(company.isThereAnOpenShopThatCouldMakeThisCookie(h, cookie));
+            assertFalse(company.isThereAShopAbleToMakeCookie(h, cookie));
         });
 
         Then("the customer can't add {string} for sold-out reason", (String e) -> {
